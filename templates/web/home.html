@@ -1,0 +1,588 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- home-agency start -->
+<section class="hero-5" id="home">
+    <div class="container">
+        <div class="row align-items-center justify-content-center">
+            <div class="col-lg-6">
+                <h1 class="mb-4 display-5 fw-semibold">Easy way to control things on internet!</h1>
+                <p id="main_p" class="text-muted fs-17">{% if request.user.is_authenticated %}{% if request.user.workshop %}HurryUp documentations can save your time.{% else %}Create your worksop. But first take a look to the documentation.{% endif %}{% else %}  Register an account, define your url in your Arduino/NodeMCU IDE. That's it!{% endif %}</p>
+                <a href="{% url 'docs' %}" id="learn_btn" class="btn btn-lg btn-gradient-success mt-4 mb-4 mb-lg-0">Learn More <i class="mdi mdi-arrow-right fs-14 ms-1"></i></a>
+            </div>
+
+            {% if not request.user.is_authenticated %}
+
+            <div id="form-part" class="col-md-8 col-lg-5 offset-lg-1">
+                <h1 id="login_mes" align="center"></h1>
+
+               <div id="auth-cards" class="card mb-0">
+                <form method="POST" id="register_form">
+
+                <!-- REGISTER  -->
+                    <i class='bx bx-check' style='color:#0ee824;transition:0.5s;font-size:1px;transform:rotate(-25deg);position:absolute;left:325px;'></i>
+                   <div class="card-body p-4">
+                     <h5 class="border-bottom fs-22 pb-3 mb-3">Register For Free</h5>
+                     {% csrf_token %}<i class='bx bx-check' style='color:transition:0.5s;#0ee824;font-size:1px;transform:rotate(-55deg);'></i>
+                        <h1 id="reg_mes" align="center"></h1>
+                    {% for field in register_form %}
+                        <label class="form-label text-muted fs-14"
+                        for="{{ field.auto_id }}">{{ field.label|title }}<span class="text-danger">*</span></label>
+                        {{ field }}
+                    {% endfor %}
+                    <i class='bx bx-check' style='color:#0ee824;transition:0.5s;font-size:1px;transform:rotate(25deg); '></i>
+                    <br>
+                    <small style="cursor:pointer; font-size:17px;" id="login_now" >Have an account?</small>
+                    <br>
+                    <br>
+                     <a id="submit_registration" class="btn btn-primary w-100">Start Now</a>
+                     <a id="go_login_page_btn" class="btn btn-primary w-100" style="display:none;">Let's Login</a>
+                     
+                   </div>
+                </form>
+
+                <!-- LOGIN  -->
+                <form method="POST" id="login_form">
+                    <i class='bx bx-check' style='color:#0ee824;transition:0.5s;font-size:1px;transform:rotate(-25deg);position:absolute;left:325px;'></i>
+                   <div class="card-body p-4">
+                     <h5 class="border-bottom fs-22 pb-3 mb-4">Login</h5>
+                     {% csrf_token %}<i class='bx bx-check' style='color:transition:0.5s;#0ee824;font-size:1px;transform:rotate(-55deg);'></i>
+                    {% for field in login_form %}
+                        <label class="form-label text-muted fs-14"
+                        
+                        for="{{ field.auto_id }}">{{ field.label|title }}<span class="text-danger">*</span></label>
+                        {{ field }}
+                    {% endfor %}
+                    <i class='bx bx-check' style='color:#0ee824;transition:0.5s;font-size:1px;transform:rotate(25deg); '></i>
+                    <br>
+                    <small style="cursor:pointer;" id="reg_now" >Don't have an account?</small>
+                    <br>
+                    <br>
+                     <a id="go_login" class="btn btn-primary w-100">Login</a>
+                   </div>
+                </form>
+               </div>
+            </div>
+            {% else %}{% comment %} 
+            <small data-is="222" id="is_unAuthed"></small>
+            if ($('#is_unAuthed').attr('data-is') > 0) { {% endcomment %}
+
+            {% endif %}
+        </div>
+    </div>
+ </section>
+ <!-- home-agency end -->
+
+        <!-- About start -->
+        <section class="section bg-light" id="about">
+            <div class="container">
+                <div class="row justify-content-center mb-5">
+                    <div class="col-md-8 col-lg-6 text-center">
+                        <h6 class="subtitle">What We Do</h6>
+                        <h2 class="title">The things motivates me is commen form of motivation.</h2>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="mt-5">
+                            <div class="about-icon ms-3">
+                                <img src="images/agency/icon/1.png" alt="" class="img-fluid" />
+                            </div>
+                            <h5 class="fs-22 mt-4 pt-3 mb-3">Strategy & Research</h5>
+                            <p class="text-muted">Et harum quidem as rerum facilis us est et distinctio nam libero temp soluta nobis esteligendi optio.</p>
+                            <a href="javascript:void(0);" class="text-danger">More About <i class="mdi mdi-arrow-right fs-14 ms-1"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mt-5">
+                            <div class="about-icon ms-3">
+                                <img src="images/agency/icon/2.png" alt="" class="img-fluid" />
+                            </div>
+                            <h5 class="fs-22 mt-4 pt-3 mb-3">Design & Development</h5>
+                            <p class="text-muted">Et harum quidem as rerum facilis us est et distinctio nam libero temp soluta nobis esteligendi optio.</p>
+                            <a href="javascript:void(0);" class="text-danger">More About <i class="mdi mdi-arrow-right fs-14 ms-1"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mt-5">
+                            <div class="about-icon ms-3">
+                                <img src="images/agency/icon/3.png" alt="" class="img-fluid" />
+                            </div>
+                            <h5 class="fs-22 mt-4 pt-3 mb-3">Management & Marketing</h5>
+                            <p class="text-muted">Et harum quidem as rerum facilis us est et distinctio nam libero temp soluta nobis esteligendi optio.</p>
+                            <a href="javascript:void(0);" class="text-danger">More About <i class="mdi mdi-arrow-right fs-14 ms-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- About end -->
+
+        <!-- Projects start -->
+        <section class="section" id="projects">
+            <div class="container">
+                <div class="row justify-content-center mb-5">
+                    <div class="col-md-8 col-lg-6 text-center">
+                        <h6 class="subtitle">Our Projects</h6>
+                        <h2 class="title">A great design brings thousands of great results.</h2>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <ul class="col busi-container-filter categories-filter text-center" id="filter">
+                        <li><a class="categories tab-active active" onclick="filterSelection('all')">All Items</a></li>
+                        <li><a class="categories tab-active" onclick="filterSelection('branding')">Design</a></li>
+                        <li><a class="categories tab-active" onclick="filterSelection('designing')">Creative</a></li>
+                        <li><a class="categories tab-active" onclick="filterSelection('photography')">Digital</a></li>
+                        <li><a class="categories tab-active" onclick="filterSelection('development')">Photography</a></li>
+                    </ul>
+                </div>
+                <!-- Gallary -->
+
+                <div class="row justify-content-center">
+                    <div class="col-md-6 col-xl-4 filter-box branding designing development">
+                        <div class="card item-box rounded mt-4 overflow-hidden">
+                            <div class="position-relative">
+                                <img class="item-container img-fluid" src="images/agency/project-img/1.jpg" alt="1" />
+                                <div class="item-mask mfp-image" data-src="images/agency/project-img/1.jpg" data-gallery="myGal"></div>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="fs-18 mb-1">The Language of Designs</h5>
+                                <p class="text-muted mb-0">Design</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-xl-4 filter-box photography">
+                        <div class="card item-box rounded mt-4">
+                            <div class="position-relative">
+                                <img class="item-container img-fluid rounded" src="images/agency/project-img/2.jpg" alt="2" />
+                                <div class="item-mask mfp-image" data-src="images/agency/project-img/2.jpg" data-gallery="myGal"></div>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="fs-18 mb-1">The Language of Designs</h5>
+                                <p class="text-muted mb-0">Design</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-xl-4 filter-box branding development">
+                        <div class="card item-box rounded mt-4">
+                            <div class="position-relative">
+                                <img class="item-container img-fluid rounded" src="images/agency/project-img/3.jpg" alt="3" />
+                                <div class="item-mask mfp-image" data-src="images/agency/project-img/3.jpg" data-gallery="myGal"></div>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="fs-18 mb-1">The Language of Designs</h5>
+                                <p class="text-muted mb-0">Design</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-xl-4 filter-box branding designing">
+                        <div class="card item-box rounded mt-4">
+                            <div class="position-relative">
+                                <img class="item-container img-fluid rounded" src="images/agency/project-img/4.jpg" alt="4" />
+                                <div class="item-mask mfp-image" data-src="images/agency/project-img/4.jpg" data-gallery="myGal"></div>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="fs-18 mb-1">The Language of Designs</h5>
+                                <p class="text-muted mb-0">Design</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-xl-4 filter-box branding designing">
+                        <div class="card item-box rounded mt-4">
+                            <div class="position-relative">
+                                <img class="item-container img-fluid rounded" src="images/agency/project-img/5.jpg" alt="5" />
+                                <div class="item-mask mfp-image" data-src="images/agency/project-img/5.jpg" data-gallery="myGal"></div>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="fs-18 mb-1">The Language of Designs</h5>
+                                <p class="text-muted mb-0">Design</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-xl-4 filter-box photography">
+                        <div class="card item-box rounded mt-4">
+                            <div class="position-relative">
+                                <img class="item-container img-fluid rounded" src="images/agency/project-img/6.jpg" alt="6" />
+                                <div class="item-mask mfp-image" data-src="images/agency/project-img/6.jpg" data-gallery="myGal"></div>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="fs-18 mb-1">The Language of Designs</h5>
+                                <p class="text-muted mb-0">Design</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Projects end -->
+
+        <!-- Testimonials start -->
+        <section class="section testi-bg" id="testimonial">
+            <div class="container">
+                <div class="row justify-content-center mb-5">
+                    <div class="col-md-8 col-lg-6 text-center">
+                        <h6 class="subtitle text-dark">Testimonial</h6>
+                        <h2 class="title">Client Feedback</h2>
+                        <p class="text-muted">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut consequuntur magni dolores.</p>
+                    </div>
+                </div>
+
+                <div class="row testi-row">
+                    <div class="col-12">
+                        <!-- Swiper -->
+                        <div class="clients-slider">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <div class="card shadow-lg">
+                                        <div class="card-body p-4">
+                                            <img src="images/users/user-1.jpg" alt="" class="rounded-circle shadow-lg" width="60" />
+                                            <h5 class="my-4 pt-2 fs-18 lh-base">" Excellent support for a tricky issue related to our customization of the template."</h5>
+
+                                            <h6 class="mb-0">Brightlight books</h6>
+                                            <p class="mb-0">Ubold Customer</p>
+                                            <div class="position-absolute bottom-0 end-0">
+                                                <img src="images/agency/quote.png' %}" alt="" height="45" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="card shadow-lg">
+                                        <div class="card-body p-4">
+                                            <img src="images/users/user-2.jpg" alt="" class="rounded-circle shadow-lg" width="60" />
+                                            <h5 class="my-4 pt-2 fs-18 lh-base">" This kit provides many options which I can you use everyday. It's great work.”</h5>
+
+                                            <h6 class="mb-0">Echineo</h6>
+                                            <p class="mb-0">Ubold Customer</p>
+                                            <div class="position-absolute bottom-0 end-0">
+                                                <img src="images/agency/quote.png' %}" alt="" height="45" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="card shadow-lg">
+                                        <div class="card-body p-4">
+                                            <img src="images/users/user-3.jpg" alt="" class="rounded-circle shadow-lg" width="60" />
+                                            <h5 class="my-4 pt-2 fs-18 lh-base">" This is a very extensive web app kit that can serve all kinds of purposes."</h5>
+
+                                            <h6 class="mb-0">Aebra Schultz</h6>
+                                            <p class="mb-0">Designer</p>
+                                            <div class="position-absolute bottom-0 end-0">
+                                                <img src="images/agency/quote.png' %}" alt="" height="45" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Add Pagination -->
+                            <div class="swiper-pagination"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Testimonials end -->
+
+        <!-- counter start -->
+        <section class="section bg-light">
+            <div class="container">
+                <div class="row" id="counter">
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="text-center my-3">
+                            <div class="counter-content">
+                                <h2><span class="counter_value" data-target="825">0</span></h2>
+                                <p class="counter-name text-muted mb-0 text-uppercase">Global Brands</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="text-center my-3">
+                            <div class="counter-content">
+                                <h2><span class="counter_value" data-target="1800">0</span>+</h2>
+                                <p class="counter-name text-muted mb-0 text-uppercase">Happy Clients</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="text-center my-3">
+                            <div class="counter-content">
+                                <h2><span class="counter_value" data-target="599">0</span>+</h2>
+                                <p class="counter-name text-muted mb-0 text-uppercase">Creative Idea</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="text-center my-3">
+                            <div class="counter-content">
+                                <h2><span class="counter_value" data-target="2000">0</span>+</h2>
+                                <p class="counter-name text-muted mb-0 text-uppercase">User clients</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- counter end -->
+
+        <!-- team start -->
+        <section class="section" id="team">
+            <div class="container">
+                <div class="row justify-content-center mb-5">
+                    <div class="col-md-8 col-lg-6 text-center">
+                        <h6 class="subtitle">Team</h6>
+                        <h2 class="title">Amazing Team</h2>
+                        <p class="text-muted">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut consequuntur magni dolores.</p>
+                    </div>
+                </div>
+
+                <div class="row mb-5 pb-5">
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="team-bg rounded text-center">
+                            <img src="images/agency/team/1.png" alt="" class="img-fluid" />
+                        </div>
+                        <h5 class="fs-18 mb-0 mt-3">Adela White</h5>
+                        <p class="text-muted fs-15 mb-4 mb-lg-0">Web Designer, USA</p>
+                    </div>
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="team-bg rounded text-center">
+                            <img src="images/agency/team/2.png" alt="" class="img-fluid" />
+                        </div>
+                        <h5 class="fs-18 mb-0 mt-3">Ronnie Cooper</h5>
+                        <p class="text-muted fs-15 mb-4 mb-lg-0">Graphic Designer, USA</p>
+                    </div>
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="team-bg rounded text-center">
+                            <img src="images/agency/team/3.png" alt="" class="img-fluid" />
+                        </div>
+                        <h5 class="fs-18 mb-0 mt-3">Helen Kim</h5>
+                        <p class="text-muted fs-15 mb-4 mb-lg-0">Web Developer, USA</p>
+                    </div>
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="team-bg rounded text-center">
+                            <img src="images/agency/team/4.png" alt="" class="img-fluid" />
+                        </div>
+                        <h5 class="fs-18 mb-0 mt-3">Howard Shiflet</h5>
+                        <p class="text-muted fs-15 mb-4 mb-lg-0">PHP Developer, USA</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- team end -->
+<input id="this_username" type="hidden" value=""></input>
+{% endblock content %}
+
+{% block script %}
+<script>
+    var username_in_menu =  $('#username_in_menu').text();
+    var shortUsername  = jQuery.trim(username_in_menu).substring(0, 10);
+    $('#submit_login').hide();
+    $('#go_login').hide();
+    $('#login_form').hide();
+    
+    $('#login_now').click(function(){
+        $('#login_form').show();
+        $('#go_login').show();
+        $('#go_login_page_btn').hide();
+        $('#submit_login').show();
+        $('#login_now').hide();
+        $('#submit_registration').hide();
+        $('#register_form').hide();
+
+    });
+    $('#reg_now').click(function(){
+        $('#login_form').hide();
+        $('#go_login').hide();
+        $('#go_login_page_btn').hide();
+        $('#submit_login').hide();
+        $('#login_now').show();
+        $('#submit_registration').show();
+        $('#register_form').show();
+        $('#submit_registration').trigger('click');
+        $('#register_form').children('div').children('input').show().val('');
+        $('#register_form').children('div').children('label').show();
+        $('#reg_mes').hide();
+        $('.bx-check').hide();
+        
+    });
+
+    $('#submit_registration').click(function(){
+        var username = $('#register_form').children('div').children('input')[1]
+        username.placeholder = "Username...";
+        username = $(username).val()
+
+        var email = $('#register_form').children('div').children('input')[2]
+        email.placeholder = "Email...";
+        email = $(email).val()
+
+        var pass1 = $('#register_form').children('div').children('input')[3]
+        pass1.placeholder = "Password...";
+        pass1 = $(pass1).val()
+
+        var pass2 = $('#register_form').children('div').children('input')[4]
+        pass2.placeholder = "Confirm Password...";
+        pass2.autoComplete = "off";
+        pass2 = $(pass2).val()
+
+        $.ajax({
+            type: "POST",
+            url: "{% url 'home' %}",
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            data: {'operation':'register', 'username':username,'email':email,'password1':pass1,'password2':pass2},
+            dataType: "json",
+            success: function(response) {
+                
+                 if(response.created){
+                    console.log(response.created + " " + response.username + " " + response.password + "registered")
+                    $('#this_username').val(response.username)
+                    $('#login_now').hide();
+                    $('#reg_mes').show();
+                    $('.bx-check').show();
+                    $('.bx-check').css('font-size','27px')
+                    $('.bx-check').css('color','green')
+                    $('.bx-check').css('font-family','Fredoka')
+                    $('.bx-check').css('font-weight','bold')
+                    $('#reg_mes').css('font-size','1px')
+                    $('#reg_mes').html('😀'+ response.msg +'🥳')
+                    $('#register_form').children('div').children('input').hide()
+                    $('#register_form').children('div').children('label').hide()
+                    $('#reg_mes').css('transition','all 0.8s')
+                    $('#reg_mes').css('font-size','2.2em')
+                    $('#reg_mes').css('font-size','1.8em')
+                    $('#reg_mes').css('transform', 'rotate(5deg)')
+                    setTimeout(function(){
+                        $('#reg_mes').css('transform', 'rotate(-5deg)')
+                    },500)
+                    setTimeout(function(){
+                        $('#reg_mes').css('transform', 'rotate(5deg)')
+
+                    },700)
+                    setTimeout(function(){
+                        $('#reg_mes').css('transform', 'rotate(-5deg)')
+                        $('#go_login_page_btn').show();
+                        
+
+                        $('#submit_registration').hide();
+
+                    },900)
+                    setTimeout(function(){
+                        $('#reg_mes').css('transform', 'rotate(5deg)')
+
+                    },1100)
+
+                 }
+                 else if(response.status==false){
+                   console.log(response.status)
+                 }
+             },
+             error: function(rs, e) {
+              console.log('error')
+              console.log(pass2)
+             }
+       }); 
+    });
+    $('#submit_registration').trigger('click');
+</script>
+<script>
+    $('#go_login').click(function(){
+        var username = $('#login_form').children('div').children('input')[1];
+        username.placeholder = "Username...";
+        username = $(username).val();
+        var pass1 = $('#login_form').children('div').children('input')[2];
+        pass1.placeholder = "Password...";
+        pass1 = $(pass1).val();
+        if (pass1.length < 5){
+            alert("Password must be filled");
+        }else if (username.length < 4){
+            alert("Username must be filled");} 
+        else{
+
+        $.ajax({
+            type: "POST",
+            url: "{% url 'home' %}",
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            data: {'operation':'login','username':username,'password':pass1},
+            dataType: "json",
+            success: function(response) {
+                if (response.created == true){
+                    $('#auth-cards').hide();
+                    $('#login_mes').show();
+                    $('#login_mes').html(response.status)
+                    $('#this_username').load(window.location.href + " #this_username");
+                    $('#mySidenav').load(window.location.href + " #mySidenav");
+                    $('#login_mes').css('transition','all 0.8s')
+                    setTimeout(function(){
+                        $('#login_mes').css('opacity','0')
+                        $('#login_mes').text('Feel Free ')
+                        $('#login_mes').css('opacity','1')
+                    },3500)
+                    $('#main_p').text('Welcome ' + response.username + '. You are now logged in. Now you can create your worksop. But first please take a look to the documentation.' )
+                    setTimeout(function(){
+                        setInterval(function(){
+                            setTimeout(function(){
+                                $('#learn_btn').css('font-size','17px')
+                        },1000)
+                        setInterval(function(){
+                                $('#learn_btn').css('font-size','20px')
+                            },1500)
+                        },2000)
+                    },4500)
+                    setTimeout(function(){
+                        $('#login_mes').hide();
+                        $('#form-part').remove();
+                        
+                    },6000)
+                }
+                else if (response.created == false){
+                    $('#login_mes').show();
+                    $('#login_mes').html(response.status)
+                    $('#login_mes').css('transition','all 0.8s')
+                    setTimeout(function(){
+                        $('#login_mes').css('opacity','0')
+                        $('#login_mes').text('Feel Free ')
+                        $('#login_mes').css('opacity','1')
+                    },1500)
+                    setTimeout(function(){
+                        $('#login_mes').css('opacity','0')
+                        $('#login_mes').text('Try Again ')
+                        $('#login_mes').css('opacity','1')
+                        $('#login_mes').css('transition','all 1s')
+                    },2000)
+                    setTimeout(function(){
+                        $('#login_mes').css('opacity','0')
+
+                    },2400)
+                }
+            },
+            error: function(rs, e) {
+            console.log('error')
+            }
+        });
+        }
+    });
+    $('#go_login_page_btn').click(function(){
+        $('#go_login').show();
+        $('#go_login_page_btn').hide();
+        $('#login_now').hide();
+        $('#login_form').show();
+        var username_val = $('#this_username')
+        username_val = $(username_val).val()
+        $('#login_form').children('div').children('input')[1].value = username_val
+        $('#submit_registration').hide();
+        $('#reg_mes').hide();
+        $('#register_form').hide();
+    });
+</script>
+{% endblock script %}

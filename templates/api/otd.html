@@ -1,0 +1,120 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=form, initial-scale=1.0">
+    <title>Open the Door</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Montserrat:600&display=swap');
+body{
+  margin: 0;
+  padding: 0;
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  background:#D22779;
+}
+button {
+  position: relative;
+  display: inline-flex;
+  width: 180px;
+  height: 55px;
+  margin: 0 15px;
+  perspective: 1000px;
+}
+button a{
+  font-size: 19px;
+  letter-spacing: 1px;
+  transform-style: preserve-3d;
+  transform: translateZ(-25px);
+  transition: transform .25s;
+  font-family: 'Montserrat', sans-serif;
+
+}
+button a:before,
+button a:after{
+  position: absolute;
+  content: "Open";
+  height: 55px;
+  width: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 5px solid black;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+button a:before{
+  color: #fff;
+  background: #000;
+  transform: rotateY(0deg) translateZ(25px);
+}
+button a:after{
+  color: #000;
+  transform: rotateX(90deg) translateZ(25px);
+}
+button a:hover{
+  transform: translateZ(-25px) rotateX(-90deg);
+}
+    </style>
+    <link rel="stylesheet" href="{% static 'admin/css/style_otd.scss' %}">
+</head>
+<body>
+        <label></label>
+         <button id="clikkmii"><a></a></button>
+
+</body>
+<script>
+// AJAX CALL
+$('#clikkmii').click(function(){
+    $.ajax({
+             type: "POST",
+             url: "{% url 'open_the_door' %}",
+             data: {'content_id': $(this).attr('name'),'operation':'open_the_door','csrfmiddlewaretoken': '{{ csrf_token }}'},
+             dataType: "json",
+             success: function(response) {
+                    if(response.is_open==true){
+                        $('label').html('Signal Sent')
+                        $('label').css('color','white',)
+                        $('label').css('fontSize','24px')
+                        $('label').css('paddingBottom','8px')
+                        $('label').css('paddingLeft','8px')
+                        $('label').css('fontFamily','Segoe, Roboto')
+                    }
+                    else if(response.is_open==false){
+                        console.log
+                    }
+              }
+        });
+    function reverser(){
+    $.ajax({
+             type: "POST",
+             url: "{% url 'open_the_door' %}",
+             data: {'content_id': $(this).attr('name'),'operation':'close_the_door','csrfmiddlewaretoken': '{{ csrf_token }}'},
+             dataType: "json",
+             success: function(response) {
+                    if(response.is_open==true){
+                        $('label').html('Signal Sent')
+                        $('label').css('color','white',)
+                        $('label').css('fontSize','24px')
+                        $('label').css('paddingBottom','8px')
+                        $('label').css('paddingLeft','8px')
+                        $('label').css('fontFamily','Segoe, Roboto')
+
+                    }
+                    else if(response.is_open==false){
+                        console.log
+
+                    }
+              }
+        });
+    };
+
+    setTimeout(reverser, 2500);
+
+  });
+</script>
+</html>

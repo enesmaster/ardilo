@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- home-agency start -->
+<section class="hero-5" id="home">
+    <div class="container">
+        <div class="row align-items-center justify-content-center">
+            <div class="col-lg-6">
+                <h1 class="mb-4 display-5 fw-semibold">Easy way to control things on internet!</h1>
+                <p id="main_p" class="text-muted fs-17">{% if request.user.is_authenticated %}{% if request.user.workshop %}HurryUp documentations can save your time.{% else %}Create your worksop. But first take a look to the documentation.{% endif %}{% else %}  Register an account, define your url in your Arduino/NodeMCU IDE. That's it!{% endif %}</p>
+                <a href="{% url 'docs' %}" id="learn_btn" class="btn btn-lg btn-gradient-success mt-4 mb-4 mb-lg-0">Learn More <i class="mdi mdi-arrow-right fs-14 ms-1"></i></a>
+            </div>
+
+            {% if request.user.is_authenticated %}
+
+            <div class="col-md-8 col-lg-5 offset-lg-1">
+                <div class="card mb-0">
+                    <div class="card-body p-4">
+                      <h5 class="border-bottom fs-22 pb-3 mb-4">Setup your remote Tool</h5>
+                      <div class="mb-3">
+                        <input style="opacity: 0;position: absolute;">
+                          <label for="wifi" class="form-label text-muted fs-14">Wi-Fi Public Nname<span class="text-danger">*</span></label>
+                          <input type="text" class="form-control" id="wifi_name" placeholder="FiberHGW..." autocomplete="new-password">
+                      </div>
+                      <div class="mb-3">
+                          <label for="pass" class="form-label text-muted fs-14">Wi-Fi Password <span class="text-danger">*</span></label>
+                          <input type="password" class="form-control" id="wifi_pass" placeholder="123qwerty..."  autocomplete="" >
+                      </div>
+                      <button id="submit_wifi" class="btn btn-primary w-100">Save Wifi</button>
+                    </div>
+                </div>
+             </div>
+            {% else %}{% comment %} 
+            <small data-is="222" id="is_unAuthed"></small>
+            if ($('#is_unAuthed').attr('data-is') > 0) { {% endcomment %}
+
+            {% endif %}
+        </div>
+    </div>
+ </section>
+ <!-- home-agency end -->
+
+<input id="this_username" type="hidden" value=""></input>
+{% endblock content %}
+
+{% block script %}
+<script>
+    $('#wifi_pass').mouseover(function(){
+        $('#wifi_pass').attr('type','text')
+    })
+    $('#wifi_pass').mouseout(function(){
+        $('#wifi_pass').attr('type','password')
+    })
+    $('#submit_wifi').click(function(){
+        var wifi_name = $('#wifi_name').val()
+        var wifi_pass = $('#wifi_pass').val()
+        $.ajax({
+            type: "POST",
+            url: "{% url 'config' %}",
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            data: {'operation':'wifi', 'ssid':wifi_name,'password':wifi_pass},
+            dataType: "json",
+            success: function(response) {
+                 if(response.success == true){
+                    $('#wifi_form').hide();
+                    $('#mode_form').show();
+                   console.log(response)
+
+                 }
+                 else if(response.status==false){
+                   console.log(response.status)
+                 }
+             },
+             error: function(rs, e) {
+              console.log('error')
+             }
+       }); 
+    });
+</script>
+{% endblock script %}
