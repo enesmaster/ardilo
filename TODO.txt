@@ -1,2 +1,3 @@
 Add user movement track to whole app by date, time, page name, click, duration of visit
  
+Add push notifications
