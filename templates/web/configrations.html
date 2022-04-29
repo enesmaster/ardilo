@@ -1,5 +1,60 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
+{% block css %}
+
+<style>
+    .bar_top{
+        width: 30px;
+        height: 30px;
+        background-color: white;
+        border:1px solid  #7cefd0;
+        border-radius: 50%;
+        margin-right: 26%;
+        list-style:none;
+        font-size: 16px;
+        color: #20e2ad;
+        font-weight: bold;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        padding:2px;
+        display: inline-block;
+        transition: all 0.5s;
+    }
+    .bar_top_done{
+        width: 30px;
+        height: 30px;
+        background-color: #7cefd0;
+        border-radius: 50%;
+        margin-right: 26%;
+        list-style:none;
+        font-size: 16px;
+        color: white;
+        text-align: center;
+        padding:4px;
+        display: inline-block;
+        transition: all 0.5s;
+
+    }
+    .bar_t{
+        list-style:none;
+        font-size: 16px;
+        color: #20e2ad;
+        font-weight: bold;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        margin-right: 26%;
+        align-items: center;
+        display: flex;
+        padding:2px;
+        display: inline-block; 
+    }
+</style>
+{% endblock css %}
 {% block content %}
 
 <!-- home-agency start -->
@@ -7,29 +62,82 @@
     <div class="container">
         <div class="row align-items-center justify-content-center">
             <div class="col-lg-6">
-                <h1 class="mb-4 display-5 fw-semibold">Easy way to control things on internet!</h1>
-                <p id="main_p" class="text-muted fs-17">{% if request.user.is_authenticated %}{% if request.user.workshop %}HurryUp documentations can save your time.{% else %}Create your worksop. But first take a look to the documentation.{% endif %}{% else %}  Register an account, define your url in your Arduino/NodeMCU IDE. That's it!{% endif %}</p>
-                <a href="{% url 'docs' %}" id="learn_btn" class="btn btn-lg btn-gradient-success mt-4 mb-4 mb-lg-0">Learn More <i class="mdi mdi-arrow-right fs-14 ms-1"></i></a>
+                <h1 class="mb-4 display-5 fw-semibold">{% translate "Save your wifi to use on your IoT device" %} </h1>
+                <p id="main_p" class="text-muted fs-17">{% if request.user.is_authenticated %}{% if request.user.workshop %}{% translate "HurryUp documentations can save your time."%} {% else %}{% translate "Create your worksop. But first take a look to the documentation." %} {% endif %}{% else %}  {% translate "Register an account, define your url in your Arduino/NodeMCU IDE. That's it!" %}{% endif %}</p>
+                <a href="{% url 'docs' %}" id="learn_btn" class="btn btn-lg btn-gradient-success mt-4 mb-4 mb-lg-0">{% translate "Learn More"  %}<i class="mdi mdi-arrow-right fs-14 ms-1"></i></a>
             </div>
 
             {% if request.user.is_authenticated %}
 
             <div class="col-md-8 col-lg-5 offset-lg-1">
-                <div class="card mb-0">
+                <div>
+                    <ul>
+                        <li class="bar_top" id="bar_top1">1<br><p class="bar_t">WiFi</p></li>
+                        <li class="bar_top" id="bar_top2">2<br><p class="bar_t">Workshop</p></li>
+                    </ul> 
+                </div>
+                <div class="card mb-0" id="wifi_card">
                     <div class="card-body p-4">
-                      <h5 class="border-bottom fs-22 pb-3 mb-4">Setup your remote Tool</h5>
+                      <h5 id="wifi_h5" class="border-bottom fs-22 pb-3 mb-4">{% translate "Save your WiFi" %}</h5>
+                      <form id="wifi_form">
                       <div class="mb-3">
                         <input style="opacity: 0;position: absolute;">
-                          <label for="wifi" class="form-label text-muted fs-14">Wi-Fi Public Nname<span class="text-danger">*</span></label>
+                          <label for="wifi" class="form-label text-muted fs-14">{% translate "WiFi Public Name" %}<span class="text-danger">*</span></label>
                           <input type="text" class="form-control" id="wifi_name" placeholder="FiberHGW..." autocomplete="new-password">
                       </div>
                       <div class="mb-3">
-                          <label for="pass" class="form-label text-muted fs-14">Wi-Fi Password <span class="text-danger">*</span></label>
+                          <label for="pass" class="form-label text-muted fs-14">{% translate "WiFi Password" %} <span class="text-danger">*</span></label>
                           <input type="password" class="form-control" id="wifi_pass" placeholder="123qwerty..."  autocomplete="" >
                       </div>
-                      <button id="submit_wifi" class="btn btn-primary w-100">Save Wifi</button>
+                        <div class="mb-3">
+                            <div class="text-muted" id="wifi_alert_p"></div>
+                        </div>
+                      <a id="submit_wifi" class="btn btn-primary w-100">{% translate "Save WiFi" %}</a>
+                    </form>
                     </div>
                 </div>
+                <div class="card mb-0">
+                    <div class="card-body p-4" id="workshop_card"  style="display:none;">
+                        <h5 id="workshop_h5" class="border-bottom fs-22 pb-3 mb-4">{% translate "Setup your Workshop" %}</h5>
+                        <form id="workshop_form">
+                        {% if user_has_wifi == True %} 
+                        <div class="mb-3">
+                            <label for="wfies">Choose a WiFi from Yours</label>
+                            <select name="wfies" id="wifies">
+                                {% for wif in user_wifies  %}
+                              <option value="{{wif.id}}">{{wif.ssid}}</option>
+                                {% endfor %}
+                            </select> 
+                        </div>
+                        {% endif %}
+                            <div class="mb-3">
+                              <input style="opacity: 0;position: absolute;">
+                                <label for="action" class="form-label text-muted fs-14">{% translate "Action Name" %}<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="act_name" placeholder="{% translate 'Open the lights' %}" autocomplete="new-password">
+                            </div>
+                            <div class="mb-3">
+                                <label for="defaultresponse" class="form-label text-muted fs-14">{% translate "Default Response" %} <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="defresp" placeholder="false"  autocomplete="" >
+                            </div>
+                            <div class="mb-3">
+                                <label for="response" class="form-label text-muted fs-14">{% translate "Expected Response" %} <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="resp" placeholder="true"  autocomplete="" >
+                            </div> 
+                            <label class="form-check-label" for="flexSwitchCheckDefault">Is response fixed</label>
+                            <input type="checkbox" id="myCheck" onclick="checkDuration()">
+
+                            <div class="mb-3" id="duration" style="display:none">
+                                <label for="duration" class="form-label text-muted fs-14">{% translate "Duration of Response" %} <span class="text-danger">*</span></label>
+                                <input type="number" class="form-control" id="resp" placeholder="1000" autocomplete="" >
+                            </div>
+                            <div class="mb-3">
+                                <div class="text-muted" id="wrsp_alert_p"></div>
+                            </div>
+                            <a id="submit_wksp" class="btn btn-primary w-100">Save Workshop</a>
+                          </form>
+                    </div>
+                </div>
+                
              </div>
             {% else %}{% comment %} 
             <small data-is="222" id="is_unAuthed"></small>
@@ -46,38 +154,148 @@
 
 {% block script %}
 <script>
+    function checkDuration() {
+    var checkBox = $("#myCheck");
+    var duration = $("#duration");
+    if (checkBox.prop("checked") == true){
+        duration.hide();
+    } else {
+        duration.show();
+    }}
+    
+    $("#myCheck").trigger('click');
+
+    var wifies = $("#wifies");
+    var selected_wifi = wifies.find(":selected").val();
+    
+    //WIFI
     $('#wifi_pass').mouseover(function(){
         $('#wifi_pass').attr('type','text')
-    })
+    });
     $('#wifi_pass').mouseout(function(){
         $('#wifi_pass').attr('type','password')
-    })
+    });
     $('#submit_wifi').click(function(){
         var wifi_name = $('#wifi_name').val()
         var wifi_pass = $('#wifi_pass').val()
-        $.ajax({
-            type: "POST",
-            url: "{% url 'config' %}",
-            headers: {
-                'X-CSRFToken': '{{ csrf_token }}'
-            },
-            data: {'operation':'wifi', 'ssid':wifi_name,'password':wifi_pass},
-            dataType: "json",
-            success: function(response) {
-                 if(response.success == true){
-                    $('#wifi_form').hide();
-                    $('#mode_form').show();
-                   console.log(response)
+        if (wifi_name == '') {
+            $('#wifi_alert_p').show()
+            $('#wifi_alert_p').html('{% translate "Fill all the fields" %}')
+            setTimeout(function(){
+                $('#wifi_alert_p').hide()
+            },3000)
+        }
+        if (wifi_pass.length < 8 ){
+            $('#wifi_alert_p').show()
+            $('#wifi_alert_p').html('{% translate "Wifi passwords must be at least 8 characters" %}')
+            setTimeout(function(){
+                $('#wifi_alert_p').hide()
+            },3000)
+        }
 
+        if (wifi_name.length > 0 &&  wifi_pass.length > 7) {
+            $.ajax({
+                type: "POST",
+                url: "{% url 'config' %}",
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                data: {'operation':'wifi', 'ssid':wifi_name,'password':wifi_pass, 'user':'{{ request.user.username }}'},
+                dataType: "json",
+                success: function(response) {
+                     if(response.success == true){
+                        setTimeout(function(){
+                            $('#wifi_h5').html('{% translate "WiFi Saved" %}')
+                            $('#bar_top1').addClass('bar_top_done').removeClass('bar_top')
+                        },0)
+                        setTimeout(function(){
+                            $('#wifi_card').hide();
+                            $('#workshop_card').show();
+                        },1000)
+                       console.log(response)
+                     }
+                     else if(response.status==false){
+                       console.log(response.status)
+                     }
+                     else if(response.status=='duplicate'){
+                        $('#wifi_alert_p').show()
+                        $('#wifi_alert_p').html(response.msg)
+                        setTimeout(function(){
+                            $('#wifi_alert_p').hide()
+                        },12000)
+                    }
+                 },
+                 error: function(rs, e) {
+                  console.log('error')
                  }
-                 else if(response.status==false){
-                   console.log(response.status)
+           }); 
+        }
+    });
+</script>
+
+<script>
+    //WORKSHOP
+    $('#submit_wksp').click(function(){
+        var actname = $('#act_name').val()
+        var resp = $('#resp').val()
+        if (actname == '') {
+            $('#wrsp_alert_p').show()
+            $('#wrsp_alert_p').html('{% translate "Fill all the fields" %}')
+            setTimeout(function(){
+                $('#wrsp_alert_p').hide()
+            },3000)
+        }
+        if (resp.length < 1 ){
+            $('#wrsp_alert_p').show()
+            $('#wrsp_alert_p').html('{% translate "Must be at least 1 character" %}')
+            setTimeout(function(){
+                $('#wrsp_alert_p').hide()
+            },3000)
+        }
+        if (actname.length > 0 &&  resp.length > 0) {
+            $.ajax({
+                type: "POST",
+                url: "{% url 'config' %}",
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                data: {
+                    'operation':'workshop',
+                    'actname':actname,
+                    'defresp':'defresp',
+                    'resp':resp,
+                    'is_fixed':$('#myCheck').prop('checked'),
+                    'wifi':selected_wifi,
+                    'user':'{{ request.user.username }}',
+                },
+                dataType: "json",
+                success: function(response) {
+                     if(response.success == true){
+                        setTimeout(function(){
+                            $('#wifi_h5').html('{% translate "WiFi Saved" %}')
+                            $('#bar_top2').addClass('bar_top_done').removeClass('bar_top')
+                        },0)
+                        setTimeout(function(){
+                            $('#wifi_card').hide();
+                            $('#workshop_card').hide();
+                        },1000)
+                     }
+                     else if(response.status==false){
+                       console.log(response.status)
+                     }
+                     else if(response.status=='duplicate'){
+                        $('#wifi_alert_p').show()
+                        $('#wifi_alert_p').html(response.msg)
+                        setTimeout(function(){
+                            $('#wifi_alert_p').hide()
+                        },12000)
+                    }
+                 },
+                 error: function(rs, e) {
+                  console.log('error')
                  }
-             },
-             error: function(rs, e) {
-              console.log('error')
-             }
-       }); 
+           }); 
+        }
     });
 </script>
 {% endblock script %}

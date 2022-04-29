@@ -2,7 +2,7 @@ from django.db.models.signals import post_save, pre_save
 from django.conf import settings 
 from django.contrib.auth.signals import user_logged_in,user_logged_out
 from django.dispatch import receiver
-from . models import Profile, Wifi
+from . models import Profile, Wifie
 import datetime
 
 User = settings.AUTH_USER_MODEL
@@ -29,7 +29,3 @@ def user_logged(sender,request,user,**kwargs):
 def user_logged_out(sender,request,user,**kwargs):
     user.profile.is_online = False
     user.profile.save()
-
-@receiver(post_save,sender=Wifi)
-def wifi_add(sender, request,instance, *args, **kwargs):
-    Profile.objects.get(user=request.user).wifi = instance

@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import Profile, Wifi, Workshop
+from .models import Profile, Wifie, Workshop
 
 admin.site.register(Workshop)
-admin.site.register(Wifi)
+admin.site.register(Wifie)
 admin.site.register(Profile)

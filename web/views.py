@@ -1,15 +1,15 @@
 from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
-from .forms import RegisterForm,WorkshopCreateForm,CustomLoginForm
-from .models import Wifi, Workshop
+from .forms import RegisterForm, WifiForm,WorkshopCreateForm,CustomLoginForm
+from .models import Wifie, Workshop
 from django.contrib.auth.views import LoginView
 from django.http import JsonResponse
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
-
+from django.http import JsonResponse
 #! TODO add api views to api
 def home(request):
     register_form = RegisterForm()
@@ -67,8 +67,50 @@ def configrations(request):
     if request.method == 'POST' and request.POST.get("operation") == "wifi":
         ssid = request.POST.get("ssid")
         password = request.POST.get("password")
-        Wifi.objects.create(ssid=ssid, password=password, user=request.user)
-        return JsonResponse({'success':True, 'msg':'Wifi configuration created'})
+        user = request.POST.get("user")
+        # WIFI  
+
+        if Wifie.objects.filter(ssid=ssid,passworde=password, user=User.objects.get(username=user)).exists():
+            ctx = {
+                'created': False,
+                'success': False,
+                'status':'duplicate',
+                'msg':_('You already have a WiFi with this credentials.<br>If there is a problem delete your exist WiFi on settings and create a new one.<br>Or just update your exist WiFi.'),
+            }
+            return JsonResponse(ctx)
+        Wifie.objects.get_or_create(ssid=ssid,passworde=password, user=User.objects.get(username=user))
+    
+        queryset = Wifie.objects.filter(user=request.user).values()
+        ctx = {
+            
+                'user_wifies': list(queryset),
+                'created': True,
+                'success': True,
+                'msg':'You added your WiFi',
+            }
+        return JsonResponse(ctx)
+
+    # WORKSHOPS  
+    if request.method == 'POST' and request.POST.get("operation") == "workshop":
+        actname = request.POST.get("actname")
+        resp = request.POST.get("resp")
+        user = request.POST.get("user")
+        if Workshop.objects.filter(actname=actname,response=resp, user=User.objects.get(username=user)).exists():
+            ctx = {
+                'created': False,
+                'success': False,
+                'status':'duplicate',
+                'msg':_("You already have a Workshop with this credentials.<br>If there is a problem delete your exist Workshop on settings and create a new one or try to use <span class='snippet'>%()s2<span>.<br>Or just update your exist Workshop.") % (actname),
+
+            }
+            return JsonResponse(ctx)
+        Workshop.objects.create(actname=actname,response=resp, user=User.objects.get(username=user))
+        ctx = {
+                'created': True,
+                'success': True,
+                'msg':'You added a Workshop',
+            }
+        return JsonResponse(ctx)
     return render(request, 'web/configrations.html')
     
 def docs(request):

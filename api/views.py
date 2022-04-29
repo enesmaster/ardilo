@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-from web.models import Workshop, Wifi, Profile
+from web.models import Workshop, Wifie, Profile
 from django.contrib.auth.decorators import login_required
 
 @login_required

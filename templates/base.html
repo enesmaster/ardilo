@@ -22,7 +22,9 @@
 
         <!-- Swiper js -->
         <link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %}" type="text/css" />
-
+        {% block css %}
+        
+        {% endblock css %}
         <!--Material Icon -->
         <link rel="stylesheet" type="text/css" href="{% static 'css/materialdesignicons.min.css' %}" />
 
@@ -80,7 +82,10 @@
 {% block content %}
 
 {% endblock content %}
-
+<br>
+<br>
+<br>
+<br>
         <!-- footer & cta start -->
         <section class="footer bg-light">
             <div class="cta-content">
