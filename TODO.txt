@@ -1,1 +1,2 @@
-Add user movement track to whole app
+Add user movement track to whole app by date, time, page name
+ 
