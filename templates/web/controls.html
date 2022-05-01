@@ -49,9 +49,9 @@
                 <div class="card mb-3" id="card">
                     <div class="card-body p-4 ">
                         <i class='bx bx-dots-horizontal-rounded' id="dots"> <a target="_blank" href="{{workshop.url}}">link</a></i>
-                      <h5 id="wifi_h5" class="border-bottom text-center fs-22 pb-2 mb-4 noselect">{{workshop.actname}}</h5>
-                      <p class="response">{{workshop.current_resp}}</p>
-                        <a href="#" id="id_btn" class="btn btn-md btn-gradient-success mt-0 mb-4 mb-lg-0">{{workshop.expected_resp|title}}<i class="mdi mdi-arrow-right fs-14 ms-1"></i></a>
+                        <h5 id="wifi_h5" class="border-bottom text-center fs-22 pb-2 mb-4 noselect">{{workshop.actname}}</h5>
+                        <p id="response" class="response">{{workshop.current_resp}}</p>
+                        <a href="#" id="wake" data-workshop-id="{{ workshop.id }}" class="btn btn-md btn-gradient-success mt-0 mb-4 mb-lg-0">{{workshop.expected_resp|title}}<i class="mdi mdi-arrow-right fs-14 ms-1"></i></a>
                     </div>
                 </div>
                 {% endfor %}
@@ -70,111 +70,20 @@
 
 {% block script %}
 <script>
-    $('#clipboard-copied').css('background','#333333');
-    $('#clipboard-copied').css('color','#fff');
-    $('#clipboard-copied').css('border-radius','10%');
-    $('#clipboard-copied').css('padding','5px');
-    $('#clipboard-copied').css('font-size','15px');
-    $('#clipboard-copied').css('font-family','Arial');
-    
-    $('#clipboard-copied').hide()
-
-
-    $('#clipboard').click(function(){
-        var copyText = $('#code-content-for-copy').text();
-        $('#code-content-for-copy').select();
-        navigator.clipboard.writeText(copyText);
-        document.execCommand("copy");
-        $('#clipboard').hide()
-        $('#clipboard-copied').show()
-        $('#clipboard-copied').html('Copied')
-        setTimeout(function() {
-            $('#clipboard-copied').html('')
-            $('#clipboard').show()
-            $('#clipboard-copied').hide()
-        }, 1000);
-    });
-    $('#clipboard').mouseover(function() {
-        $('#clipboard').removeClass('bx-copy-alt');
-        $('#clipboard').addClass('bxs-copy');
-    });
-    $('#clipboard').mouseout(function() {
-        $('#clipboard').removeClass('bxs-copy');
-        $('#clipboard').addClass('bx-copy-alt');
-    });
-    
-    function checkDuration() {
-    var checkBox = $("#myCheck");
-    var duration = $("#duration");
-    if (checkBox.prop("checked") == true){
-        duration.hide();
-    } else {
-        duration.show();
-    }}
-
-    $("#myCheck").trigger('click');
-
-    var wifies = $("#wifies");
-    var selected_wifi = wifies.find(":selected").val();
-    
-    //WIFI
-    $('#wifi_pass').mouseover(function(){
-        $('#wifi_pass').attr('type','text')
-    });
-    $('#wifi_pass').mouseout(function(){
-        $('#wifi_pass').attr('type','password')
-    });
-    $('#submit_wifi').click(function(){
-        var wifi_name = $('#wifi_name').val()
-        var wifi_pass = $('#wifi_pass').val()
-        if (wifi_name == '') {
-            $('#wifi_alert_p').show()
-            $('#wifi_alert_p').html('{% translate "Fill all the fields" %}')
-            setTimeout(function(){
-                $('#wifi_alert_p').hide()
-            },3000)
-        }
-        if (wifi_pass.length < 8 ){
-            $('#wifi_alert_p').show()
-            $('#wifi_alert_p').html('{% translate "Wifi passwords must be at least 8 characters" %}')
-            setTimeout(function(){
-                $('#wifi_alert_p').hide()
-            },3000)
-        }
-
-        if (wifi_name.length > 0 &&  wifi_pass.length > 7) {
+    $('#wake').click(function(){
+        var workshop_id = $(this).attr('data-workshop-id');
             $.ajax({
-                type: "POST",
-                url: "{% url 'config' %}",
+                type: "POST",workshop_id,
+                url: "{% url 'control_panel' %}",
                 headers: {
                     'X-CSRFToken': '{{ csrf_token }}'
                 },
-                data: {'operation':'wifi', 'ssid':wifi_name,'password':wifi_pass, 'user':'{{ request.user.username }}'},
+                data: {'operation':'wake', 'workshop_id':workshop_id },
                 dataType: "json",
                 success: function(response) {
                      if(response.success == true){
-                        $("#sel_wifies").children().remove();
-                        $.each(response.user_wifies, function (i, wifi) {
-                            $("#sel_wifies").append(
-                                $('<option></option>').attr("value", wifi[0][0]).text(wifi[0][1]))
-                        });
-                        $('#sel_wifies option').last().attr('selected', true);
-                        $('#sel_wifies').parent().show()
-
-                        setTimeout(function(){
-                            $('#wifi_h5').html('{% translate "WiFi Saved" %}')
-                            $('#bar_top1').addClass('bar_top_done').removeClass('bar_top')
-                            $('#main_title').css('opacity','0')
-                            $('#main_title').css('transition','1s')
-                        },0)
-                        setTimeout(function(){
-                            $('#wifi_card').hide();
-                            $('#workshop_card').show();
-
-                            $('#main_title').html('{% translate "Configure Workshop." %}')
-                            $('#main_title').css('opacity','1')
-
-                        },1000)
+                        $(this).siblings('#response').text(response.response);
+                        $(this).text(response.resp_btn);
                        console.log(response)
                      }
                      else if(response.status==false){
@@ -192,8 +101,7 @@
                   console.log('error')
                  }
            }); 
-        }
-    });
+        });
 </script>
 
 <script>

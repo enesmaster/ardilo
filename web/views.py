@@ -168,6 +168,26 @@ def workshop(request, secret_key):
 
 def control_panel(request):
     workshops = Workshop.objects.filter(user=request.user).order_by('-usage_count')
+    if request.method == 'POST' and request.POST.get("operation") == "wake":
+        print('*'*50)
+        print(request.POST.get("workshop_id"))
+        workshop = Workshop.objects.get(id=request.POST.get("workshop_id"))
+        workshop.usage_count += 1
+        if workshop.current_resp == workshop.expected_resp:
+            workshop.current_resp = workshop.def_resp
+            ctxx ={
+                'response':workshop.current_resp,
+                'resp_btn':workshop.def_resp,
+            }
+        else:
+            workshop.current_resp = workshop.expected_resp
+            ctxx = {
+                'response':workshop.current_resp,
+                'resp_btn':workshop.expected_resp,
+            }        
+        workshop.save()
+        ctx = {'success': True,}
+        return JsonResponse({**ctx, **ctxx})
     return render(request, 'web/controls.html', {'workshops':workshops})
  
 def docs(request):
