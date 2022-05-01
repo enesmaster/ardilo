@@ -1,3 +1,4 @@
+from random import random
 from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
@@ -10,6 +11,9 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from django.http import JsonResponse
+from django.utils.crypto import get_random_string
+chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+
 #! TODO add api views to api
 def home(request):
     register_form = RegisterForm()
@@ -57,7 +61,7 @@ def home(request):
             ctx = {
                 'created': False,
                 'success': False,
-                'status':'Incorrect.',
+                'status':_('Incorrect.'),
             }
             return JsonResponse(ctx)
 
@@ -69,7 +73,6 @@ def configrations(request):
         password = request.POST.get("password")
         user = request.POST.get("user")
         # WIFI  
-
         if Wifie.objects.filter(ssid=ssid,passworde=password, user=User.objects.get(username=user)).exists():
             ctx = {
                 'created': False,
@@ -79,40 +82,94 @@ def configrations(request):
             }
             return JsonResponse(ctx)
         Wifie.objects.get_or_create(ssid=ssid,passworde=password, user=User.objects.get(username=user))
-    
-        queryset = Wifie.objects.filter(user=request.user).values()
+        
+        this_user_wifies = []
+        for i in Wifie.objects.filter(user=request.user).values():
+            this_user_wifies.append([(i['id'],i['ssid'])])
         ctx = {
-            
-                'user_wifies': list(queryset),
+                'user_wifies': this_user_wifies,
                 'created': True,
                 'success': True,
-                'msg':'You added your WiFi',
+                'msg': _("You added your WiFi"),
             }
         return JsonResponse(ctx)
 
     # WORKSHOPS  
     if request.method == 'POST' and request.POST.get("operation") == "workshop":
         actname = request.POST.get("actname")
-        resp = request.POST.get("resp")
-        user = request.POST.get("user")
-        if Workshop.objects.filter(actname=actname,response=resp, user=User.objects.get(username=user)).exists():
+        def_resp = request.POST.get("def_resp")
+        expected_resp = request.POST.get("expected_resp")
+        is_fixed = request.POST.get("is_fixed")
+        duration = request.POST.get("duration")
+        user = User.objects.get(username=request.POST.get("user"))
+        if is_fixed == 'true':
+            is_fixed = True
+        else:
+            is_fixed = False
+        if Workshop.objects.filter(actname=actname,expected_resp=expected_resp,def_resp=def_resp, user=user).exists():
             ctx = {
                 'created': False,
                 'success': False,
                 'status':'duplicate',
-                'msg':_("You already have a Workshop with this credentials.<br>If there is a problem delete your exist Workshop on settings and create a new one or try to use <span class='snippet'>%()s2<span>.<br>Or just update your exist Workshop.") % (actname),
-
+                'msg':_("You already have a Workshop with this credentials.<br>If there is a problem delete your exist Workshop on settings and create a new one <br>Or just update your exist Workshop.")
             }
             return JsonResponse(ctx)
-        Workshop.objects.create(actname=actname,response=resp, user=User.objects.get(username=user))
+        secret_key = get_random_string(25, chars)
+        url = "http://"+request.get_host()+"/workshop/"+secret_key
+        Workshop.objects.create(
+            actname=actname,
+            def_resp=def_resp,
+            expected_resp=expected_resp,
+            is_fixed=is_fixed,
+            duration=duration,
+            wifi=Wifie.objects.get(id=request.POST.get("wifi")),
+            user=user,
+            secret_key=secret_key,
+            url=url
+            )
         ctx = {
                 'created': True,
                 'success': True,
-                'msg':'You added a Workshop',
+                'secret_key':secret_key,
+                'actname':actname,
+                'url':url,
+                'wifi':Wifie.objects.get(id=request.POST.get("wifi")).ssid,
+                'msg':_('You added a Workshop'),
             }
         return JsonResponse(ctx)
+    if request.method == 'POST' and request.POST.get("operation") == "get_wifi":
+        this_user_wifies = []
+        for i in Wifie.objects.filter(user=request.user).values():
+            this_user_wifies.append([(i['id'],i['ssid'])])
+        ctx = {
+                'user_wifies': this_user_wifies,
+                'success': True,
+            }
+        return JsonResponse(ctx)
+    if request.method == 'POST' and request.POST.get("operation") == "workshop_json":
+        username = request.POST.get("user")
+        workshop = Workshop.objects.filter(user=User.objects.get(username=username)).last()
+        json = {"username": username ,"action-name":workshop.actname, "wifi": workshop.wifi.ssid, "secret-key": workshop.secret_key, "URL": workshop.url,}
+        ctx = {
+            'json': json,
+            'success': True,
+        }
+        return JsonResponse(ctx)
     return render(request, 'web/configrations.html')
+
     
+def workshop(request, secret_key):
+    workshop = Workshop.objects.get(secret_key=secret_key)
+    json = {
+        "action-name":workshop.actname,
+        "response": workshop.current_resp,
+    }
+    return JsonResponse(json)
+
+def control_panel(request):
+    workshops = Workshop.objects.filter(user=request.user).order_by('-usage_count')
+    return render(request, 'web/controls.html', {'workshops':workshops})
+ 
 def docs(request):
     return render(request, 'web/docs.html')
 

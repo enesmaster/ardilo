@@ -13,133 +13,21 @@
                   user-select: none; /* Non-prefixed version, currently
                                         supported by Chrome, Opera and Firefox */
       }
-    .bar_top{
-        width: 30px;
-        height: 30px;
-        background-color: white;
-        border:1px solid  #7cefd0;
-        border-radius: 50%;
-        margin-right: 26%;
-        list-style:none;
-        font-size: 16px;
-        color: #20e2ad;
+      .response {
+        position: absolute;
+        right: 60px;
+        font-size: 22px;
+        text-shadow: 0px 6px 6px #13ba99;
         font-weight: bold;
-        text-align: center;
-        justify-content: center;
-        align-items: center;
-        display: flex;
-        padding:2px;
-        display: inline-block;
-        transition: all 0.5s;
-    }
-    .bar_top_done{
-        width: 30px;
-        height: 30px;
-        background-color: #7cefd0;
-        border-radius: 50%;
-        margin-right: 26%;
-        list-style:none;
-        font-size: 16px;
-        color: white;
-        text-align: center;
-        padding:4px;
-        display: inline-block;
-        transition: all 0.5s;
-
-    }
-    .bar_t{
-        list-style:none;
-        font-size: 16px;
-        color: #20e2ad;
-        font-weight: bold;
-        text-align: center;
-        justify-content: center;
-        align-items: center;
-        display: flex;
-        margin-right: 26%;
-        align-items: center;
-        display: flex;
-        padding:2px;
-        display: inline-block; 
-    }
-    #sel_wifies {
-        background: white;
-        border: 1px solid #1abc9c;
-        border-radius: 5px;
-        font-size: 16px;
-        text-align: center;
+        font-family: 'Cerebri Sans', sans-serif;
       }
-    #sel_wifies option {
-        text-align: center;
-        background: white;
-        transition: all 1s;
-    } 
-    .snippet{
-        font-family:Consolas, monospace;
-        width: 125%;
-        height: 100%;
-        background-color: #0d1117;
-        color:#f0f6fc;
-        border-radius: 10px;
-        padding: 10px;
-        margin-bottom: 10px;
-        box-shadow: 0px 0px 5px #ccc;
-    }
-    .snippet .line_num{
-        color: #6e7681;
-    }
-    .snippet .module{
-        color: #ff7b72;
-    }
-    .snippet .variable{
-        color: #ffa657;
-    }
-    .snippet .attr{
-        color: #d2a8ff;
-    }
-    .snippet .comment{
-        color: #8b949e;
-    }
-    .snippet .json{
-        color: #7ee787;
-    }
-    .snippet .json2{
-        color:  #9ac8ee;
-    }
-   .snippet .command{
-       background:white;
-       position: relative;
-       width: 100%;
-       height:1px;
-   }
-   .snippet  .code-file-title{
-    color: #ff7b72;
-    font-size: 19px;
-    padding-bottom: 1px;
-   }
-   .snippet .line{
-    background:white;
-    position: absolute;
-    width: 85%;
-    height:1px;
-    padding-top:0px;
-    }
-    .clipboard{
+      #dots {
+        font-size: 25px;
         position: absolute;
-        right: -50px;
-        top: 20px;
-        font-size: 20px;
-        cursor: pointer;
-        text-align: center;
-    }
-    .download{
-        position: absolute;
-        right: -10px;
-        top: 20px;
-        font-size: 20px;
-        cursor: pointer;
-        text-align: center;
-    }
+        right: 20px;
+        top: 10px;
+        cursor:pointer;
+      }
 </style>
 {% endblock css %}
 {% block content %}
@@ -148,116 +36,28 @@
 <section class="hero-5" id="home">
     <div class="container">
         <div class="row align-items-center justify-content-center">
-            <div id="main" class="col-lg-6">
-                <h1 id="main_title" class="mb-4 display-5 fw-semibold noselect">{% translate "Save your wifi to use on your IoT device" %} </h1>
-                <p id="main_p" class="text-muted fs-17 noselect">{% if request.user.is_authenticated %}{% if request.user.workshop %}{% translate "HurryUp documentations can save your time."%} {% else %}{% translate "Create your worksop. But first take a look to the documentation." %} {% endif %}{% else %}  {% translate "Register an account, define your url in your Arduino/NodeMCU IDE. That's it!" %}{% endif %}</p>
+            <div id="main" class="col-lg-2">
+                <h1 id="main_title" class="mb-4 display-6 fw-semibold noselect">{% translate "Control buttons" %} </h1>
+                <p id="main_p" class="text-muted fs-17 noselect">{% if request.user.is_authenticated %}{% if request.user.workshop %}{% translate "Control your projects by pressing the buttons"%} {% else %}{% translate "Create your worksop. But first take a look to the documentation." %} {% endif %}{% else %}  {% translate "Register an account, define your url in your Arduino/NodeMCU IDE. That's it!" %}{% endif %}</p>
                 <a href="{% url 'docs' %}" id="learn_btn" class="btn btn-lg btn-gradient-success mt-4 mb-4 mb-lg-0">{% translate "Learn More"  %}<i class="mdi mdi-arrow-right fs-14 ms-1"></i></a>
             </div>
 
             {% if request.user.is_authenticated %}
 
             <div class="col-md-8 col-lg-5 offset-lg-1">
-                <div id="btns">
-                    <ul>
-                        <a style="cursor:pointer;" id="wifi_btn"><li class="bar_top noselect" id="bar_top1">1<br><p class="bar_t">WiFi</p></li></a>
-                        <a style="cursor:pointer;" id="workshop_btn"> <li class="bar_top noselect" id="bar_top2">2<br><p class="bar_t">Workshop</p></li></a>
-                    </ul> 
-                </div>
-                <div class="card mb-0" id="wifi_card">
-                    <div class="card-body p-4">
-                      <h5 id="wifi_h5" class="border-bottom fs-22 pb-3 mb-4 noselect">{% translate "Save your WiFi" %}</h5>
-                      <form id="wifi_form">
-                      <div class="mb-3">
-                        <input style="opacity: 0;position: absolute;">
-                          <label for="wifi" class="form-label text-muted fs-14">{% translate "WiFi Public Name" %}<span class="text-danger">*</span></label>
-                          <input type="text" class="form-control" id="wifi_name" placeholder="FiberHGW..." autocomplete="new-password">
-                      </div>
-                      <div class="mb-3">
-                          <label for="pass" class="form-label text-muted fs-14">{% translate "WiFi Password" %} <span class="text-danger">*</span></label>
-                          <input type="password" class="form-control" id="wifi_pass" placeholder="123qwerty..."  autocomplete="" >
-                      </div>
-                        <div class="mb-3">
-                            <div class="text-muted" id="wifi_alert_p"></div>
-                        </div>
-                      <a id="submit_wifi" class="btn btn-primary w-100 noselect">{% translate "Save WiFi" %}</a>
-                    </form>
+                {% for workshop in workshops %}
+                <div class="card mb-3" id="card">
+                    <div class="card-body p-4 ">
+                        <i class='bx bx-dots-horizontal-rounded' id="dots"> <a target="_blank" href="{{workshop.url}}">link</a></i>
+                      <h5 id="wifi_h5" class="border-bottom text-center fs-22 pb-2 mb-4 noselect">{{workshop.actname}}</h5>
+                      <p class="response">{{workshop.current_resp}}</p>
+                        <a href="#" id="id_btn" class="btn btn-md btn-gradient-success mt-0 mb-4 mb-lg-0">{{workshop.expected_resp|title}}<i class="mdi mdi-arrow-right fs-14 ms-1"></i></a>
                     </div>
                 </div>
-                <div class="card mb-0">
-                    <div class="card-body p-4" id="workshop_card"  style="display:none;">
-                        <h5 id="workshop_h5" class="border-bottom fs-22 pb-3 mb-4 noselect">{% translate "Setup your Workshop" %}</h5>
-                        <form id="workshop_form"> 
-                        <div class="mb-3" style="display:none;">
-                            <label for="wifies">Selected WiFi</label>
-                            <select name="wfies" id="sel_wifies">
-                              
-                            </select> 
-                        </div>
-                            <div class="mb-3">
-                              <input style="opacity: 0;position: absolute;">
-                                <label for="action" class="form-label text-muted fs-14">{% translate "Action Name" %}<span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="act_name" placeholder="{% translate 'Open the lights' %}" autocomplete="new-password">
-                            </div>
-                            <div class="mb-3">
-                                <label for="defaultresponse" class="form-label text-muted fs-14">{% translate "Default Response" %} <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="def_resp" placeholder="false"  autocomplete="" >
-                            </div>
-                            <div class="mb-3">
-                                <label for="response" class="form-label text-muted fs-14">{% translate "Expected Response" %} <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="expected_resp" placeholder="true"  autocomplete="" >
-                            </div> 
-                            <label class="form-check-label" for="flexSwitchCheckDefault">Is response fixed</label>
-                            <input type="checkbox" id="myCheck" onclick="checkDuration()">
-
-                            <div class="mb-3" id="duration" style="display:none">
-                                <label for="duration" class="form-label text-muted fs-14">{% translate "Duration of Response" %} <span class="text-danger">*</span></label>
-                                <input type="number" class="form-control" id="duration_input" placeholder="1000" autocomplete="" >
-                            </div>
-                            <div class="mb-3">
-                                <div class="text-muted" id="wrsp_alert_p"></div>
-                            </div>
-                            <a id="submit_wksp" class="btn btn-primary w-100">Save Workshop</a>
-                          </form>
-                    </div>
-                </div>
-                <div class="snippet p-4" style="display:none;">
-                   <i title="Copy" class='bx bx-copy-alt clipboard' id="clipboard"></i><i title="Save" id="download_wksp" class='bx bx-download download' ></i>
-                   <i  class='clipboard' id="clipboard-copied"></i>
-                    <div class="mb-3" id="code-content">
-                            <span class="code-file-title" >configs.json</span>
-                            <br>
-                            <span class="line"></span>
-                            <br>
-                            <span class="comment">// Save this variables to use in IoT device</span><br>
-                            {<br>
-                            <span class="json">"username"</span>: <span class="json2">"{{request.user.username}}"</span>,
-                            <br>
-                            <span class="json">"action-name"</span>: <span class="json2">"<span id="code-action-name"></span>"</span>,
-                            <br>
-                            <span class="json">"wifi"</span>: <span class="json2">"<span id="code-wifi"></span>"</span>,
-                            <br>
-                            <span class="json">"secret-key"</span>: <span class="json2">"<span id="code-secret-key"></span>"</span>,
-                            <br>
-                            <span class="json">"URL"</span>: <span class="json2">"<span id="code-url"></span>"</span>,
-                            <br>}
-                    </div>
-                </div>
-             </div>
-             <div id="code-content-for-copy" style="position:absolute;width:1px;height:1px;overflow: hidden;clip: rect(0,0,0,0);">
-                 <p>
-                {<br>
-                    // Save this variables to use in IoT device<br>"username": {{request.user.username}},<br>
-                    "username": "{{request.user.username}}",<br>
-                    "action-name": "<span id="copy-action-name"></span>",<br>
-                    "wifi": "<span id="copy-wifi"></span>",<br>
-                    "secret-key": "<span id="copy-secret-key"></span>",<br>
-                    "URL": "<span id="copy-url"></span>",<br>
-                <br>}
-            </p> 
-            </div>
-            {% else %}{% comment %} 
-            <small data-is="222" id="is_unAuthed"></small>
-            if ($('#is_unAuthed').attr('data-is') > 0) { {% endcomment %}
+                {% endfor %}
+            {% else %}
+            <a href="{% url 'signup' %}"  class="btn btn-lg btn-gradient-success mt-4 mb-4 mb-lg-0">{% translate "Sign-Up"  %}<i class="mdi mdi-arrow-right fs-14 ms-1"></i></a>
+            
 
             {% endif %}
         </div>
