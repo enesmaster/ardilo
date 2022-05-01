@@ -173,21 +173,25 @@ def control_panel(request):
         print(request.POST.get("workshop_id"))
         workshop = Workshop.objects.get(id=request.POST.get("workshop_id"))
         workshop.usage_count += 1
+        print(workshop.current_resp)
         if workshop.current_resp == workshop.expected_resp:
             workshop.current_resp = workshop.def_resp
-            ctxx ={
+            workshop.save()
+            ctx ={
+                'success': True,
                 'response':workshop.current_resp,
                 'resp_btn':workshop.def_resp,
             }
         else:
             workshop.current_resp = workshop.expected_resp
-            ctxx = {
+            workshop.save()
+
+            ctx = {
+                'success': True,
                 'response':workshop.current_resp,
                 'resp_btn':workshop.expected_resp,
             }        
-        workshop.save()
-        ctx = {'success': True,}
-        return JsonResponse({**ctx, **ctxx})
+        return JsonResponse(ctx)
     return render(request, 'web/controls.html', {'workshops':workshops})
  
 def docs(request):

@@ -51,7 +51,7 @@
                         <i class='bx bx-dots-horizontal-rounded' id="dots"> <a target="_blank" href="{{workshop.url}}">link</a></i>
                         <h5 id="wifi_h5" class="border-bottom text-center fs-22 pb-2 mb-4 noselect">{{workshop.actname}}</h5>
                         <p id="response" class="response">{{workshop.current_resp}}</p>
-                        <a href="#" id="wake" data-workshop-id="{{ workshop.id }}" class="btn btn-md btn-gradient-success mt-0 mb-4 mb-lg-0">{{workshop.expected_resp|title}}<i class="mdi mdi-arrow-right fs-14 ms-1"></i></a>
+                        <a id="wake" data-workshop-id="{{ workshop.id }}" class="btn btn-md btn-gradient-success mt-0 mb-4 mb-lg-0 wake">{{workshop.expected_resp|title}}<i class="mdi mdi-arrow-right fs-14 ms-1"></i></a>
                     </div>
                 </div>
                 {% endfor %}
@@ -70,7 +70,7 @@
 
 {% block script %}
 <script>
-    $('#wake').click(function(){
+    $('.wake').click(function(){
         var workshop_id = $(this).attr('data-workshop-id');
             $.ajax({
                 type: "POST",workshop_id,
