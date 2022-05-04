@@ -43,7 +43,6 @@
             </div>
 
             {% if request.user.is_authenticated %}
-
             <div class="col-md-8 col-lg-5 offset-lg-1">
                 {% for workshop in workshops %}
                 <div class="card mb-3" id="card">
@@ -51,7 +50,7 @@
                         <i class='bx bx-dots-horizontal-rounded' id="dots"> <a target="_blank" href="{{workshop.url}}">link</a></i>
                         <h5 id="wifi_h5" class="border-bottom text-center fs-22 pb-2 mb-4 noselect">{{workshop.actname}}</h5>
                         <p id="response" class="response">{{workshop.current_resp}}</p>
-                        <a id="wake" data-workshop-id="{{ workshop.id }}" class="btn btn-md btn-gradient-success mt-0 mb-4 mb-lg-0 wake">{{workshop.expected_resp|title}}<i class="mdi mdi-arrow-right fs-14 ms-1"></i></a>
+                        <a data-workshop-id="{{ workshop.id }}" data-workshop-def="{{ workshop.def_resp }}" data-workshop-exp="{{ workshop.expected_resp }}" class="btn btn-md btn-gradient-success mt-0 mb-4 mb-lg-0 wake">{{workshop.expected_resp|title}}<i class="mdi mdi-arrow-right fs-14 ms-1"></i></a>
                     </div>
                 </div>
                 {% endfor %}
@@ -67,24 +66,33 @@
 
 <input id="this_username" type="hidden" value=""></input>
 {% endblock content %}
-
 {% block script %}
 <script>
     $('.wake').click(function(){
         var workshop_id = $(this).attr('data-workshop-id');
+        var workshop_def = $(this).attr('data-workshop-def');
+        var workshop_exp = $(this).attr('data-workshop-exp');
             $.ajax({
                 type: "POST",workshop_id,
                 url: "{% url 'control_panel' %}",
                 headers: {
                     'X-CSRFToken': '{{ csrf_token }}'
                 },
-                data: {'operation':'wake', 'workshop_id':workshop_id },
+                data: {
+                    'operation':'wake',
+                    'workshop_id':workshop_id,
+                    'workshop_def':workshop_def,
+                    'workshop_exp':workshop_exp},
                 dataType: "json",
                 success: function(response) {
                      if(response.success == true){
-                        $(this).siblings('#response').text(response.response);
-                        $(this).text(response.resp_btn);
-                       console.log(response)
+                        a = $("[data-workshop-id='"+workshop_id+"']");
+                        $(a).siblings('#response').text(response.response);
+                        $(a).text(response.resp_btn);
+                        $(a).text(function(i) {
+                            return a.text().substr(0,1).toUpperCase() + a.text().substr(1);
+                        });
+                        
                      }
                      else if(response.status==false){
                        console.log(response.status)
@@ -104,213 +112,4 @@
         });
 </script>
 
-<script>
-    $('#wifi_btn').click(function(){
-        $('#wifi_card').show();
-        $('#workshop_card').hide();
-        $('#main_title').html('{% translate "Save your wifi to use on your IoT device." %}')
-    });
-    //WORKSHOP
-    $('#submit_wksp').click(function(){
-        var actname = $('#act_name').val()
-        var def_resp = $('#def_resp').val()
-        var expected_resp = $('#expected_resp').val()
-        if (actname == '') {
-            $('#wrsp_alert_p').show()
-            $('#wrsp_alert_p').html('{% translate "Fill all the fields" %}')
-            setTimeout(function(){
-                $('#wrsp_alert_p').hide()
-            },3000)
-        }
-        if (expected_resp.length < 1 && def_resp.length < 1) {
-            $('#wrsp_alert_p').show()
-            $('#wrsp_alert_p').html('{% translate "Must be at least 1 character" %}')
-            setTimeout(function(){
-                $('#wrsp_alert_p').hide()
-            },3000)
-        }
-        wif = $('#sel_wifies option').filter(':selected').val()
-        
-        duration = $('#duration_input').val()
-        if ($('#myCheck').prop('checked') == true) {
-            duration = 0
-            duration_status=true
-
-        }else{
-            if ($.isNumeric(duration) == false) {
-                $('#wrsp_alert_p').show()
-                $('#wrsp_alert_p').html('{% translate "Duration must be a number" %}')
-                duration = $('#duration_input').val()
-                setTimeout(function(){
-                    $('#wrsp_alert_p').hide()
-                },3000)
-                duration_status=false
-            } else {
-                duration_status=true
-            }
-        }
-        
-        if (actname.length > 0 &&  expected_resp.length > 0 && duration_status == true) {
-            $.ajax({
-                type: "POST",
-                url: "{% url 'config' %}",
-                headers: {
-                    'X-CSRFToken': '{{ csrf_token }}'
-                },
-                data: {
-                    'operation':'workshop',
-                    'actname':actname,
-                    'def_resp':def_resp,
-                    'expected_resp':expected_resp,
-                    'is_fixed':$('#myCheck').prop('checked'),
-                    'duration':duration,
-                    'wifi':wif,
-                    'user':'{{ request.user.username }}',
-                },
-                dataType: "json",
-                success: function(response) {
-                     if(response.success == true){
-                        setTimeout(function(){
-                            $('#main_title').html('{% translate "Configs Saved." %}')
-                            $('.bar_top').addClass('bar_top_done').removeClass('bar_top')
-                            $('#btns').css('transition','all 0.5s ease-in-out')
-                            
-                            $('.snippet').show()
-                            $('.snippet').css('opacity','0')
-                            location.href = "{% url 'config' %}" + '#home';
-                            $('#workshop_card').hide();
-                            $('#main').removeClass('col-lg-6').addClass('col-lg-4')
-                            $('#btns').hide()
-                            $('.snippet').css('transition','all 1s ease-in-out')
-                            $('.snippet').css('margin-bottom','-300px')
-                            setTimeout(function(){
-                                $('.snippet').css('margin-bottom','10px')
-                                $('.snippet').css('opacity','1')
-                                $('#learn_btn').css('font-size','22px')
-                                
-                            },1000)
-                            setTimeout(function(){
-                                $('#learn_btn').css('font-size','17px')
-                                
-                            },1500)
-                            
-                            setTimeout(function(){
-                                $('#learn_btn').css('transform','rotate(360deg)')
-                                
-                            },2000)
-                            setTimeout(function(){
-                                $('#learn_btn').css('font-size','22px')
-                                
-                            },2400)
-                            
-                            setTimeout(function(){
-                                $('#learn_btn').css('font-size','18px')
-                                
-                            },2900)
-                          
-                        },0)
-                        $('#code-wifi').html(response.wifi)
-                        $('#code-secret-key').html(response.secret_key)
-                        $('#code-action-name').html(response.actname)
-                        $('#code-url').html('<a href="' + response.url+ '"target="_blank">' + response.url + "</a>")
-                        // copy
-                        $('#copy-wifi').html(response.wifi)
-                        $('#copy-secret-key').html(response.secret_key)
-                        $('#copy-action-name').html(response.actname)
-                        $('#copy-url').html(response.url)
-                        
-                        setTimeout(function(){
-                            $('#wifi_card').hide();
-                            $('#workshop_card').hide();
-                            $('#main_p').html('{% translate "You can use this variables on your device." %}')
-
-                        },1500)
-                     }
-                     else if(response.status==false){
-                       console.log(response.status)
-                     }
-                     else if(response.status=='duplicate'){
-                        $('#wrsp_alert_p').show()
-                        $('#wrsp_alert_p').html(response.msg)
-                        setTimeout(function(){
-                            $('#wrsp_alert_p').hide()
-                        },12000)
-                    }
-                 },
-                 error: function(rs, e) {
-                  console.log('error')
-                 }
-           }); 
-        } 
-    });
-    // DOWNLOAD WORKSHOP INFO as JSON 
-    $('#download_wksp').click(function(){
-        $.ajax({
-                type: "POST",
-                url: "{% url 'config' %}",
-                headers: {
-                    'X-CSRFToken': '{{ csrf_token }}'
-                },
-                data: {
-                    'operation':'workshop_json',
-                    'user':'{{ request.user.username }}',
-                },
-                dataType: "json",
-                success: function(response) {
-                     if(response.success == true){
-                        let j = document.createElement("a")
-                        j.download = "workshop_cretidts_"+Date.now()+".json"
-                        j.href = URL.createObjectURL(new Blob([JSON.stringify(response.json, null, 2)]))
-                        j.click()
-                    }
-                     
-                     else if(response.status==false){
-                        console.log(response.status)
-                        }
-                    },
-                    error: function(rs, e) {
-                     console.log('error')
-                    }
-              });
-    })
-                
-</script>
-<script>
-        //GET WIFI LIST
-
-    $('#workshop_btn').click(function(){
-        $('#wifi_card').hide();
-        $('#workshop_card').show();
-        $('#main_title').html('{% translate "Configure Workshop." %}')
-
-        $.ajax({
-            type: "POST",
-            url: "{% url 'config' %}",
-            headers: {
-                'X-CSRFToken': '{{ csrf_token }}'
-            },
-            data: {
-                'operation': 'get_wifi',
-            },
-            dataType: "json",
-            success: function(response) {
-                 if(response.success == true){
-                    $("#sel_wifies").children().remove();
-                    $.each(response.user_wifies, function (i, wifi) {
-                        $("#sel_wifies").append(
-                            $('<option></option>').attr("value", wifi[0][0]).text(wifi[0][1]))
-                    });
-                    $('#sel_wifies option').last().attr('selected', true);
-                    $('#sel_wifies').parent().show()
-                 }
-                 else if(response.success==false){
-                   console.log(response.status)
-                 }
-             },
-             error: function(rs, e) {
-              console.log('error')
-             }
-         });
-    });
-</script>
 {% endblock script %}
