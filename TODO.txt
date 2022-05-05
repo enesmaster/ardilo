@@ -9,3 +9,5 @@ Add these languages: Italian, Turkish, Spanish, English
 Add a blog page to keep page live(Users already using this app for remote control switches so why not did them an author?)
 
 Add Offline-Work feature so users will not see "no internet connection" error until connect to an internet again
+
+Create a Dashboard on admin panel to see graphics of data for sessions, visits durations etc.
