@@ -7,3 +7,5 @@ All js scripts goes to js folder
 Add these languages: Italian, Turkish, Spanish, English
 
 Add a blog page to keep page live(Users already using this app for remote control switches so why not did them an author?)
+
+Add Offline-Work feature so users will not see "no internet connection" error until connect to an internet again
