@@ -15,3 +15,9 @@ Create a Dashboard on admin panel to see graphics of data for sessions, visits d
 Add optimization for Seach Engine "There is no point in creating something which is not visible to anyone"
 
 (add a Chatbot IF you have done your work) 
+
+Add last_used field to workshop model so users can see at which time they used the workshop
+
+Add Modal  alert for subscription
+
+Add Dark Theme and remember the choice
