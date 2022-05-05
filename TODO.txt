@@ -1,4 +1,6 @@
-Add user movement track to whole app by date, time, page name, click, duration of visit
+Add user movement track to whole app by date, time, page name, click, duration of visit, type of browser
+
+add device type:  is_ios, is_android is_mac is_windows
  
 Add push notifications
 
@@ -21,3 +23,4 @@ Add last_used field to workshop model so users can see at which time they used t
 Add Modal  alert for subscription
 
 Add Dark Theme and remember the choice
+
