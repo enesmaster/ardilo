@@ -13,3 +13,5 @@ Add Offline-Work feature so users will not see "no internet connection" error un
 Create a Dashboard on admin panel to see graphics of data for sessions, visits durations etc.
 
 Add optimization for Seach Engine "There is no point in creating something which is not visible to anyone"
+
+(add a Chatbot IF you have done your work) 
