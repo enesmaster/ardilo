@@ -1,26 +1,27 @@
-Add user movement track to whole app by date, time, page name, click, duration of visit, type of browser
+- Add user movement track to whole app by date, time, page name, click, duration of visit, type of browser
 
-add device type:  is_ios, is_android is_mac is_windows
+- Add device type:  is_ios, is_android is_mac is_windows
  
-Add push notifications
+- Add push notifications
 
-All js scripts goes to js folder
+- All js scripts goes to js folder
 
-Add these languages: Italian, Turkish, Spanish, English
+- Add these languages: Italian, Turkish, Spanish, English
 
-Add a blog page to keep page live(Users already using this app for remote control switches so why not did them an author?)
+- Add a blog page to keep page live(Users already using this app for remote control switches so why not did them an author?)
 
-Add Offline-Work feature so users will not see "no internet connection" error until connect to an internet again
+- Add Offline-Work feature so users will not see "no internet connection" error until connect to an internet again.
 
-Create a Dashboard on admin panel to see graphics of data for sessions, visits durations etc.
+- Create a Dashboard on admin panel to see graphics of data for sessions, visits durations etc.
 
-Add optimization for Seach Engine "There is no point in creating something which is not visible to anyone"
+- Add optimization for Seach Engine "There is no point in creating something which is not visible to anyone".
 
-(add a Chatbot IF you have done your work) 
+- Add last_used field to workshop model so users can see at which time they used the workshop.
 
-Add last_used field to workshop model so users can see at which time they used the workshop
+- Add Modal  alert for subscription.
 
-Add Modal  alert for subscription
+- Add Dark Theme and remember the choice.
 
-Add Dark Theme and remember the choice
+- (add a Chatbot IF you have done your work).
 
+Note: Turn minus to plus if you done the mission
