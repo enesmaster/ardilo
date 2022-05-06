@@ -22,6 +22,9 @@
 
 - Add Dark Theme and remember the choice.
 
-- (add a Chatbot IF you have done your work).
+- Remove years if there is a obligation for years old( like 2022 as a born year)
+
+- (add a Chatbot IF you have done your work)
+
 
 Note: Turn minus to plus if you done the mission
