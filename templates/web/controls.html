@@ -20,6 +20,7 @@
         text-shadow: 0px 6px 6px #13ba99;
         font-weight: bold;
         font-family: 'Cerebri Sans', sans-serif;
+        background-color: aquamarine;
       }
       #dots {
         font-size: 25px;
@@ -28,6 +29,32 @@
         top: 10px;
         cursor:pointer;
       }
+      .detail{
+        position: absolute;
+        width: 119px;
+        height: 63px;
+        background: white;
+        box-shadow: 1px 1px 4px 2px #1c7d63;
+        text-align: center;
+        top: 36px;
+        z-index: 1;
+        left: 248px;
+        border-radius: 5px;
+        font-size: 18px;
+        font-weight: bold;
+        font-family: 'Cerebri Sans', sans-serif;
+        display: grid;
+        display:none;
+        grid-template-columns: 2fr ;
+        }
+        .detail a:nth-child(1):hover{
+          background: #1c7d63;
+          color: white;
+        }
+        .detail a:nth-child(2):hover{
+          background: red;
+          color: white !important;
+        }
 </style>
 {% endblock css %}
 {% block content %}
@@ -47,7 +74,11 @@
                 {% for workshop in workshops %}
                 <div class="card mb-3" id="card">
                     <div class="card-body p-4 ">
-                        <i class='bx bx-dots-horizontal-rounded' id="dots"> <a target="_blank" href="{{workshop.url}}">link</a></i>
+                        <i class='bx bx-dots-horizontal-rounded dots' id="dots" data-dot="{{forloop.counter}}"></i>
+                            <div class="detail" id="detail" data-card="{{forloop.counter}}">
+                                <a target="_blank" href="{{workshop.url}}">Link</a>
+                                <a id="delete-request">Delete</a>
+                            </div>
                         <h5 id="wifi_h5" class="border-bottom text-center fs-22 pb-2 mb-4 noselect">{{workshop.actname}}</h5>
                         <p id="response" class="response">{{workshop.current_resp}}</p>
                         <a data-workshop-id="{{ workshop.id }}" data-workshop-def="{{ workshop.def_resp }}" data-workshop-exp="{{ workshop.expected_resp }}" class="btn btn-md btn-gradient-success mt-0 mb-4 mb-lg-0 wake">{{workshop.expected_resp|title}}<i class="mdi mdi-arrow-right fs-14 ms-1"></i></a>
@@ -63,11 +94,28 @@
     </div>
  </section>
  <!-- home-agency end -->
-
-<input id="this_username" type="hidden" value=""></input>
 {% endblock content %}
 {% block script %}
 <script>
+    $('.dots').click(function(){
+        dot_id = $(this).data('dot');
+        console.log(dot_id);
+        card = $('.detail[data-card="'+dot_id+'"]');
+        if (card.css('display') == 'none'){
+            card.css('display','grid');
+        }else{
+            card.css('display','none');
+        }
+    });
+    $('.detail').mouseover(function(){
+        $(this).css('display','grid');
+    }).mouseout(function(){
+        $(this).css('display','none');
+    });
+
+
+   
+
     $('.wake').click(function(){
         var workshop_id = $(this).attr('data-workshop-id');
         var workshop_def = $(this).attr('data-workshop-def');

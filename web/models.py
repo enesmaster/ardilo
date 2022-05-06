@@ -42,9 +42,6 @@ class Workshop(models.Model):
     def __str__(self):
         return self.user.username + " >---------> " + self.actname
 
-    def save(self, *args, **kwargs):
-        self.current_resp = self.def_resp
-        super(Workshop, self).save(*args, **kwargs)
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")

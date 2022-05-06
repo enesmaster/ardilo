@@ -13,7 +13,7 @@ from django.contrib.auth.models import User
 from django.http import JsonResponse
 from django.utils.crypto import get_random_string
 chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-
+import time 
 #! TODO add api views to api
 def home(request):
     register_form = RegisterForm()
@@ -169,28 +169,30 @@ def workshop(request, secret_key):
 def control_panel(request):
     workshops = Workshop.objects.filter(user=request.user).order_by('-usage_count')
     if request.method == 'POST' and request.POST.get("operation") == "wake":
-        print('*'*50)
-        print(request.POST.get("workshop_id"))
-        workshop = Workshop.objects.get(id=request.POST.get("workshop_id"))
-        workshop.usage_count += 1
-        print(workshop.current_resp)
-        if workshop.current_resp == workshop.expected_resp:
-            workshop.current_resp = workshop.def_resp
-            workshop.save()
-            ctx ={
-                'success': True,
-                'response':workshop.current_resp,
-                'resp_btn':workshop.def_resp,
-            }
-        else:
-            workshop.current_resp = workshop.expected_resp
-            workshop.save()
+        a = Workshop.objects.get(id=request.POST.get("workshop_id"))
+        is_duration = False
+        if a.current_resp == a.def_resp:
+            a.current_resp=request.POST.get("workshop_exp")
+            resp_btn = a.def_resp
+            if a.is_fixed == False:
+                is_duration = True
+                time.sleep(a.duration)
+                a.current_resp='ff'
 
-            ctx = {
-                'success': True,
-                'response':workshop.current_resp,
-                'resp_btn':workshop.expected_resp,
-            }        
+        else:
+            a.current_resp=request.POST.get("workshop_def")
+            resp_btn = a.expected_resp
+
+        a.usage_count += 1
+        a.save()
+        print(a.current_resp)
+        ctx={
+            'success': True,
+            'duration': a.duration,
+            'is_duration': is_duration,
+            'response': a.current_resp,
+            'resp_btn': resp_btn,
+        }
         return JsonResponse(ctx)
     return render(request, 'web/controls.html', {'workshops':workshops})
  
