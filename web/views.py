@@ -196,6 +196,15 @@ def control_panel(request):
             'resp_btn': resp_btn,
         }
         return JsonResponse(ctx)
+    if request.method == 'POST' and request.POST.get("operation") == "delete-workshop":
+        a = Workshop.objects.get(id=request.POST.get("workshop_id"))
+        a.delete()
+        ctx={
+            'success': True,
+            'msg': _('Deleting...'),
+            'workshop_id': request.POST.get("workshop_id"),
+        }
+        return JsonResponse(ctx)
     return render(request, 'web/controls.html', {'workshops':workshops})
  
 def docs(request):

@@ -66,7 +66,7 @@
         .mmx {
             position: absolute;
             top: 30%;
-            left: 40%;
+            left: 30%;
             font-size: 22px;
             font-weight: bold;
           }
@@ -99,7 +99,26 @@
                         <p id="response" class="response">{{workshop.current_resp}}</p>
                         <a data-workshop-id="{{ workshop.id }}" data-workshop-def="{{ workshop.def_resp }}" data-workshop-exp="{{ workshop.expected_resp }}" class="btn btn-md btn-gradient-success mt-0 mb-4 mb-lg-0 wake">{{workshop.expected_resp|title}}<i class="mdi mdi-arrow-right fs-14 ms-1"></i></a>
                     </div>
-                    <div class="mmx" style="text-align:center;">   
+                    <div class="mmx" style="text-align:center;display:none;">
+                       {% translate "Delete?" %}<br>
+                       <a style="
+                           cursor: pointer;
+                           background: #362d64;
+                           border-radius: 20%;
+                           padding-left: 5px;
+                           padding-right: 5px;
+                           color: white;
+                           font-size: 18px;
+                       " class="delete-workshop"><i class='bx bx-trash'></i>  {% translate "Yes" %}</a>
+                        &nbsp;&nbsp; | &nbsp;&nbsp;
+                        <a style="
+                            cursor: pointer;
+                            background: #362d64;
+                            border-radius: 20%;
+                            padding-left: 5px;
+                            padding-right: 5px;
+                            color: white;
+                            font-size: 18px;" class="delete-giveup"><i class='bx bx-redo'></i> {% translate "No" %}</a>  
                     </div>
                 </div>
                 {% endfor %}
@@ -121,7 +140,7 @@
         var workshop_def = $(this).attr('data-workshop-def');
         var workshop_exp = $(this).attr('data-workshop-exp');
             $.ajax({
-                type: "POST",workshop_id,
+                type: "POST",
                 url: "{% url 'control_panel' %}",
                 headers: {
                     'X-CSRFToken': '{{ csrf_token }}'
@@ -171,23 +190,24 @@
             card.find('p[id]').css('filter','blur(2px)').css('pointer-events','none');
             card.find('i[id]').css('display','none');
             card.find('div[id]').css('display','none');
-            card.find('.mmx').html('{% translate "Delete?" %} <br> <a style="cursor:pointer" class="delete-workshop">{% translate "Yes" %}</a> &nbsp; &nbsp; &nbsp;  <a style="cursor:pointer" class="delete-giveup">{% translate "No" %}</a>');
-            {% comment %} card.find('.mmx').html('{% translate "Deleting..." %}'); {% endcomment %}
+            card.find('.mmx').css('display','block');
         });
-        
+
         $('.delete-giveup').click(function(){
-            console.log('adsas');
-            var workshop_card_id = $(this).parent().parent().attr('data-card')
+            var _id = $(this).parent().parent().attr('data-card')
             card = $('.card').filter('[data-card="'+_id+'"]');
-            card.find('h5').css('filter','blur(0.0rem)').css('pointer-events','none');
-    
+            card.find('h5').css('filter','blur(0.0rem)').css('pointer-events','auto');
+            card.find('a[data-workshop-def]').css('filter','blur(0px)').css('pointer-events','auto');
+            card.find('p[id]').css('filter','blur(0px)').css('pointer-events','auto');
+            card.find('i[id]').css('display','block');
+            card.find('div[id]').css('display','block');
+            card.find('.mmx').css('display','none');
         });
-        $('.delete-workshop').click(function(){
-            console.log('workshop_card_id');
-            var workshop_card_id = $(this).parent().parent().attr('data-card');
+        $('.delete-workshop').click(function(){            
+            //var workshop_card_id = $(this).parent().parent().attr('data-card');
             var workshop_id = $(this).parent().parent().attr('data-workshop-id-card');
                 $.ajax({
-                    type: "POST",workshop_id,
+                    type: "POST",
                     url: "{% url 'control_panel' %}",
                     headers: {
                         'X-CSRFToken': '{{ csrf_token }}'
@@ -197,8 +217,11 @@
                         'workshop_id':workshop_id,
                         dataType: "json",
                         success: function(response) {
-                         if(response.success == true){
+                            if(response.success == true){
                            console.log(response.status)
+                           console.log('deleted')
+                           card = $('.card').filter('[data-card="'+response.workshop_id+'"]');
+                           card.find('.mmx').html(response.msg);
                          }
                          else if(response.status==false){
                            console.log(response.status)
