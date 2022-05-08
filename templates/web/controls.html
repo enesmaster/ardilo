@@ -115,70 +115,6 @@
 {% endblock content %}
 {% block script %}
 <script>
-    $('.delete-request').click(function(){
-        _id = $(this).parent().parent().find('#dots').attr('data-dot');
-        card = $('.card').filter('[data-card="'+_id+'"]');
-        card.find('h5').css('filter','blur(0.2rem)').css('pointer-events','none');
-        card.find('a[data-workshop-def]').css('filter','blur(2px)').css('pointer-events','none');
-        card.find('p[id]').css('filter','blur(2px)').css('pointer-events','none');
-        card.find('i[id]').css('display','none');
-        card.find('div[id]').css('display','none');
-        card.find('.mmx').html('{% translate "Delete?" %} <br> <a style="cursor:pointer" class="delete-workshop">{% translate "Yes" %}</a> &nbsp; &nbsp; &nbsp;  <a style="cursor:pointer" class="delete-giveup">{% translate "No" %}</a>');
-        {% comment %} card.find('.mmx').html('{% translate "Deleting..." %}'); {% endcomment %}
-    });
-    $('.delete-giveup').click(function(){
-        console.log('adsas');
-        var workshop_card_id = $(this).parent().parent().attr('data-card')
-        card = $('.card').filter('[data-card="'+_id+'"]');
-        card.find('h5').css('filter','blur(0.0rem)').css('pointer-events','none');
-
-    });
-    $('.delete-workshop').click(function(){
-        console.log('workshop_card_id');
-        var workshop_card_id = $(this).parent().parent().attr('data-card');
-        var workshop_id = $(this).parent().parent().attr('data-workshop-id-card');
-            $.ajax({
-                type: "POST",workshop_id,
-                url: "{% url 'control_panel' %}",
-                headers: {
-                    'X-CSRFToken': '{{ csrf_token }}'
-                },
-                data: {
-                    'operation':'delete-workshop',
-                    'workshop_id':workshop_id,
-                    dataType: "json",
-                    success: function(response) {
-                     if(response.success == true){
-                       console.log(response.status)
-                     }
-                     else if(response.status==false){
-                       console.log(response.status)
-                     }
-                     else if(response.status=='duplicate'){
-                        console.log(response.status)
-                    }
-                 },
-                 error: function(rs, e) {
-                  console.log('error')
-                 }
-                }
-           }); 
-        });
-    $('.dots').click(function(){
-        dot_id = $(this).data('dot');
-        console.log(dot_id);
-        card = $('.detail[data-card="'+dot_id+'"]');
-        if (card.css('display') == 'none'){
-            card.css('display','grid');
-        }else{
-            card.css('display','none');
-        }
-    });
-    $('.detail').mouseover(function(){
-        $(this).css('display','grid');
-    }).mouseout(function(){
-        $(this).css('display','none');
-    });
     
     $('.wake').click(function(){
         var workshop_id = $(this).attr('data-workshop-id');
@@ -200,6 +136,10 @@
                      if(response.success == true){
                         a = $("[data-workshop-id='"+workshop_id+"']");
                         $(a).siblings('#response').text(response.response);
+                        $(a).siblings('#response').css('padding','0.9px');
+                        setTimeout(function(){
+                            $(a).siblings('#response').css('padding','0');
+                        },120);
                         $(a).text(response.resp_btn);
                         $(a).text(function(i) {
                             return a.text().substr(0,1).toUpperCase() + a.text().substr(1);
@@ -223,6 +163,72 @@
                  }
            }); 
         });
+        $('.delete-request').click(function(){
+            _id = $(this).parent().parent().find('#dots').attr('data-dot');
+            card = $('.card').filter('[data-card="'+_id+'"]');
+            card.find('h5').css('filter','blur(0.2rem)').css('pointer-events','none');
+            card.find('a[data-workshop-def]').css('filter','blur(2px)').css('pointer-events','none');
+            card.find('p[id]').css('filter','blur(2px)').css('pointer-events','none');
+            card.find('i[id]').css('display','none');
+            card.find('div[id]').css('display','none');
+            card.find('.mmx').html('{% translate "Delete?" %} <br> <a style="cursor:pointer" class="delete-workshop">{% translate "Yes" %}</a> &nbsp; &nbsp; &nbsp;  <a style="cursor:pointer" class="delete-giveup">{% translate "No" %}</a>');
+            {% comment %} card.find('.mmx').html('{% translate "Deleting..." %}'); {% endcomment %}
+        });
+        
+        $('.delete-giveup').click(function(){
+            console.log('adsas');
+            var workshop_card_id = $(this).parent().parent().attr('data-card')
+            card = $('.card').filter('[data-card="'+_id+'"]');
+            card.find('h5').css('filter','blur(0.0rem)').css('pointer-events','none');
+    
+        });
+        $('.delete-workshop').click(function(){
+            console.log('workshop_card_id');
+            var workshop_card_id = $(this).parent().parent().attr('data-card');
+            var workshop_id = $(this).parent().parent().attr('data-workshop-id-card');
+                $.ajax({
+                    type: "POST",workshop_id,
+                    url: "{% url 'control_panel' %}",
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    data: {
+                        'operation':'delete-workshop',
+                        'workshop_id':workshop_id,
+                        dataType: "json",
+                        success: function(response) {
+                         if(response.success == true){
+                           console.log(response.status)
+                         }
+                         else if(response.status==false){
+                           console.log(response.status)
+                         }
+                         else if(response.status=='duplicate'){
+                            console.log(response.status)
+                        }
+                     },
+                     error: function(rs, e) {
+                      console.log('error')
+                     }
+                    }
+               }); 
+            });
+        $('.dots').click(function(){
+            dot_id = $(this).data('dot');
+            console.log(dot_id);
+            card = $('.detail[data-card="'+dot_id+'"]');
+            if (card.css('display') == 'none'){
+                card.css('display','grid');
+            }else{
+                card.css('display','none');
+            }
+        });
+        $('.detail').mouseover(function(){
+            $(this).css('display','grid');
+        }).mouseout(function(){
+            $(this).css('display','none');
+        });
+        
 </script>
 
 {% endblock script %}
