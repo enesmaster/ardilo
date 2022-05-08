@@ -119,6 +119,7 @@ def configrations(request):
         Workshop.objects.create(
             actname=actname,
             def_resp=def_resp,
+            current_resp=def_resp,
             expected_resp=expected_resp,
             is_fixed=is_fixed,
             duration=duration,
@@ -157,7 +158,7 @@ def configrations(request):
         return JsonResponse(ctx)
     return render(request, 'web/configrations.html')
 
-    
+@login_required
 def workshop(request, secret_key):
     workshop = Workshop.objects.get(secret_key=secret_key)
     json = {
@@ -166,6 +167,7 @@ def workshop(request, secret_key):
     }
     return JsonResponse(json)
 
+@login_required
 def control_panel(request):
     workshops = Workshop.objects.filter(user=request.user).order_by('-usage_count')
     if request.method == 'POST' and request.POST.get("operation") == "wake":

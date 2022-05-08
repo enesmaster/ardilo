@@ -20,7 +20,7 @@
         text-shadow: 0px 6px 6px #13ba99;
         font-weight: bold;
         font-family: 'Cerebri Sans', sans-serif;
-        background-color: aquamarine;
+        background-color: #c8f7e7;
       }
       #dots {
         font-size: 25px;
@@ -32,7 +32,7 @@
       .detail{
         position: absolute;
         width: 119px;
-        height: 63px;
+        height: 83px;
         background: white;
         box-shadow: 1px 1px 4px 2px #1c7d63;
         text-align: center;
@@ -47,14 +47,29 @@
         display:none;
         grid-template-columns: 2fr ;
         }
+        .detail a {
+          text-decoration: none;
+          cursor: pointer;
+        }
         .detail a:nth-child(1):hover{
           background: #1c7d63;
           color: white;
         }
-        .detail a:nth-child(2):hover{
+        .detail a:nth-child(3):hover{
           background: red;
           color: white !important;
         }
+        .detail a:nth-child(2):hover{
+            background: #ac96c8;
+            color: black !important;
+        }
+        .mmx {
+            position: absolute;
+            top: 30%;
+            left: 40%;
+            font-size: 22px;
+            font-weight: bold;
+          }
 </style>
 {% endblock css %}
 {% block content %}
@@ -72,16 +87,19 @@
             {% if request.user.is_authenticated %}
             <div class="col-md-8 col-lg-5 offset-lg-1">
                 {% for workshop in workshops %}
-                <div class="card mb-3" id="card">
+                <div class="card mb-3" id="card" data-card="{{forloop.counter}}" data-workshop-id-card="{{ workshop.id }}">
                     <div class="card-body p-4 ">
                         <i class='bx bx-dots-horizontal-rounded dots' id="dots" data-dot="{{forloop.counter}}"></i>
                             <div class="detail" id="detail" data-card="{{forloop.counter}}">
-                                <a target="_blank" href="{{workshop.url}}">Link</a>
-                                <a id="delete-request">Delete</a>
+                                <a target="_blank" href="{{workshop.url}}">{% translate "Link"  %}</a>
+                                <a id="edit-workshop">{% translate "Edit" %}</a>
+                                <a class="delete-request">{% translate "Delete"  %}</a>
                             </div>
                         <h5 id="wifi_h5" class="border-bottom text-center fs-22 pb-2 mb-4 noselect">{{workshop.actname}}</h5>
                         <p id="response" class="response">{{workshop.current_resp}}</p>
                         <a data-workshop-id="{{ workshop.id }}" data-workshop-def="{{ workshop.def_resp }}" data-workshop-exp="{{ workshop.expected_resp }}" class="btn btn-md btn-gradient-success mt-0 mb-4 mb-lg-0 wake">{{workshop.expected_resp|title}}<i class="mdi mdi-arrow-right fs-14 ms-1"></i></a>
+                    </div>
+                    <div class="mmx" style="text-align:center;">   
                     </div>
                 </div>
                 {% endfor %}
@@ -97,6 +115,55 @@
 {% endblock content %}
 {% block script %}
 <script>
+    $('.delete-request').click(function(){
+        _id = $(this).parent().parent().find('#dots').attr('data-dot');
+        card = $('.card').filter('[data-card="'+_id+'"]');
+        card.find('h5').css('filter','blur(0.2rem)').css('pointer-events','none');
+        card.find('a[data-workshop-def]').css('filter','blur(2px)').css('pointer-events','none');
+        card.find('p[id]').css('filter','blur(2px)').css('pointer-events','none');
+        card.find('i[id]').css('display','none');
+        card.find('div[id]').css('display','none');
+        card.find('.mmx').html('{% translate "Delete?" %} <br> <a style="cursor:pointer" class="delete-workshop">{% translate "Yes" %}</a> &nbsp; &nbsp; &nbsp;  <a style="cursor:pointer" class="delete-giveup">{% translate "No" %}</a>');
+        {% comment %} card.find('.mmx').html('{% translate "Deleting..." %}'); {% endcomment %}
+    });
+    $('.delete-giveup').click(function(){
+        console.log('adsas');
+        var workshop_card_id = $(this).parent().parent().attr('data-card')
+        card = $('.card').filter('[data-card="'+_id+'"]');
+        card.find('h5').css('filter','blur(0.0rem)').css('pointer-events','none');
+
+    });
+    $('.delete-workshop').click(function(){
+        console.log('workshop_card_id');
+        var workshop_card_id = $(this).parent().parent().attr('data-card');
+        var workshop_id = $(this).parent().parent().attr('data-workshop-id-card');
+            $.ajax({
+                type: "POST",workshop_id,
+                url: "{% url 'control_panel' %}",
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                data: {
+                    'operation':'delete-workshop',
+                    'workshop_id':workshop_id,
+                    dataType: "json",
+                    success: function(response) {
+                     if(response.success == true){
+                       console.log(response.status)
+                     }
+                     else if(response.status==false){
+                       console.log(response.status)
+                     }
+                     else if(response.status=='duplicate'){
+                        console.log(response.status)
+                    }
+                 },
+                 error: function(rs, e) {
+                  console.log('error')
+                 }
+                }
+           }); 
+        });
     $('.dots').click(function(){
         dot_id = $(this).data('dot');
         console.log(dot_id);
@@ -112,10 +179,7 @@
     }).mouseout(function(){
         $(this).css('display','none');
     });
-
-
-   
-
+    
     $('.wake').click(function(){
         var workshop_id = $(this).attr('data-workshop-id');
         var workshop_def = $(this).attr('data-workshop-def');
@@ -140,7 +204,8 @@
                         $(a).text(function(i) {
                             return a.text().substr(0,1).toUpperCase() + a.text().substr(1);
                         });
-                        
+                        $(a).html($(a).html() + '<i class="mdi mdi-arrow-right fs-14 ms-1"></i>');
+
                      }
                      else if(response.status==false){
                        console.log(response.status)

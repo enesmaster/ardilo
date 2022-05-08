@@ -2,7 +2,7 @@ from django.db.models.signals import post_save, pre_save
 from django.conf import settings 
 from django.contrib.auth.signals import user_logged_in,user_logged_out
 from django.dispatch import receiver
-from . models import Profile, Wifie
+from . models import Profile, Workshop
 import datetime
 
 User = settings.AUTH_USER_MODEL
