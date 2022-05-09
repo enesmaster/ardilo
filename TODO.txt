@@ -1,4 +1,4 @@
-                                                         ---  R E M O D I O  ---
+                                                         --- <p style="background-color:blue"> R E M O D I O </p> ---
 
 - Add user movement track to whole app by date, time, page name, click, duration of visit, type of browser
 
