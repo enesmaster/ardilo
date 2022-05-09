@@ -134,7 +134,6 @@
 {% endblock content %}
 {% block script %}
 <script>
-    
     $('.wake').click(function(){
         var workshop_id = $(this).attr('data-workshop-id');
         var workshop_def = $(this).attr('data-workshop-def');
@@ -202,6 +201,7 @@
             card.find('i[id]').css('display','block');
             card.find('div[id]').css('display','block');
             card.find('.mmx').css('display','none');
+            card.find('#detail').css('display','none');
         });
         $('.delete-workshop').click(function(){            
             //var workshop_card_id = $(this).parent().parent().attr('data-card');
