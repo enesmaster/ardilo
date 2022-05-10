@@ -8,6 +8,7 @@
 
 - Add push notifications
 
+- Add 404 page with this text We admire your passion for discovery. You searched for a page that does not exist anywhere.
 - All js scripts goes to js folder
 
 - Add these languages: Italian, Turkish, Spanish, English
