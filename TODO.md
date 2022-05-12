@@ -9,7 +9,14 @@
 - Add push notifications
 
 - Add 404 page with this text We admire your passion for discovery. You searched for a page that does not exist anywhere.
+
+- Add shodow under detail modal for edit/delete in control page
+
+- After click to edit normal div displays none and editor div displays block
+
 - All js scripts goes to js folder
+ 
+- All css styles goes to css folder
 
 - Add these languages: Italian, Turkish, Spanish, English
 
@@ -29,7 +36,7 @@
 
 - Remove years if there is a obligation for years old( like 2022 as a born year)
 
--!!Add create woekshop title if user has no workshop
+- !!Add create woekshop title if user has no workshop
 
 - (add a Chatbot IF you have done your work)
 
