@@ -4,7 +4,7 @@ from django.contrib.auth.signals import user_logged_in,user_logged_out
 from django.dispatch import receiver
 from . models import Profile, Workshop
 import datetime
-
+import time
 User = settings.AUTH_USER_MODEL
 
 
@@ -33,5 +33,6 @@ def user_logged_out(sender,request,user,**kwargs):
 @receiver(post_save, sender=Workshop)
 def update_response(sender, instance, **kwargs):
     if instance.is_fixed == True:
+        time.sleep(instance.duration)
         instance.current_resp = instance.def_resp
         instance.save()
