@@ -11,6 +11,7 @@ class Wifie(models.Model):
     class Meta:
         verbose_name = _('Wifi')
         verbose_name_plural = _('Wifies')
+        
 class Workshop(models.Model):
     HARDWARE_TYPE = (
         ('1', 'NodeMCU'),

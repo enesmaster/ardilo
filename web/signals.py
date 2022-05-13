@@ -29,3 +29,9 @@ def user_logged(sender,request,user,**kwargs):
 def user_logged_out(sender,request,user,**kwargs):
     user.profile.is_online = False
     user.profile.save()
+
+@receiver(post_save, sender=Workshop)
+def update_response(sender, instance, **kwargs):
+    if instance.is_fixed == True:
+        instance.current_resp = instance.def_resp
+        instance.save()
