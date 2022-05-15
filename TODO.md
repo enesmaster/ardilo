@@ -1,4 +1,4 @@
-                                                          </> - - -   R E M O D I O   - - - </> 
+                                                   </> - - -   R E M O D I O   - - - </> 
 
 - Add user movement track to whole app by date, time, page name, click, duration of visit, type of browser
 
