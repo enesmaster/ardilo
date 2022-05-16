@@ -1,4 +1,5 @@
 from random import random
+import re
 from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
@@ -187,7 +188,6 @@ def control_panel(request):
 
         a.usage_count += 1
         a.save()
-        print(a.current_resp)
         ctx={
             'success': True,
             'duration': a.duration,
@@ -197,12 +197,27 @@ def control_panel(request):
         }
         return JsonResponse(ctx)
     if request.method == 'POST' and request.POST.get("operation") == "delete-workshop":
-        a = Workshop.objects.get(id=request.POST.get("workshop_id"))
-        a.delete()
+        try:
+            a = Workshop.objects.get(id=request.POST.get("workshop_id"))
+            a.delete()
+        except Workshop.DoesNotExist:
+            pass
         ctx={
             'success': True,
+            'status':'deleted',
             'msg': _('Deleting...'),
             'workshop_id': request.POST.get("workshop_id"),
+        }
+        return JsonResponse(ctx)
+    if request.method == 'POST' and request.POST.get("operation") == "update-workshop":
+        a = Workshop.objects.get(id=request.POST.get("workshop_id"))
+        #a.duration = request.POST.get("duration")
+        a.actname = request.POST.get("new_name")
+        a.save()
+        ctx={
+            'success': True,
+            'msg': _('Updating...'),
+            'new_name': request.POST.get("new_name"),
         }
         return JsonResponse(ctx)
     return render(request, 'web/controls.html', {'workshops':workshops})

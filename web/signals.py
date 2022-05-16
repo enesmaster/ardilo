@@ -2,11 +2,11 @@ from django.db.models.signals import post_save, pre_save
 from django.conf import settings 
 from django.contrib.auth.signals import user_logged_in,user_logged_out
 from django.dispatch import receiver
-from . models import Profile, Workshop
+from django.utils import timezone
+from . models import Profile, Workshop, Workshop_usage
 import datetime
 import time
 User = settings.AUTH_USER_MODEL
-
 
 @receiver(post_save, sender=User)
 def create_profile(sender, instance, created, **kwargs):
@@ -31,8 +31,16 @@ def user_logged_out(sender,request,user,**kwargs):
     user.profile.save()
 
 @receiver(post_save, sender=Workshop)
-def update_response(sender, instance, **kwargs):
-    if instance.is_fixed == True:
-        time.sleep(instance.duration)
-        instance.current_resp = instance.def_resp
-        instance.save()
+def record_action_time(sender, instance, **kwargs):
+    Workshop_usage.objects.create(workshop=instance,user=instance.user)
+
+@receiver(post_save, sender=Workshop)
+def last_used_act(sender, instance, **kwargs):
+    instance.last_used = timezone.now()
+
+# @receiver(post_save, sender=Workshop)
+# def update_response(sender, instance, **kwargs):
+#     if instance.is_fixed == True:
+#         time.sleep(instance.duration)
+#         instance.current_resp = instance.def_resp
+#         instance.save()

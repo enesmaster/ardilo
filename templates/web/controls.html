@@ -65,11 +65,38 @@
         }
         .mmx {
             position: absolute;
-            top: 30%;
-            left: 30%;
+            top: 20%;
+            left: 15%;
             font-size: 22px;
             font-weight: bold;
           }
+        .title_edit_input{
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid #dddedf;
+            position: absolute;
+            top: 16px;
+            left: 35%;
+            display: none;
+            width: 140px;
+        }
+        .title_edit_text{
+            display: none;
+            text-align: center;
+            font-size: 14px;
+            position: absolute;
+            top: 62px;
+            left: 35%;
+        }
+        .color-ball{
+            background: red;
+            position: absolute;
+            width: 35px;
+            height: 35px;
+            top: 128px;
+            border-radius: 40%;
+            margin-top: 2px;
+        }
 </style>
 {% endblock css %}
 {% block content %}
@@ -92,21 +119,24 @@
                         <i class='bx bx-dots-horizontal-rounded dots' id="dots" data-dot="{{forloop.counter}}"></i>
                             <div class="detail" id="detail" data-card="{{forloop.counter}}">
                                 <a target="_blank" href="{{workshop.url}}">{% translate "Link"  %}</a>
-                                <a id="edit-workshop">{% translate "Edit" %}</a>
+                                <a class="edit-workshop">{% translate "Edit" %}</a>
                                 <a class="delete-request">{% translate "Delete"  %}</a>
                             </div>
                         <h5 id="wifi_h5" class="border-bottom text-center fs-22 pb-2 mb-4 noselect">{{workshop.actname}}</h5>
+                        <input type="text" class="title_edit_input" id="edit_actname_input" value="" placeholder="{% translate 'name...' %}">
+                        <p id="title_edit_text" class="title_edit_text">{% translate "Press 'enter' to save" %}<br>{% translate "Press 'esc' to cancel" %}</p>
                         <p id="response" class="response">{{workshop.current_resp}}</p>
-                        <a data-workshop-id="{{ workshop.id }}" data-workshop-def="{{ workshop.def_resp }}" data-workshop-exp="{{ workshop.expected_resp }}" class="btn btn-md btn-gradient-success mt-0 mb-4 mb-lg-0 wake">{{workshop.expected_resp|title}}<i class="mdi mdi-arrow-right fs-14 ms-1"></i></a>
+                        <a data-workshop-id="{{ workshop.id }}" data-workshop-def="{{ workshop.def_resp }}" data-workshop-exp="{{ workshop.expected_resp }}" class="btn btn-md {{workshop.button_color}} mt-0 mb-4 mb-lg-0 wake">{{workshop.expected_resp|title}}<i class="mdi mdi-arrow-right fs-14 ms-1"></i></a>
+                        <span class="color-ball"><span>
                     </div>
                     <div class="mmx" style="text-align:center;display:none;">
-                       {% translate "Delete?" %}<br>
+                       <p>{% translate "Are you sure to Delete" %} "{{workshop.actname}}" ?<p>
                        <a style="
                            cursor: pointer;
                            background: #362d64;
                            border-radius: 20%;
                            padding-left: 5px;
-                           padding-right: 5px;
+                           padding-right: 10px;
                            color: white;
                            font-size: 18px;
                        " class="delete-workshop"><i class='bx bx-trash'></i>  {% translate "Yes" %}</a>
@@ -116,16 +146,19 @@
                             background: #362d64;
                             border-radius: 20%;
                             padding-left: 5px;
-                            padding-right: 5px;
+                            padding-right: 10px;
                             color: white;
                             font-size: 18px;" class="delete-giveup"><i class='bx bx-redo'></i> {% translate "No" %}</a>  
                     </div>
                 </div>
                 {% endfor %}
+                <div class="no-workshop" style="display:none;">
+                    <br>
+                    <h5 class="text-center">{% translate "You don't have any workshop yet" %}</h5>
+                    <a href="{% url 'config' %}" class="btn btn-lg btn-gradient-success mt-4 mb-4 mb-lg-0" style="margin-left: 30%;">{% translate "Create Now"  %}<i class="mdi mdi-arrow-right fs-14 ms-1"></i></a>
+                </div>
             {% else %}
             <a href="{% url 'signup' %}"  class="btn btn-lg btn-gradient-success mt-4 mb-4 mb-lg-0">{% translate "Sign-Up"  %}<i class="mdi mdi-arrow-right fs-14 ms-1"></i></a>
-            
-
             {% endif %}
         </div>
     </div>
@@ -191,9 +224,76 @@
             card.find('div[id]').css('display','none');
             card.find('.mmx').css('display','block');
         });
+        $('.edit-workshop').click(function(){
+            $(this).find('#detail').css('display','none');
+            _id = $(this).parent().parent().find('#dots').attr('data-dot');
+            card = $('.card').filter('[data-card="'+_id+'"]');
+            card.find('div[id]').css('display','none'); // close dots tab
+            card.find('#edit_actname_input').css('display','block');
+            card.find('#title_edit_text').css('display','block');
+            card.find('#edit_actname_input').val( card.find('h5').text());
+            card.find('#edit_actname_input').focus();
+            card.find('#edit_actname_input').focusout(function(){
+                card.find('#edit_actname_input').css('display','none');
+                card.find('#title_edit_text').css('display','none');
+            });
+            
+            document.onkeydown = function(evt) {
+                evt = evt || window.event;
+                var isEscape = false;
+                var isEnter = false;
+                if ("key" in evt) {
+                    isEscape = (evt.key === "Escape" || evt.key === "Esc");
+                } else {
+                    isEscape = (evt.keyCode === 27);
+                }
+                if (isEscape) {
+                    card.find('#edit_actname_input').trigger('focusout');
+                }
+                //  -- Enter key
+                if ("key" in evt) {
+                    isEnter = (evt.key === "Enter" || evt.key === "Enter");
+                } else {
+                    isEnter = (evt.keyCode === 13);
+                }
+                if (isEnter) {
+                    $.ajax({
+                        type: "POST",
+                        url: "{% url 'control_panel' %}",
+                        headers: {
+                            'X-CSRFToken': '{{ csrf_token }}'
+                        },
+                        data: {
+                            'operation':'update-workshop',
+                            'workshop_id': card.attr('data-workshop-id-card'),
+                            'new_name': card.find('#edit_actname_input').val(),
+                        },
+                            dataType: "json",
+                            success: function(response) {
+                                if(response.success == true){
+                                    card.find('h5').text(response.new_name);
+                                    card.find('#edit_actname_input').trigger('focusout');
+
+                                   console.log('fdbjgngbkmfödslağalfkgodm')
+                                   console.log('done')
+                                    setTimeout(function(){
+                                        card.find('#title_text').css('padding','0');
+                                    },120);
+                                }
+                                else if(response.status==false){
+                                    console.log(response.status)
+                                }
+                            },
+                             error: function(response) {
+                              console.log('error')
+                            }
+                    });
+                }
+            };
+        });
 
         $('.delete-giveup').click(function(){
-            var _id = $(this).parent().parent().attr('data-card')
+            var _id = $(this).parent().parent().parent().attr('data-card')
             card = $('.card').filter('[data-card="'+_id+'"]');
             card.find('h5').css('filter','blur(0.0rem)').css('pointer-events','auto');
             card.find('a[data-workshop-def]').css('filter','blur(0px)').css('pointer-events','auto');
@@ -205,7 +305,7 @@
         });
         $('.delete-workshop').click(function(){            
             //var workshop_card_id = $(this).parent().parent().attr('data-card');
-            var workshop_id = $(this).parent().parent().attr('data-workshop-id-card');
+            var workshop_id = $(this).parent().parent().parent().attr('data-workshop-id-card');
                 $.ajax({
                     type: "POST",
                     url: "{% url 'control_panel' %}",
@@ -214,14 +314,17 @@
                     },
                     data: {
                         'operation':'delete-workshop',
-                        'workshop_id':workshop_id,
+                        'workshop_id':workshop_id
+                    },
                         dataType: "json",
                         success: function(response) {
                             if(response.success == true){
-                           console.log(response.status)
-                           console.log('deleted')
+                           console.log(response.status) //always "deleted" :)
                            card = $('.card').filter('[data-card="'+response.workshop_id+'"]');
                            card.find('.mmx').html(response.msg);
+                           setTimeout(function(){
+                               card.remove();
+                           },2000);   
                          }
                          else if(response.status==false){
                            console.log(response.status)
@@ -233,7 +336,6 @@
                      error: function(rs, e) {
                       console.log('error')
                      }
-                    }
                }); 
             });
         $('.dots').click(function(){
@@ -251,6 +353,12 @@
         }).mouseout(function(){
             $(this).css('display','none');
         });
+        if ($('.card').length == 0){
+            $('.no-workshop').css('display','block');
+            $('#main').css('display','none');
+            
+        }
+
         
 </script>
 
