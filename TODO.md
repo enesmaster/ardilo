@@ -1,4 +1,4 @@
-                                                   </> - - -  R E M O D I O  - - -  </> 
+                                                   </> - - -  R E M O D Y  - - -  </> 
 
 - [ ] Add user movement track to whole app by date, time, page name, click, duration of visit, type of browser
 
@@ -12,9 +12,9 @@
 
 - [ ] Add 404 page with this text We admire your passion for discovery. You searched for a page that does not exist anywhere.
 
-- [ ] Add shodow under detail modal for edit/delete in control page
+- [x] Add shodow under detail modal for edit/delete in control page
 
-- [ ] After click to edit normal div displays none and editor div displays block
+- [x] After click to edit normal div displays none and editor div displays block
 
 - [ ] All js scripts goes to js folder
  
@@ -30,15 +30,17 @@
 
 - [ ] Add optimization for Seach Engine "There is no point in creating something which is not visible to anyone".
 
-- [ ] Add last_used field to workshop model so users can see at which time they used the workshop.
+- [x] Add last_used field to workshop model so users can see at which time they used the workshop.
 
 - [ ] Add Modal  alert for subscription.
 
+- [ ] Add button colors to model
+
 - [ ] Add Dark Theme and remember the choice.
 
-- [ ] Remove years if there is a obligation for years old( like 2022 as a born year)
+- [x] Remove years if there is a obligation for years old( like 2022 as a born year)
 
-- [ ] !!Add create woekshop title if user has no workshop
+- [x] !!Add create workshop title if user has no workshop
 
 - [ ] (add a Chatbot IF you have done your work)
 
