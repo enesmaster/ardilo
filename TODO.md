@@ -4,9 +4,9 @@
 
 - Add device type:  is_ios, is_android is_mac is_windows
 
-- Add a "go to control" button after the user created a workshop. 
+- [x] Add a "go to control" button after the user created a workshop. 
 
-- Add push notifications
+- [ ]  Add push notifications
 
 - Add to profile page( chart js for worksohp usages )
 
