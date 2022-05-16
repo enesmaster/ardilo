@@ -1,46 +1,46 @@
-                                                   </> - - -   R E M O D I O   - - - </> 
+                                                   </> - - -  R E M O D I O  - - -  </> 
 
-- Add user movement track to whole app by date, time, page name, click, duration of visit, type of browser
+- [ ] Add user movement track to whole app by date, time, page name, click, duration of visit, type of browser
 
-- Add device type:  is_ios, is_android is_mac is_windows
+- [ ] Add device type:  is_ios, is_android is_mac is_windows
 
 - [x] Add a "go to control" button after the user created a workshop. 
 
-- [ ]  Add push notifications
+- [ ] Add push notifications
 
-- Add to profile page( chart js for worksohp usages )
+- [ ] Add to profile page( chart js for worksohp usages )
 
-- Add 404 page with this text We admire your passion for discovery. You searched for a page that does not exist anywhere.
+- [ ] Add 404 page with this text We admire your passion for discovery. You searched for a page that does not exist anywhere.
 
-- Add shodow under detail modal for edit/delete in control page
+- [ ] Add shodow under detail modal for edit/delete in control page
 
-- After click to edit normal div displays none and editor div displays block
+- [ ] After click to edit normal div displays none and editor div displays block
 
-- All js scripts goes to js folder
+- [ ] All js scripts goes to js folder
  
-- All css styles goes to css folder
+- [ ] All css styles goes to css folder
 
-- Add these languages: Italian, Turkish, Spanish, English
+- [ ] Add these languages: Italian, Turkish, Spanish, English
 
-- Add a blog page to keep page live(Users already using this app for remote control switches so why not did them an author?)
+- [ ] Add a blog page to keep page live(Users already using this app for remote control switches so why not did them an author?)
 
-- Add Offline-Work feature so users will not see "no internet connection" error until connect to an internet again.
+- [ ] Add Offline-Work feature so users will not see "no internet connection" error until connect to an internet again.
 
-- Create a Dashboard on admin panel to see graphics of data for sessions, visits durations etc.
+- [ ] Create a Dashboard on admin panel to see graphics of data for sessions, visits durations etc.
 
-- Add optimization for Seach Engine "There is no point in creating something which is not visible to anyone".
+- [ ] Add optimization for Seach Engine "There is no point in creating something which is not visible to anyone".
 
-- Add last_used field to workshop model so users can see at which time they used the workshop.
+- [ ] Add last_used field to workshop model so users can see at which time they used the workshop.
 
-- Add Modal  alert for subscription.
+- [ ] Add Modal  alert for subscription.
 
-- Add Dark Theme and remember the choice.
+- [ ] Add Dark Theme and remember the choice.
 
-- Remove years if there is a obligation for years old( like 2022 as a born year)
+- [ ] Remove years if there is a obligation for years old( like 2022 as a born year)
 
-- !!Add create woekshop title if user has no workshop
+- [ ] !!Add create woekshop title if user has no workshop
 
-- (add a Chatbot IF you have done your work)
+- [ ] (add a Chatbot IF you have done your work)
 
 
 Note: Turn minus to plus if you done the mission
