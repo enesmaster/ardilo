@@ -50,4 +50,6 @@
 
 - [ ] Daily views dashboard
 
+-[ ] Report loggs to the admin via email 
+
 Note: Turn minus to plus if you done the mission
