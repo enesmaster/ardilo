@@ -42,7 +42,7 @@
 
 - [x] !!Add create workshop title if user has no workshop
 
-- [ ] Use Async Django Views
+- [ ] Use Async Django Views (To turn the value to the default after the duration that the user has declared)
 
 - [ ] Detect the best active users by clicks, visits and actions
  
