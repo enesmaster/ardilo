@@ -42,6 +42,8 @@
 
 - [x] !!Add create workshop title if user has no workshop
 
+- [ ] Use Django Async 
+
 - [ ] Detect the best active users by clicks, visits and actions
  
 - [ ] (add a Chatbot IF you have done your work)
