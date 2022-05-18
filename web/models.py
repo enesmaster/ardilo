@@ -72,6 +72,13 @@ class Workshop(models.Model):
     def __str__(self):
         return self.user.username + " >---------> " + self.actname
 
+    # list keys of BUTTON_COLOR_CHOICES
+
+    def btns():
+        list = []
+        for i in Workshop.BUTTON_COLOR_CHOICES:
+            list.append(i[0])
+        return list
 class Workshop_usage(models.Model):
     workshop = models.ForeignKey(Workshop, on_delete=models.CASCADE)
     date_added = models.DateTimeField(auto_now_add=True)

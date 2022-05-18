@@ -171,6 +171,7 @@ def workshop(request, secret_key):
 @login_required
 def control_panel(request):
     workshops = Workshop.objects.filter(user=request.user).order_by('-usage_count')
+    btns = Workshop.btns
     if request.method == 'POST' and request.POST.get("operation") == "wake":
         a = Workshop.objects.get(id=request.POST.get("workshop_id"))
         is_duration = False
@@ -220,7 +221,7 @@ def control_panel(request):
             'new_name': request.POST.get("new_name"),
         }
         return JsonResponse(ctx)
-    return render(request, 'web/controls.html', {'workshops':workshops})
+    return render(request, 'web/controls.html', {'workshops':workshops, 'btns':btns})
  
 def docs(request):
     return render(request, 'web/docs.html')

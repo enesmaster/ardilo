@@ -89,13 +89,12 @@
             left: 35%;
         }
         .color-ball{
-            background: red;
-            position: absolute;
-            width: 35px;
-            height: 35px;
-            top: 128px;
+            position: relative;
             border-radius: 40%;
             margin-top: 2px;
+            width:29px;
+            height29px;
+            display:inline;
         }
 </style>
 {% endblock css %}
@@ -127,7 +126,11 @@
                         <p id="title_edit_text" class="title_edit_text">{% translate "Press 'enter' to save" %}<br>{% translate "Press 'esc' to cancel" %}</p>
                         <p id="response" class="response">{{workshop.current_resp}}</p>
                         <a data-workshop-id="{{ workshop.id }}" data-workshop-def="{{ workshop.def_resp }}" data-workshop-exp="{{ workshop.expected_resp }}" class="btn btn-md {{workshop.button_color}} mt-0 mb-4 mb-lg-0 wake">{{workshop.expected_resp|title}}<i class="mdi mdi-arrow-right fs-14 ms-1"></i></a>
-                        <span class="color-ball"><span>
+                        <div style=""> <br>
+                            {% for color in btns  %}
+                            <span class="color-ball {{color}}  ">&nbsp &nbsp &nbsp &nbsp</span>
+                            {% endfor %}
+                        </div>
                     </div>
                     <div class="mmx" style="text-align:center;display:none;">
                        <p>{% translate "Are you sure to Delete" %} "{{workshop.actname}}" ?<p>
