@@ -42,7 +42,7 @@
 
 - [x] !!Add create workshop title if user has no workshop
 
-- [ ] Use Django Async 
+- [ ] Use Async Django Views
 
 - [ ] Detect the best active users by clicks, visits and actions
  
