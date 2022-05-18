@@ -48,5 +48,6 @@
  
 - [ ] (add a Chatbot IF you have done your work)
 
+- [ ] Daily views dashboard
 
 Note: Turn minus to plus if you done the mission
