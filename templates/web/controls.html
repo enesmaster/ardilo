@@ -92,9 +92,15 @@
             position: relative;
             border-radius: 40%;
             margin-top: 2px;
-            width:29px;
             height29px;
             display:inline;
+        }
+        .close-color-tab{
+            position: absolute;
+            cursor: pointer;
+            left: 85%;
+            font-size: 30px;
+            margin-top: -8px;
         }
 </style>
 {% endblock css %}
@@ -126,9 +132,10 @@
                         <p id="title_edit_text" class="title_edit_text">{% translate "Press 'enter' to save" %}<br>{% translate "Press 'esc' to cancel" %}</p>
                         <p id="response" class="response">{{workshop.current_resp}}</p>
                         <a data-workshop-id="{{ workshop.id }}" data-workshop-def="{{ workshop.def_resp }}" data-workshop-exp="{{ workshop.expected_resp }}" class="btn btn-md {{workshop.button_color}} mt-0 mb-4 mb-lg-0 wake">{{workshop.expected_resp|title}}<i class="mdi mdi-arrow-right fs-14 ms-1"></i></a>
-                        <div style=""> <br>
+                        <div class="color-buttons" id="color-buttons" style="display:none;"> <br><hr>
+                            <i class='bx bx-x close-color-tab'></i><br>
                             {% for color in btns  %}
-                            <span class="color-ball {{color}}  ">&nbsp &nbsp &nbsp &nbsp</span>
+                            <span data-color="color-{{forloop.counter}}" class="color-ball btn {{color}}" title="{{color|slice:'4:'}}" ><i class='bx bxs-spa'></i></span>
                             {% endfor %}
                         </div>
                     </div>
@@ -217,6 +224,10 @@
                  }
            }); 
         });
+        
+        function close_color_tab(){
+            card.find('#color-buttons').css('display','none');
+        }
         $('.delete-request').click(function(){
             _id = $(this).parent().parent().find('#dots').attr('data-dot');
             card = $('.card').filter('[data-card="'+_id+'"]');
@@ -233,6 +244,7 @@
             card = $('.card').filter('[data-card="'+_id+'"]');
             card.find('div[id]').css('display','none'); // close dots tab
             card.find('#edit_actname_input').css('display','block');
+            card.find('#color-buttons').css('display','block');
             card.find('#title_edit_text').css('display','block');
             card.find('#edit_actname_input').val( card.find('h5').text());
             card.find('#edit_actname_input').focus();
@@ -240,7 +252,9 @@
                 card.find('#edit_actname_input').css('display','none');
                 card.find('#title_edit_text').css('display','none');
             });
-            
+            if (card.find('.close-color-tab').click(function(){
+                close_color_tab();
+            }));
             document.onkeydown = function(evt) {
                 evt = evt || window.event;
                 var isEscape = false;
@@ -252,6 +266,7 @@
                 }
                 if (isEscape) {
                     card.find('#edit_actname_input').trigger('focusout');
+                    close_color_tab();
                 }
                 //  -- Enter key
                 if ("key" in evt) {
@@ -267,7 +282,7 @@
                             'X-CSRFToken': '{{ csrf_token }}'
                         },
                         data: {
-                            'operation':'update-workshop',
+                            'operation':'update-workshop-title',
                             'workshop_id': card.attr('data-workshop-id-card'),
                             'new_name': card.find('#edit_actname_input').val(),
                         },
@@ -325,6 +340,7 @@
                            console.log(response.status) //always "deleted" :)
                            card = $('.card').filter('[data-card="'+response.workshop_id+'"]');
                            card.find('.mmx').html(response.msg);
+                           console.log(card)
                            setTimeout(function(){
                                card.remove();
                            },2000);   
@@ -341,6 +357,8 @@
                      }
                }); 
             });
+        
+
         $('.dots').click(function(){
             dot_id = $(this).data('dot');
             console.log(dot_id);
@@ -359,10 +377,44 @@
         if ($('.card').length == 0){
             $('.no-workshop').css('display','block');
             $('#main').css('display','none');
-            
         }
-
-        
+        $('.color-ball').click(function(){
+            var workshop_id = $(this).parent().parent().parent().attr('data-workshop-id-card');
+            var color_id = $(this).attr('data-color').slice(6,);
+            console.log(color_id);
+            $.ajax({
+                type: "POST",
+                url: "{% url 'control_panel' %}",
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                data: {
+                    'operation':'button-color',
+                    'workshop_id':workshop_id,
+                    'color-id':color_id
+                },
+                    dataType: "json",
+                    success: function(response) {
+                        if(response.success == true){
+                           console.log(response.status)
+                           card = $('.card').filter('[data-workshop-id-card="'+response.workshop_id+'"]');
+                           card.find('[data-workshop-exp"]').addClass('color-'+response.color_id);
+                           setTimeout(function(){
+                               card.remove();
+                           },2000);   
+                         }
+                         else if(response.status==false){
+                           console.log(response.status)
+                         }
+                         else if(response.status=='duplicate'){
+                            console.log(response.status)
+                        }
+                     },
+                     error: function(rs, e) {
+                      console.log('error')
+                     }
+                });
+        });
 </script>
 
 {% endblock script %}

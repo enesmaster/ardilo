@@ -25,9 +25,8 @@ class Workshop(models.Model):
         ('2', _('Other')),
     )
     BUTTON_COLOR_CHOICES=(
-        ('btn-success','primary'),
         ('btn-outline-success','primary-outline'),
-        ('btn-gradiend-success','primary-gradient'),
+        ('btn-gradient-success','primary-gradient'),
         ('btn-danger','danger'),
         ('btn-outline-danger','danger-outline'),
         ('btn-gradient-danger','danger-gradient'),
@@ -35,10 +34,6 @@ class Workshop(models.Model):
         ('btn-outline-dark','dark-outline'),
         ('btn-gradient-dark','dark-gradient'),
         ('btn-light','light'),
-        ('btn-outline-light','light-outline'),
-        ('btn-white','white'),
-        ('btn-outline-white','white-outline'),
-        ('btn-gradient-white','white-gradient'),
         ('btn-secondary','secondary'),
         ('btn-outline-secondary','secondary-outline'),
         ('btn-gradient-secondary','secondary-gradient'),

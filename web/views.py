@@ -1,5 +1,3 @@
-from random import random
-import re
 from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
@@ -8,13 +6,14 @@ from .models import Wifie, Workshop
 from django.contrib.auth.views import LoginView
 from django.http import JsonResponse
 from django.utils.translation import gettext_lazy as _
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
-from django.http import JsonResponse
+from api.control_views import *
 from django.utils.crypto import get_random_string
 chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-import time 
+import time
+
 #! TODO add api views to api
 def home(request):
     register_form = RegisterForm()
@@ -172,57 +171,17 @@ def workshop(request, secret_key):
 def control_panel(request):
     workshops = Workshop.objects.filter(user=request.user).order_by('-usage_count')
     btns = Workshop.btns
-    if request.method == 'POST' and request.POST.get("operation") == "wake":
-        a = Workshop.objects.get(id=request.POST.get("workshop_id"))
-        is_duration = False
-        if a.current_resp == a.def_resp:
-            a.current_resp=request.POST.get("workshop_exp")
-            resp_btn = a.def_resp
-            if a.is_fixed == False:
-                is_duration = True
-                time.sleep(a.duration)
-                a.current_resp='ff'
-
-        else:
-            a.current_resp=request.POST.get("workshop_def")
-            resp_btn = a.expected_resp
-
-        a.usage_count += 1
-        a.save()
-        ctx={
-            'success': True,
-            'duration': a.duration,
-            'is_duration': is_duration,
-            'response': a.current_resp,
-            'resp_btn': resp_btn,
-        }
-        return JsonResponse(ctx)
-    if request.method == 'POST' and request.POST.get("operation") == "delete-workshop":
-        try:
-            a = Workshop.objects.get(id=request.POST.get("workshop_id"))
-            a.delete()
-        except Workshop.DoesNotExist:
-            pass
-        ctx={
-            'success': True,
-            'status':'deleted',
-            'msg': _('Deleting...'),
-            'workshop_id': request.POST.get("workshop_id"),
-        }
-        return JsonResponse(ctx)
-    if request.method == 'POST' and request.POST.get("operation") == "update-workshop":
-        a = Workshop.objects.get(id=request.POST.get("workshop_id"))
-        #a.duration = request.POST.get("duration")
-        a.actname = request.POST.get("new_name")
-        a.save()
-        ctx={
-            'success': True,
-            'msg': _('Updating...'),
-            'new_name': request.POST.get("new_name"),
-        }
-        return JsonResponse(ctx)
+    if request.method == "POST":
+        response = "not exist"
+        if request.POST.get("operation") == "update-workshop-title":
+            response = update_workshop_title(request)
+        if request.POST.get("operation") == "delete-workshop":
+            response = delete_workshop(request)
+        if request.POST.get("operation") == "wake":
+            response = wake(request)
+        return response
     return render(request, 'web/controls.html', {'workshops':workshops, 'btns':btns})
- 
+    
 def docs(request):
     return render(request, 'web/docs.html')
 
