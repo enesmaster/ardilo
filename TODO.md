@@ -34,13 +34,13 @@
 
 - [ ] Add Modal  alert for subscription.
 
-- [ ] Add button colors to model
+- [x] Add button colors to model
 
 - [ ] Add Dark Theme and remember the choice.
 
 - [x] Remove years if there is a obligation for years old( like 2022 as a born year)
 
-- [x] !!Add create workshop title if user has no workshop
+- [x] !!Add "create workshop" title if user has no workshop
 
 - [ ] Use Async Django Views (To turn the value to the default after the duration that the user has declared)
 
