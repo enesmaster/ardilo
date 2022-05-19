@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% load i18n %}
 {% block content %}
 <section class="hero-5" id="home">
     <div class="container">
@@ -11,13 +11,14 @@
      {{form.errors}}
      <form method="POST">
         <div class="card-body p-4">
-          <h5 class="border-bottom fs-22 pb-3 mb-4">Login to Manage</h5>
+          <h5 class="border-bottom fs-22 pb-3 mb-4">{% translate "Login to Manage" %}</h5>
           {% csrf_token %}
              {{ form.as_p }} 
-          <button type="submit" class="btn btn-primary w-100">Login</button>
+          <button type="submit" class="btn btn-primary w-100">{% translate "Login" %}</button>
+          <br> <a href="{% url 'home' %}" class="">{% translate "Don't have an acoount? Register" %}</a>
         </div>
-     </form>
 
+     </form>
     </div>
  </div>
 </div>
