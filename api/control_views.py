@@ -29,6 +29,20 @@ def delete_workshop(request):
         'workshop_id': request.POST.get("workshop_id"),
     }
     return JsonResponse(ctx)
+    
+def change_button_color(request):
+    a = Workshop.objects.get(id=request.POST.get("workshop_id"))
+    buton_color = int(request.POST.get("button_color"))
+    a.button_color = Workshop.BUTTON_COLOR_CHOICES[buton_color-1][0]
+    a.save()
+    ctx={
+        'success': True,
+        'status':'ok',
+        'color_id': a.button_color,
+        'msg': _('Deleting...'),
+        'workshop_id': request.POST.get("workshop_id"),
+    }
+    return JsonResponse(ctx)
 
 def wake(request):
     a = Workshop.objects.get(id=request.POST.get("workshop_id"))

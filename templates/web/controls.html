@@ -131,7 +131,7 @@
                         <input type="text" class="title_edit_input" id="edit_actname_input" value="" placeholder="{% translate 'name...' %}">
                         <p id="title_edit_text" class="title_edit_text">{% translate "Press 'enter' to save" %}<br>{% translate "Press 'esc' to cancel" %}</p>
                         <p id="response" class="response">{{workshop.current_resp}}</p>
-                        <a data-workshop-id="{{ workshop.id }}" data-workshop-def="{{ workshop.def_resp }}" data-workshop-exp="{{ workshop.expected_resp }}" class="btn btn-md {{workshop.button_color}} mt-0 mb-4 mb-lg-0 wake">{{workshop.expected_resp|title}}<i class="mdi mdi-arrow-right fs-14 ms-1"></i></a>
+                        <a data-workshop-id="{{ workshop.id }}" data-workshop-def="{{ workshop.def_resp }}" data-workshop-exp="{{ workshop.expected_resp }}" class="btn btn-md {{workshop.button_color}} mt-0 mb-4 mb-lg-0 wake">{%if workshop.current_resp == workshop.expected_resp%} {{workshop.def_resp|title}}{% else %} {{workshop.expected_resp|title}} {% endif %} <i class="mdi mdi-arrow-right fs-14 ms-1"></i></a>
                         <div class="color-buttons" id="color-buttons" style="display:none;"> <br><hr>
                             <i class='bx bx-x close-color-tab'></i><br>
                             {% for color in btns  %}
@@ -159,8 +159,8 @@
                             padding-right: 10px;
                             color: white;
                             font-size: 18px;" class="delete-giveup"><i class='bx bx-redo'></i> {% translate "No" %}</a>  
+                        </div>
                     </div>
-                </div>
                 {% endfor %}
                 <div class="no-workshop" style="display:none;">
                     <br>
@@ -340,10 +340,19 @@
                             if(response.success == true){
                            console.log(response.status) //always "deleted" :)
                            card = $('.card').filter('[data-workshop-id-card="'+response.workshop_id+'"]');
-                           card.find('p').html(response.msg);
+                           card.find('.mmx').css('display','none');
+                           card.find('#delete-sec').html(response.msg);
+                           card.find('#delete-sec').css('filter','blur(0px)').css('pointer-events','none');
+                           card.find('h5').css('filter','blur(0.0rem)').html(response.msg);
+                           card.find('a[data-workshop-def]').css('display','none');
+                           card.find('p[id]').css('display','none');
                            console.log(card)
                            setTimeout(function(){
-                               card.remove();
+                               setTimeout(function(){
+                                   card.remove();
+                                 },800);
+                               card.find('h5').html(response.status);
+
                            },1000);   
                          }
                          else if(response.status==false){
@@ -390,19 +399,19 @@
                     'X-CSRFToken': '{{ csrf_token }}'
                 },
                 data: {
-                    'operation':'button-color',
+                    'operation':'change-button-color',
                     'workshop_id':workshop_id,
-                    'color-id':color_id
+                    'button_color':color_id
                 },
                     dataType: "json",
                     success: function(response) {
                         if(response.success == true){
                            console.log(response.status)
                            card = $('.card').filter('[data-workshop-id-card="'+response.workshop_id+'"]');
-                           card.find('[data-workshop-exp"]').addClass('color-'+response.color_id);
-                           setTimeout(function(){
-                               card.remove();
-                           },2000);   
+                           card.find('.wake').attr('id','wakebtn');
+                           card.find('.wake').removeClass();
+                           console.log(response.color_id)
+                           card.find('#wakebtn').addClass('btn btn-md mt-0 mb-4 mb-lg-0 wake '+response.color_id);   
                          }
                          else if(response.status==false){
                            console.log(response.status)

@@ -1,3 +1,4 @@
+import re
 from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
@@ -179,6 +180,10 @@ def control_panel(request):
             response = delete_workshop(request)
         if request.POST.get("operation") == "wake":
             response = wake(request)
+        if request.POST.get("operation") == "change-button-color":
+            response = change_button_color(request)
+        # if request.POST.get("operation") == "update-workshop-duration":
+        #   response = update_workshop_duration(request)
         return response
     return render(request, 'web/controls.html', {'workshops':workshops, 'btns':btns})
     
