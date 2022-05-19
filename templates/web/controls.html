@@ -102,6 +102,13 @@
             font-size: 30px;
             margin-top: -8px;
         }
+        .color-buttons{
+            display:none;
+        }
+        #set-color{
+            display:none;
+            cursor: pointer;
+        }
 </style>
 {% endblock css %}
 {% block content %}
@@ -132,7 +139,8 @@
                         <p id="title_edit_text" class="title_edit_text">{% translate "Press 'enter' to save" %}<br>{% translate "Press 'esc' to cancel" %}</p>
                         <p id="response" class="response">{{workshop.current_resp}}</p>
                         <a data-workshop-id="{{ workshop.id }}" data-workshop-def="{{ workshop.def_resp }}" data-workshop-exp="{{ workshop.expected_resp }}" class="btn btn-md {{workshop.button_color}} mt-0 mb-4 mb-lg-0 wake">{%if workshop.current_resp == workshop.expected_resp%} {{workshop.def_resp|title}}{% else %} {{workshop.expected_resp|title}} {% endif %} <i class="mdi mdi-arrow-right fs-14 ms-1"></i></a>
-                        <div class="color-buttons" id="color-buttons" style="display:none;"> <br><hr>
+                        <br><a id="set-color" class="set-color" title="{% translate 'Changing the colors can help you to personalize the button (Will help you to detect fast)' %}">Change color <i class='bx bxs-color-fill'></i></a>
+                        <div class="color-buttons" id="color-buttons"> <br><hr>
                             <i class='bx bx-x close-color-tab'></i><br>
                             {% for color in btns  %}
                             <span data-color="color-{{forloop.counter}}" class="color-ball btn {{color}}" title="{{color|slice:'4:'}}" ><i class='bx bxs-spa'></i></span>
@@ -227,6 +235,11 @@
         
         function close_color_tab(){
             card.find('#color-buttons').css('display','none');
+            $('.set-color').css('display','none');
+
+        }
+        function show_color_tab(){
+            card.find('#color-buttons').css('display','block');
         }
         $('.delete-request').click(function(){
             _id = $(this).parent().parent().find('#dots').attr('data-dot');
@@ -244,7 +257,7 @@
             card = $('.card').filter('[data-card="'+_id+'"]');
             card.find('div[id]').css('display','none'); // close dots tab
             card.find('#edit_actname_input').css('display','block');
-            card.find('#color-buttons').css('display','block');
+            card.find('.set-color').css('display','block');
             card.find('#title_edit_text').css('display','block');
             card.find('#edit_actname_input').val( card.find('h5').text());
             card.find('#edit_actname_input').focus();
@@ -255,6 +268,10 @@
             if (card.find('.close-color-tab').click(function(){
                 close_color_tab();
             }));
+            if (card.find('.set-color').click(function(){
+                show_color_tab()
+            }));
+                     
             document.onkeydown = function(evt) {
                 evt = evt || window.event;
                 var isEscape = false;
@@ -275,6 +292,7 @@
                     isEnter = (evt.keyCode === 13);
                 }
                 if (isEnter) {
+                    close_color_tab();
                     $.ajax({
                         type: "POST",
                         url: "{% url 'control_panel' %}",
@@ -353,8 +371,11 @@
                                  },800);
                                card.find('h5').html(response.status);
 
-                           },1000);   
-                         }
+                           },1000);
+                           if ($('.card').length == 0){
+                               ('.no-workshop').css('display', 'block')
+                           }
+                        }
                          else if(response.status==false){
                            console.log(response.status)
                          }
@@ -373,6 +394,7 @@
             dot_id = $(this).data('dot');
             console.log(dot_id);
             card = $('.detail[data-card="'+dot_id+'"]');
+            $('.set-color').css('display','none');
             if (card.css('display') == 'none'){
                 card.css('display','grid');
             }else{
@@ -384,11 +406,23 @@
         }).mouseout(function(){
             $(this).css('display','none');
         });
+        
         if ($('.card').length == 0){
             $('.no-workshop').css('display','block');
             $('#main').css('display','none');
         }
         $('.color-ball').click(function(){
+            $('.color-buttons').mouseover(function(){
+                console.log('dsds')
+                card.find('.color-buttons').css('display','block');
+            }).mouseout(function(){
+                console.log('dsds')
+                card.find('#color-buttons').css('display','none');
+            });
+            card.find('#wakebtn').click(function(){
+                card.find('#color-buttons').css('display','none');
+                card.find('.set-color').css('display','none');
+            });
             var workshop_id = $(this).parent().parent().parent().attr('data-workshop-id-card');
             var color_id = $(this).attr('data-color').slice(6,);
             console.log(color_id);
@@ -424,7 +458,7 @@
                       console.log('error')
                      }
                 });
-        });
+        }); 
 </script>
 
 {% endblock script %}
