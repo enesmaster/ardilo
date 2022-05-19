@@ -117,6 +117,11 @@ def configrations(request):
             return JsonResponse(ctx)
         secret_key = get_random_string(25, chars)
         url = "http://"+request.get_host()+"/workshop/"+secret_key
+        try:
+            wifi = Wifie.objects.get(id=request.POST.get("wifi"))
+        except:
+            return JsonResponse({'created': False,
+                'status': False,'msg':'You need to add a WiFi first'})
         Workshop.objects.create(
             actname=actname,
             def_resp=def_resp,
@@ -124,7 +129,7 @@ def configrations(request):
             expected_resp=expected_resp,
             is_fixed=is_fixed,
             duration=duration,
-            wifi=Wifie.objects.get(id=request.POST.get("wifi")),
+            wifi=wifi,
             user=user,
             secret_key=secret_key,
             url=url

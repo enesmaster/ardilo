@@ -520,7 +520,8 @@
                         },1500)
                      }
                      else if(response.status==false){
-                       console.log(response.status)
+                        $('#wrsp_alert_p').show()
+                        $('#wrsp_alert_p').html(response.msg)
                      }
                      else if(response.status=='duplicate'){
                         $('#wrsp_alert_p').show()
