@@ -4,7 +4,7 @@
 
 - [ ] Add device type:  is_ios, is_android is_mac is_windows
 
-- [ ] If user has a WiFi show directly workshop create section(section 2)
+- [x] If user has a WiFi show directly workshop create section(section 2)
 
 - [x] Add a "go to control" button after the user created a workshop. 
 
