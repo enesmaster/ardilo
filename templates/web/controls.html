@@ -320,6 +320,7 @@
             card.find('div[id]').css('display','block');
             card.find('.mmx').css('display','none');
             card.find('#detail').css('display','none');
+            close_color_tab();
         });
         $('.delete-workshop').click(function(){            
             //var workshop_card_id = $(this).parent().parent().attr('data-card');
@@ -338,12 +339,12 @@
                         success: function(response) {
                             if(response.success == true){
                            console.log(response.status) //always "deleted" :)
-                           card = $('.card').filter('[data-card="'+response.workshop_id+'"]');
-                           card.find('.mmx').html(response.msg);
+                           card = $('.card').filter('[data-workshop-id-card="'+response.workshop_id+'"]');
+                           card.find('p').html(response.msg);
                            console.log(card)
                            setTimeout(function(){
                                card.remove();
-                           },2000);   
+                           },1000);   
                          }
                          else if(response.status==false){
                            console.log(response.status)
