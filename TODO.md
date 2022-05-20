@@ -10,9 +10,11 @@
 
 - [ ] Add push notifications
 
-- [ ] Add to profile page( chart js for worksohp usages )
+- [ ] Add user profile page
+ 
+- [ ] Add chart js  to profile for worksohp usages  
 
-- [ ] Add 404 page with this text We admire your passion for discovery. You searched for a page that does not exist anywhere.
+- [x] Add 404 page with this text We admire your passion for discovery. You searched for a page that does not exist anywhere.
 
 - [x] Add shodow under detail modal for edit/delete in control page
 
