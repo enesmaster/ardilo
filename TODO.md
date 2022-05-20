@@ -10,6 +10,8 @@
 
 - [ ] Add push notifications
 
+- [ ] Add user location to 404 page instance:ip:14.234.423 Istanbul/Turkey 
+
 - [ ] Add user profile page
  
 - [ ] Add chart js  to profile for worksohp usages  
