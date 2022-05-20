@@ -1,4 +1,5 @@
                                                    </> - - -  R E M O D Y  - - -  </> 
+                                                   
 
 - [ ] Add user movement track to whole app by date, time, page name, click, duration of visit, type of browser
 
@@ -57,6 +58,8 @@
 - [ ] (add a Chatbot IF you have done your work)
 
 - [ ] Daily views dashboard
+
+- [ ] Sponsors page
 
 - [ ] Report loggs to the admin via email 
 
