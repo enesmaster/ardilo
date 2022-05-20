@@ -26,6 +26,8 @@
  
 - [ ] All css styles goes to css folder
 
+- [ ] We support #OpenSource to about page
+
 - [ ] Add these languages: Italian, Turkish, Spanish, English
 
 - [ ] Add a blog page to keep page live(Users already using this app for remote control switches so why not did them an author?)
