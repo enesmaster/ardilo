@@ -1,9 +1,10 @@
 import re
+from turtle import screensize
 from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from .forms import RegisterForm, WifiForm,WorkshopCreateForm,CustomLoginForm
-from .models import Wifie, Workshop
+from .models import UserMovementTrack, Wifie, Workshop
 from django.contrib.auth.views import LoginView
 from django.http import JsonResponse
 from django.utils.translation import gettext_lazy as _
@@ -69,6 +70,10 @@ def home(request):
     return render(request, 'web/home.html', {'register_form':register_form, 'workshop_form':workshop_form, 'login_form':login_form})
 
 def configrations(request):
+    has_wifi = False
+    if request.user.is_authenticated:
+        if Wifie.objects.filter(user=request.user).exists():
+            has_wifi = True
     if request.method == 'POST' and request.POST.get("operation") == "wifi":
         ssid = request.POST.get("ssid")
         password = request.POST.get("password")
@@ -121,7 +126,7 @@ def configrations(request):
             wifi = Wifie.objects.get(id=request.POST.get("wifi"))
         except:
             return JsonResponse({'created': False,
-                'status': False,'msg':'You need to add a WiFi first'})
+                'status': False,'msg':_('You need to add a WiFi first before creating a Workshop')})
         Workshop.objects.create(
             actname=actname,
             def_resp=def_resp,
@@ -162,7 +167,7 @@ def configrations(request):
             'success': True,
         }
         return JsonResponse(ctx)
-    return render(request, 'web/configrations.html')
+    return render(request, 'web/configrations.html' , {'has_wifi':has_wifi})
 
 @login_required
 def workshop(request, secret_key):
@@ -196,7 +201,16 @@ def docs(request):
     return render(request, 'web/docs.html')
 
 def profile(request):
-    return render(request, 'web/docs.html')
+    if request.method == "POST":
+        if request.POST.get("operation") == "update-profile":
+            return update_profile(request)
+        if request.POST.get("operation") == "update-password":
+            return update_password(request)
+        if request.POST.get("operation") == "delete-account":
+            return delete_account(request)
+        if request.POST.get("operation") == "dark-mode":
+            return delete_wifi(request)
+    return render(request, 'user/profile.html')
 
 @login_required
 def open_the_door(request):
@@ -217,3 +231,7 @@ class LoginView(LoginView):
     template_name = 'user/login.html'
     redirect_authenticated_user = True
 
+def not_found404(request, exception):
+        data = {}
+        return render(request,'web/404.html', data)
+ 

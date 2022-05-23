@@ -606,5 +606,8 @@
              }
          });
     });
+    {% if has_wifi == True %}
+    $('#workshop_btn').click()
+    {% endif %}
 </script>
 {% endblock script %}

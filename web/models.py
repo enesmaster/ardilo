@@ -88,8 +88,30 @@ class Profile(models.Model):
     wifi = models.ForeignKey(Wifie, on_delete=models.CASCADE, related_name="wifi_profile", blank=True, null=True)
     workshop = models.ForeignKey(Workshop, on_delete=models.CASCADE, related_name="workshop_profile", blank=True, null=True)
     last_login = models.DateTimeField(auto_now_add=True)
+    dark_mode = models.BooleanField(default=False)
+    
     def __str__(self):
         return self.user.username
     class Meta:
         verbose_name = _('Profile')
         verbose_name_plural = _('Profiles')
+
+#!NOTE This model is for detecting bad users and analyzing the usage of the website page by page
+class UserMovementTrack(models.Model):
+    os = models.CharField(max_length=100)
+    url =  models.CharField(max_length=100)
+    device = models.CharField(max_length=100)
+    action =   models.CharField(max_length=150)
+    browser =   models.CharField(max_length=100)
+    os_name =     models.CharField(max_length=100)
+    os_version =   models.CharField(max_length=100)
+    device_type =   models.CharField(max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
+    ip = models.GenericIPAddressField(null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    user_agent = models.CharField(max_length=150, null=True, blank=True)
+    device_version = models.CharField(max_length=100)
+    device_model = models.CharField(max_length=100)
+    language = models.CharField(max_length=100)
+    screen = models.CharField(max_length=100)
+    time = models.CharField(max_length=250)

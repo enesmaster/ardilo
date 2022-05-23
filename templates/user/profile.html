@@ -1,0 +1,279 @@
+{% extends 'base.html' %} {% load static %} {% load i18n %} {% block css %}
+<style>
+    .noselect {
+        -webkit-touch-callout: none;
+        /* iOS Safari */
+        -webkit-user-select: none;
+        /* Safari */
+        -khtml-user-select: none;
+        /* Konqueror HTML */
+        -moz-user-select: none;
+        /* Old versions of Firefox */
+        -ms-user-select: none;
+        /* Internet Explorer/Edge */
+        user-select: none;
+        /* Non-prefixed version, currently
+                                    supported by Chrome, Opera and Firefox */
+    }
+    
+    .row {
+        width: 100%;
+        height: 1100px;
+    }
+    
+    .herom {
+        padding-top: 70px;
+        padding-bottom: 170px;
+    }
+    
+    .profile {
+        background: #eaeaea;
+        height: 800px;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+    
+    .secs {
+        border-radius: 6px;
+        background: #fff;
+        width: 90%;
+        padding: 15px;
+    }
+    
+    .profile_sec1 {
+        height: 68px;
+        margin-top: 10px;
+    }
+    
+    .profile_sec1 h4 {
+        margin-left: 80px;
+        margin-top: 5px;
+    }
+    
+    .profile_sec1 .h42 {
+        position: relative;
+        margin-left: 55px;
+        margin-top: 5px;
+        font-size: 17px;
+    }
+    
+    .profile_sec2 {
+        height: 185px;
+        background: #fff;
+        margin-top: 10px;
+    }
+    
+    .pp {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        margin-top: -6px;
+        margin-left: 18px;
+        background: url('{% static "images/profile.jpg" %}');
+        background-size: cover;
+        position: absolute;
+        cursor: pointer;
+    }
+    
+    .hor-line {
+        background: #b9b4b4;
+        position: absolute;
+        height: 20px;
+        width: 2px;
+        border-radius: 50%;
+        margin-left: 25px;
+        margin-top: 5px;
+    }
+    
+    .hor-line-long {
+        background: #b9b4b4;
+        position: absolute;
+        height: 75px;
+        width: 1.4px;
+        border-radius: 50%;
+        margin-left: 25px;
+        margin-top: -30px;
+    }
+    
+    .ico-size {
+        font-size: 29px;
+        padding: -18px;
+        margin-top: -1px;
+        margin-left: 4px;
+        position: absolute;
+    }
+    
+    .dark-mode-switch {
+        margin-top: -34px;
+        float: right;
+        padding-right: 15px;
+    }
+    
+    .actions {
+        list-style: none;
+        margin-left: -10px;
+    }
+    
+    .added-dot {
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        border-radius: 50%;
+        background: #0063da;
+        margin-left: -20px;
+        margin-top: 8px;
+    }
+    
+    .removed-dot {
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        border-radius: 50%;
+        background: #ffd9a8;
+        margin-left: -20px;
+        margin-top: 8px;
+    }
+    
+    .used-dot {
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        border-radius: 50%;
+        background: #2cc087;
+        margin-left: -20px;
+        margin-top: 8px;
+    }
+    
+    .profile_sec3 {
+        height: 500px;
+        padding-bottom: 10px;
+        background: #fff;
+        margin-top: 10px;
+    }
+</style>
+{% endblock css %} {% block content %}
+<!-- home-agency start -->
+<section class="herom" id="home">
+    <div class="profile">
+        <div class="secs profile_sec1">
+            <span class="pp"></span>
+            <h4>{{request.user.username}} <span class="hor-line"></span> <span class="h42">Owner <i class='bx bxs-pencil  ' ></i></span></span>
+            </h4>
+            <div class="form-check form-switch justify-content-end dark-mode-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                <label class="form-check-label" for="flexSwitchCheckDefault"><b>Dark Mode</b></label>
+            </div>
+        </div>
+        <br>
+        <div class="secs profile_sec2">
+            <h5 style="margin-left: 10px;">My Last Actions <i class='bx bx-chevron-down ico-size'></i><i class='bx bx-chevron-up ico-size'></i></h5>
+            <ul class="actions">
+                <li>
+                    <p><span class="added-dot"></span>Added 'workshop'
+                    </p>
+                </li>
+                <li>
+                    <p><span class="removed-dot"></span>Removed 'wifi'
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        <span class="used-dot"></span> 'action' Used </p>
+                </li>
+            </ul>
+        </div>
+        <br>
+        <div class="secs profile_sec3">
+            <h5 style="margin-left: 10px;">My Usage Analysis <i class='bx bx-bar-chart ico-size'></i></h5>
+            <br>
+            <canvas id="myChart" width="500" height="500"></canvas>
+        </div><br><br><br><br>
+    </div>
+    </div>
+
+
+</section>
+<!-- home-agency end -->
+
+<input id="this_username" type="hidden" value=""></input>
+{% endblock content %} {% block script %}
+<script>
+    const ctx = document.getElementById('myChart').getContext('2d');
+    const myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            datasets: [{
+                label: '# of Votes',
+                data: [12, 19, 3, 5, 2, 3],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Usage Analysis'
+                },
+            },
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+
+
+
+
+<script>
+    // DOWNLOAD WORKSHOP INFO as JSON 
+    $('#download_wksp').click(function() {
+        $.ajax({
+            type: "POST",
+            url: "{% url 'config' %}",
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            data: {
+                'operation': 'workshop_json',
+                'user': '{{ request.user.username }}',
+            },
+            dataType: "json",
+            success: function(response) {
+                if (response.success == true) {
+                    let j = document.createElement("a")
+                    j.download = "workshop_cretidts_" + Date.now() + ".json"
+                    j.href = URL.createObjectURL(new Blob([JSON.stringify(response.json, null, 2)]))
+                    j.click()
+                } else if (response.status == false) {
+                    console.log(response.status)
+                }
+            },
+            error: function(rs, e) {
+                console.log('error')
+            }
+        });
+    })
+</script>
+{% endblock script %}
