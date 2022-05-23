@@ -61,6 +61,10 @@
 
 - [ ] Sponsors page
 
+- [ ] Social Account Login Support
+
+- [ ] One Click Social Login
+
 - [ ] Report loggs to the admin via email 
 
 Note: Turn minus to plus if you done the mission
