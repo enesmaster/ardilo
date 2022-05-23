@@ -9,6 +9,7 @@
         <meta name="author" content="github/enesislam" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
         
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -64,9 +65,8 @@
                             <a href="{% url 'docs' %}" class="nav-link">Learn Using</a>
                         </li>
                         {% if request.user.is_authenticated %}
-                        <li title="{{request.user.username}}" class="nav-item">
+                        <li title="{{request.user.username}}" class="nav-item mb-1">
                             <a href="{% url 'profile' %}"  class="nav-link icon-link"><i class='bx bx-user icon-link'></i><i id="username_in_menu" style="text-decoration:none;position:absolute;left:-45%;top:18px;">{{request.user.username}}</i></a>
-                            
                         </li>
                         <li title="{{request.user.username}}" class="nav-item">
                             <a href="{% url 'logout' %}" class="nav-link">Logout</a>
@@ -76,6 +76,7 @@
                             <a href="/login" class="nav-link">Login</a>
                         </li>
                         {% endif %}
+                        
                     </ul>
                 </div>
             </div>
@@ -89,7 +90,7 @@
 <br>
 <br>
         <!-- footer & cta start -->
-        <section class="footer bg-light">
+        <section class="footer {% if request.user.profile.dark_mode %}bg-dark text-white{% else %}bg-light{% endif %}">
             <div class="cta-content">
                 <div class="container">
                     <div class="row bg-dark cta-bg p-5 rounded align-items-center">
