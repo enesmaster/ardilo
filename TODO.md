@@ -1,8 +1,5 @@
                                                    </> - - -  R E M O D Y  - - -  </> 
                                                    
-
-- [ ] Add user movement track to whole app by date, time, page name, click, duration of visit, type of browser
-
 - [ ] Add device type:  is_ios, is_android is_mac is_windows
 
 - [x] If user has a WiFi show directly workshop create section(section 2)
@@ -66,5 +63,7 @@
 - [ ] One Click Social Login
 
 - [ ] Report loggs to the admin via email 
+
+- [ ] Add user movement track to whole app by date, time, page name, click, duration of visit, type of browser
 
 Note: Turn minus to plus if you done the mission
