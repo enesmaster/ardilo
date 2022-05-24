@@ -12,7 +12,7 @@
 
 - [ ] Add user profile page <progress>
  
-- [ ] Add chart js  to profile for worksohp usages 
+- [ ] Add chart js  to profile for worksohp usages <progress>
 
 - [x] Add 404 page with this text We admire your passion for discovery. You searched for a page that does not exist anywhere.
 
