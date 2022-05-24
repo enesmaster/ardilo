@@ -15,6 +15,8 @@
 - [ ] Add user location to 404 page instance:ip:14.234.423 Istanbul/Turkey 
 
 - [ ] Add user profile page <progress>
+  
+- [ ] Add a modal for rating and feedback
  
 - [ ] Add chart js  to profile for worksohp usages <progress>
 
