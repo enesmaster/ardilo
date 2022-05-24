@@ -8,11 +8,17 @@
 
 - [ ] Add push notifications
 
+- [ } Add email verification and Add verified tick if profile verified 
+
+- [ ] Add FAQ page
+
 - [ ] Add user location to 404 page instance:ip:14.234.423 Istanbul/Turkey 
 
-- [ ] Add user profile page
+- [ ] Add user profile page <progress>
+  
+- [ ] Add a modal for rating and feedback
  
-- [ ] Add chart js  to profile for worksohp usages  
+- [ ] Add chart js  to profile for worksohp usages <progress>
 
 - [x] Add 404 page with this text We admire your passion for discovery. You searched for a page that does not exist anywhere.
 
@@ -42,7 +48,7 @@
 
 - [x] Add button colors to model
 
-- [ ] Add Dark Theme and remember the choice.
+- [ ] Add Dark Theme and remember the choice. <progress>
 
 - [x] Remove years if there is a obligation for years old( like 2022 as a born year)
 
