@@ -10,9 +10,9 @@
 
 - [ ] Add user location to 404 page instance:ip:14.234.423 Istanbul/Turkey 
 
-- [ ] Add user profile page
+- [ ] Add user profile page <progress>
  
-- [ ] Add chart js  to profile for worksohp usages  
+- [ ] Add chart js  to profile for worksohp usages 
 
 - [x] Add 404 page with this text We admire your passion for discovery. You searched for a page that does not exist anywhere.
 
