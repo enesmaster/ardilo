@@ -42,7 +42,7 @@
 
 - [x] Add button colors to model
 
-- [ ] Add Dark Theme and remember the choice.
+- [ ] Add Dark Theme and remember the choice. <progress>
 
 - [x] Remove years if there is a obligation for years old( like 2022 as a born year)
 
