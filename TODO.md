@@ -8,6 +8,9 @@
 
 - [ ] Add push notifications
 
+
+- [ ] Add FAQ page
+
 - [ ] Add user location to 404 page instance:ip:14.234.423 Istanbul/Turkey 
 
 - [ ] Add user profile page <progress>
