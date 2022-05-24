@@ -1,5 +1,7 @@
                                                    </> - - -  R E M O D Y  - - -  </> 
-                                                   
+
+- [ ] Add user movement track to whole app by date, time, page name, click, duration of visit, type of browser
+
 - [ ] Add device type:  is_ios, is_android is_mac is_windows
 
 - [x] If user has a WiFi show directly workshop create section(section 2)
@@ -8,17 +10,9 @@
 
 - [ ] Add push notifications
 
-- [ } Add email verification and Add verified tick if profile verified 
+- [ ] Add code section of workshop when shown after saved visible in workshops page
 
-- [ ] Add FAQ page
-
-- [ ] Add user location to 404 page instance:ip:14.234.423 Istanbul/Turkey 
-
-- [ ] Add user profile page <progress>
-  
-- [ ] Add a modal for rating and feedback
- 
-- [ ] Add chart js  to profile for worksohp usages <progress>
+- [ ] Add to profile page( chart js for worksohp usages )
 
 - [x] Add 404 page with this text We admire your passion for discovery. You searched for a page that does not exist anywhere.
 
@@ -29,8 +23,6 @@
 - [ ] All js scripts goes to js folder
  
 - [ ] All css styles goes to css folder
-
-- [ ] We support #OpenSource to about page
 
 - [ ] Add these languages: Italian, Turkish, Spanish, English
 
@@ -48,7 +40,7 @@
 
 - [x] Add button colors to model
 
-- [ ] Add Dark Theme and remember the choice. <progress>
+- [ ] Add Dark Theme and remember the choice.
 
 - [x] Remove years if there is a obligation for years old( like 2022 as a born year)
 
@@ -62,14 +54,6 @@
 
 - [ ] Daily views dashboard
 
-- [ ] Sponsors page
-
-- [ ] Social Account Login Support
-
-- [ ] One Click Social Login
-
-- [ ] Report loggs to the admin via email 
-
-- [ ] Add user movement track to whole app by date, time, page name, click, duration of visit, type of browser
+-[ ] Report loggs to the admin via email 
 
 Note: Turn minus to plus if you done the mission
