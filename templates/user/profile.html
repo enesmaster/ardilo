@@ -151,6 +151,30 @@
         background: #fff;
         margin-top: 10px;
     }
+    
+    @media screen and (max-width: 501px) {
+        .dark-mode-label {
+            font-size: 14px
+        }
+        .profile_sec1 h4 {
+            margin-left: 60px;
+        }
+        .profile_sec1 .h42 {
+            margin-left: 20px;
+        }
+        .dark-mode-text b {
+            display: none;
+        }
+        .dark-mode-text:after {
+            content: "🌗";
+        }
+        .hor-line {
+            margin-left: 6px;
+        }
+        .pp {
+            margin-left: 2px;
+        }
+    }
 </style>
 {% endblock css %} {% block content %}
 <!-- home-agency start -->
@@ -162,7 +186,7 @@
             </h4>
             <div class="form-check form-switch justify-content-end dark-mode-switch">
                 <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-                <label class="form-check-label" for="flexSwitchCheckDefault"><b>Dark Mode</b></label>
+                <label class="form-check-label dark-mode-label dark-mode-text" for="flexSwitchCheckDefault"><b>Dark Mode</b></label>
             </div>
         </div>
         <br>
