@@ -8,6 +8,7 @@
 
 - [ ] Add push notifications
 
+- [ } Add email verification and Add verified tick if profile verified 
 
 - [ ] Add FAQ page
 
