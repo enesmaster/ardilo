@@ -3,13 +3,7 @@
 
 - [ ] Add device type:  is_ios, is_android is_mac is_windows
 
-
-
-
-
 - [x] Add 404 page with this text We admire your passion for discovery. You searched for a page that does not exist anywhere.
-
-
 
 - [ ] All js scripts goes to js folder
  
@@ -19,15 +13,9 @@
 
 - [ ] Add Offline-Work feature so users will not see "no internet connection" error until connect to an internet again.
 
-- [x] Add last_used field to workshop model so users can see at which time they used the workshop.
-
-- [ ] Add Modal alert for subscription.
-
 - [x] Add button colors to model
 
-- [ ] Add Dark Theme and remember the choice.
-
-- [x] Remove years if there is a obligation for years old( like 2022 as a born year)
+- [x] Remove years if there is an obligation for years old( like 2022 as a born year)
 
 - [ ] Use Async Django Views (To turn the value to the default after the duration that the user has declared)
  
@@ -35,7 +23,8 @@
 
 - [ ] Daily views dashboard visit counter
 
-- [ ] Report loggs to the admin via email 
+- [ ] Report loggs to the admin via email
+
  ## UI
 - [x] !!Add "create workshop" title if user has no workshop
 
@@ -51,6 +40,11 @@
 
 - [x] After click to edit normal div displays none and editor div displays block
 
+- [ ] Add Dark Theme and remember the choice.
+
+- [x] Add last_used field to workshop model so users can see at which time they used the workshop.
+
+- [ ] Add Modal alert for subscription.
 
  ## Sessions Tracking
 
