@@ -45,7 +45,7 @@
 
 - [ ] Report loggs to the admin via email 
 
- #Sessions Tracking
+ ## Sessions Tracking
 
 - [ ] Add user movement track to whole app by date, time, page name, click, duration of visit, type of browser
 
