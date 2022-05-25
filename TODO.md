@@ -24,7 +24,6 @@
 
 - [ ] Daily views dashboard visit counter
 
-- [ ] Report loggs to the admin via email
 
  ## UI
 - [x] !!Add "create workshop" title if user has no workshop
@@ -61,5 +60,7 @@
 - [ ] Add optimization for Seach Engine "There is no point in creating something which is not visible to anyone".
 
 - [ ] Add push notifications
+
+- [ ] Report loggs to the admin via email
 
 Note: Turn minus to plus if you done the mission
