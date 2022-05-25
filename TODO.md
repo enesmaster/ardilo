@@ -23,13 +23,7 @@
 
 - [ ] Add these languages: Italian, Turkish, Spanish, English
 
-- [ ] Add a blog page to keep page live(Users already using this app for remote control switches so why not did them an author?)
-
 - [ ] Add Offline-Work feature so users will not see "no internet connection" error until connect to an internet again.
-
-- [ ] Create a Dashboard on admin panel to see graphics of data for sessions, visits durations etc.
-
-- [ ] Add optimization for Seach Engine "There is no point in creating something which is not visible to anyone".
 
 - [x] Add last_used field to workshop model so users can see at which time they used the workshop.
 
@@ -44,18 +38,26 @@
 - [x] !!Add "create workshop" title if user has no workshop
 
 - [ ] Use Async Django Views (To turn the value to the default after the duration that the user has declared)
-
-- [ ] Detect the best active users by clicks, visits and actions
  
 - [ ] (add a Chatbot IF you have done your work)
 
 - [ ] Daily views dashboard
 
--[ ] Report loggs to the admin via email 
-
+- [ ] Report loggs to the admin via email 
+#Sessions Tracking
 - [ ] Add user movement track to whole app by date, time, page name, click, duration of visit, type of browser
 
+- [ ] Detect the best active users by clicks, visits and actions
+
+- [ ] Create a Dashboard on admin panel to see graphics of data for sessions, visits durations etc.
+
 - [ ] Add push notifications
+
+- [ ] Add a blog page to keep page live(Users already using this app for remote control switches so why not did them an author?)
+
+- [ ] Add optimization for Seach Engine "There is no point in creating something which is not visible to anyone".
+
+
 
 
 Note: Turn minus to plus if you done the mission
