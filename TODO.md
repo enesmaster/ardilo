@@ -35,15 +35,16 @@
 
 - [x] Remove years if there is a obligation for years old( like 2022 as a born year)
 
-- [x] !!Add "create workshop" title if user has no workshop
-
 - [ ] Use Async Django Views (To turn the value to the default after the duration that the user has declared)
  
 - [ ] (add a Chatbot IF you have done your work)
 
-- [ ] Daily views dashboard
+- [ ] Daily views dashboard visit counter
 
 - [ ] Report loggs to the admin via email 
+ ## UI
+- [x] !!Add "create workshop" title if user has no workshop
+
 
  ## Sessions Tracking
 
