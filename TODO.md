@@ -3,19 +3,13 @@
 
 - [ ] Add device type:  is_ios, is_android is_mac is_windows
 
-- [x] If user has a WiFi show directly workshop create section(section 2)
 
-- [x] Add a "go to control" button after the user created a workshop. 
 
-- [ ] Add code section of workshop when shown after saved visible in workshops page
 
-- [ ] Add to profile page( chart js for worksohp usages )
 
 - [x] Add 404 page with this text We admire your passion for discovery. You searched for a page that does not exist anywhere.
 
-- [x] Add shodow under detail modal for edit/delete in control page
 
-- [x] After click to edit normal div displays none and editor div displays block
 
 - [ ] All js scripts goes to js folder
  
@@ -27,7 +21,7 @@
 
 - [x] Add last_used field to workshop model so users can see at which time they used the workshop.
 
-- [ ] Add Modal  alert for subscription.
+- [ ] Add Modal alert for subscription.
 
 - [x] Add button colors to model
 
@@ -44,6 +38,18 @@
 - [ ] Report loggs to the admin via email 
  ## UI
 - [x] !!Add "create workshop" title if user has no workshop
+
+- [x] If user has a WiFi show directly workshop create section(section 2)
+
+- [x] Add a "go to control" button after the user created a workshop. 
+
+- [ ] Add code section of workshop when shown after saved visible in workshops page
+
+- [ ] Add to profile page( chart js for worksohp usages )
+
+- [x] Add shodow under detail modal for edit/delete in control page
+
+- [x] After click to edit normal div displays none and editor div displays block
 
 
  ## Sessions Tracking
