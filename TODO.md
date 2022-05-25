@@ -7,8 +7,6 @@
 
 - [x] Add a "go to control" button after the user created a workshop. 
 
-- [ ] Add push notifications
-
 - [ ] Add code section of workshop when shown after saved visible in workshops page
 
 - [ ] Add to profile page( chart js for worksohp usages )
@@ -56,5 +54,8 @@
 -[ ] Report loggs to the admin via email 
 
 - [ ] Add user movement track to whole app by date, time, page name, click, duration of visit, type of browser
+
+- [ ] Add push notifications
+
 
 Note: Turn minus to plus if you done the mission
