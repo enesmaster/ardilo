@@ -32,7 +32,7 @@
 
 - [x] Add a "go to control" button after the user created a workshop. 
 
-- [ ] Add code section of workshop when shown after saved visible in workshops page
+- [ ] Add code section of workshop when shown after saved visible in workshops page ( Credentials )
 
 - [ ] Add to profile page( chart js for worksohp usages )
 
