@@ -1,182 +1,5 @@
 {% extends 'base.html' %} {% load static %} {% load i18n %} {% block css %}
-<style>
-    .noselect {
-        -webkit-touch-callout: none;
-        /* iOS Safari */
-        -webkit-user-select: none;
-        /* Safari */
-        -khtml-user-select: none;
-        /* Konqueror HTML */
-        -moz-user-select: none;
-        /* Old versions of Firefox */
-        -ms-user-select: none;
-        /* Internet Explorer/Edge */
-        user-select: none;
-        /* Non-prefixed version, currently
-                                    supported by Chrome, Opera and Firefox */
-    }
-    
-    .row {
-        width: 100%;
-        height: 1100px;
-    }
-    
-    .herom {
-        padding-top: 70px;
-        padding-bottom: 170px;
-    }
-    
-    .profile {
-        background: #eaeaea;
-        height: 800px;
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-    }
-    
-    .secs {
-        border-radius: 6px;
-        background: #fff;
-        width: 90%;
-        padding: 15px;
-    }
-    
-    .profile_sec1 {
-        height: 68px;
-        margin-top: 10px;
-    }
-    
-    .profile_sec1 h4 {
-        margin-left: 80px;
-        margin-top: 5px;
-    }
-    
-    .profile_sec1 .h42 {
-        position: relative;
-        margin-left: 55px;
-        margin-top: 5px;
-        font-size: 17px;
-    }
-    
-    .profile_sec2 {
-        height: 185px;
-        background: #fff;
-        margin-top: 10px;
-    }
-    
-    .pp {
-        width: 48px;
-        height: 48px;
-        border-radius: 50%;
-        margin-top: -6px;
-        margin-left: 18px;
-        background: url('{% static "images/profile.jpg" %}');
-        background-size: cover;
-        position: absolute;
-        cursor: pointer;
-    }
-    
-    .hor-line {
-        background: #b9b4b4;
-        position: absolute;
-        height: 20px;
-        width: 2px;
-        border-radius: 50%;
-        margin-left: 25px;
-        margin-top: 5px;
-    }
-    
-    .hor-line-long {
-        background: #b9b4b4;
-        position: absolute;
-        height: 75px;
-        width: 1.4px;
-        border-radius: 50%;
-        margin-left: 25px;
-        margin-top: -30px;
-    }
-    
-    .ico-size {
-        font-size: 29px;
-        padding: -18px;
-        margin-top: -1px;
-        margin-left: 4px;
-        position: absolute;
-    }
-    
-    .dark-mode-switch {
-        margin-top: -34px;
-        float: right;
-        padding-right: 15px;
-    }
-    
-    .actions {
-        list-style: none;
-        margin-left: -10px;
-    }
-    
-    .added-dot {
-        width: 10px;
-        height: 10px;
-        position: absolute;
-        border-radius: 50%;
-        background: #0063da;
-        margin-left: -20px;
-        margin-top: 8px;
-    }
-    
-    .removed-dot {
-        width: 10px;
-        height: 10px;
-        position: absolute;
-        border-radius: 50%;
-        background: #ffd9a8;
-        margin-left: -20px;
-        margin-top: 8px;
-    }
-    
-    .used-dot {
-        width: 10px;
-        height: 10px;
-        position: absolute;
-        border-radius: 50%;
-        background: #2cc087;
-        margin-left: -20px;
-        margin-top: 8px;
-    }
-    
-    .profile_sec3 {
-        height: 500px;
-        padding-bottom: 10px;
-        background: #fff;
-        margin-top: 10px;
-    }
-    
-    @media screen and (max-width: 501px) {
-        .dark-mode-label {
-            font-size: 14px
-        }
-        .profile_sec1 h4 {
-            margin-left: 60px;
-        }
-        .profile_sec1 .h42 {
-            margin-left: 20px;
-        }
-        .dark-mode-text b {
-            display: none;
-        }
-        .dark-mode-text:after {
-            content: "🌗";
-        }
-        .hor-line {
-            margin-left: 6px;
-        }
-        .pp {
-            margin-left: 2px;
-        }
-    }
-</style>
-{% endblock css %} {% block content %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %} "> {% endblock css %} {% block content %}
 <!-- home-agency start -->
 <section class="herom" id="home">
     <div class="profile">
@@ -215,14 +38,54 @@
         </div><br><br><br><br>
     </div>
     </div>
-
-
+    <input type="hidden" id="_dark_infocu" value="{{request.user.profile.dark_mode}}">
 </section>
 <!-- home-agency end -->
 
 <input id="this_username" type="hidden" value=""></input>
 {% endblock content %} {% block script %}
 <script>
+    $(document).ready(function() {
+        if ($('#_dark_infocu').val() == 'True') {
+            document.documentElement.style.setProperty('--layer', '#202020')
+            document.documentElement.style.setProperty('--layer-back', '#0f0f0f')
+            document.documentElement.style.setProperty('--text-color', '#ece6e6d9');
+        } else {
+            document.documentElement.style.setProperty('--layer', '#eaeaea')
+            document.documentElement.style.setProperty('--layer-back', '#fff')
+            document.documentElement.style.setProperty('--text-color', '#0f0f0f');
+        }
+    })
+
+    $('#flexSwitchCheckDefault').on('change', function() {
+        $.ajax({
+            type: "POST",
+            url: "{% url 'profile' %}",
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            data: {
+                'operation': 'dark-mode',
+                'is_dark': $(this).is(':checked'),
+            },
+            dataType: "json",
+            success: function(response) {
+                if (response.success == true) {
+                    document.documentElement.style.setProperty('--layer', response.layer)
+                    document.documentElement.style.setProperty('--layer-back', response.layer_back)
+                    document.documentElement.style.setProperty('--text-color', response.text_color);
+                    console.log(response.layer);
+
+                } else if (response.status == false) {
+                    console.log(response.status)
+                }
+            },
+            error: function(rs, e) {
+                console.log('error')
+            }
+        });
+        console.log($('#flexSwitchCheckDefault').is(":checked"));
+    });
     const ctx = document.getElementById('myChart').getContext('2d');
     const myChart = new Chart(ctx, {
         type: 'line',
@@ -265,39 +128,5 @@
             }
         }
     });
-</script>
-
-
-
-
-<script>
-    // DOWNLOAD WORKSHOP INFO as JSON 
-    $('#download_wksp').click(function() {
-        $.ajax({
-            type: "POST",
-            url: "{% url 'config' %}",
-            headers: {
-                'X-CSRFToken': '{{ csrf_token }}'
-            },
-            data: {
-                'operation': 'workshop_json',
-                'user': '{{ request.user.username }}',
-            },
-            dataType: "json",
-            success: function(response) {
-                if (response.success == true) {
-                    let j = document.createElement("a")
-                    j.download = "workshop_cretidts_" + Date.now() + ".json"
-                    j.href = URL.createObjectURL(new Blob([JSON.stringify(response.json, null, 2)]))
-                    j.click()
-                } else if (response.status == false) {
-                    console.log(response.status)
-                }
-            },
-            error: function(rs, e) {
-                console.log('error')
-            }
-        });
-    })
 </script>
 {% endblock script %}

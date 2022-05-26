@@ -202,14 +202,14 @@ def docs(request):
 
 def profile(request):
     if request.method == "POST":
-        if request.POST.get("operation") == "update-profile":
-            return update_profile(request)
-        if request.POST.get("operation") == "update-password":
-            return update_password(request)
-        if request.POST.get("operation") == "delete-account":
-            return delete_account(request)
+        # if request.POST.get("operation") == "update-profile":
+        #     return update_profile(request)
+        # if request.POST.get("operation") == "update-password":
+        #     return update_password(request)
+        # if request.POST.get("operation") == "delete-account":
+        #     return delete_account(request)
         if request.POST.get("operation") == "dark-mode":
-            return delete_wifi(request)
+            return dark_mode(request)
     return render(request, 'user/profile.html')
 
 @login_required

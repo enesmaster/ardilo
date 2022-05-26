@@ -1018,10 +1018,10 @@ html {
 .nav-sticky.navbar-custom {
     margin-top: 0px;
     padding: 14px 0px;
-    background-color: #fff;
-    -webkit-box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.2);
+    background-color: var(--layer-back);
+    -webkit-box-shadow: 0 0 7px 0 var(--layer);
     box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.2);
-    color: #343a40 !important;
+    color: var(--text-color) !important;
 }
 
 .nav-sticky.navbar-custom .navbar-nav {
@@ -1047,7 +1047,7 @@ html {
     .navbar-custom {
         margin-top: 0px;
         padding: 10px 0px !important;
-        background-color: #fff !important;
+        background-color: var(--layer-back) !important;
         -webkit-box-shadow: 0 10px 33px rgba(52, 58, 64, 0.1);
         box-shadow: 0 10px 33px rgba(52, 58, 64, 0.1);
         color: #343a40 !important;

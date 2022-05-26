@@ -67,3 +67,24 @@ def wake(request):
         'resp_btn': resp_btn,
     }
     return JsonResponse(ctx)
+
+def dark_mode(request):
+    if request.POST.get("is_dark") == "true":
+        request.user.profile.dark_mode = True
+        layer = '#202020'
+        layer_back = '#0f0f0f'
+        text_color = '#ece6e6d9'
+    else:
+        request.user.profile.dark_mode = False
+        layer = '#eaeaea'
+        layer_back = '#fff'
+        text_color = '#0f0f0f'
+    request.user.profile.save()
+    ctx={
+        'success': True,
+        'is_dark': request.POST.get("is_dark"),
+        'layer': layer,
+        'layer_back': layer_back,
+        'text_color': text_color,
+    }
+    return JsonResponse(ctx)
