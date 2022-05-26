@@ -57,6 +57,8 @@
 ## Additional Features
 - [ ] Add a blog page to keep page live(Users already using this app for remote control switches so why not did them an author?)
 
+- [ ] Detect IP address and show weather of the city
+
 - [ ] Add optimization for Seach Engine "There is no point in creating something which is not visible to anyone".
 
 - [ ] Add push notifications
