@@ -54,10 +54,15 @@
                 document.documentElement.style.setProperty('--layer', '#202020')
                 document.documentElement.style.setProperty('--layer-back', '#0f0f0f')
                 document.documentElement.style.setProperty('--text-color', '#ece6e6d9');
+                document.documentElement.style.setProperty('--testi-back', 'rgb(21, 13, 4)');
+                $('.hero-5').css('background-image', 'url("{% static "images/heros/hero-5-dark-bg.png" %}")');
+
             } else {
                 document.documentElement.style.setProperty('--layer', '#eaeaea')
                 document.documentElement.style.setProperty('--layer-back', '#fff')
-                document.documentElement.style.setProperty('--text-color', '#0f0f0f');
+                document.documentElement.style.setProperty('--text-color', '#ece6e6d9');
+                document.documentElement.style.setProperty('--testi-back', 'rgba(255, 194, 18, 0.25)');
+                
             }
         })
     </script>
@@ -93,7 +98,7 @@
                         </li>
                         {% if request.user.is_authenticated %}
                         <li title="{{request.user.username}}" class="nav-item mb-1">
-                            <a href="{% url 'profile' %}"  class="nav-link icon-link"><i class='bx bx-user icon-link'></i><i id="username_in_menu" style="text-decoration:none;position:absolute;left:-45%;top:18px;">{{request.user.username}}</i></a>
+                            <a href="{% url 'profile' %}"  class="nav-link icon-link"><i class='bx bx-user icon-link text-color'></i><i id="username_in_menu" style="text-decoration:none;position:absolute;left:-45%;top:18px;">{{request.user.username}}</i></a>
                         </li>
                         <li title="{{request.user.username}}" class="nav-item">
                             <a href="{% url 'logout' %}" class="nav-link">Logout</a>
@@ -117,8 +122,8 @@
 <br>
 <br>
         <!-- footer & cta start -->
-        <section class="footer">
-            <div class="cta-content">
+        <section class="footer bg-light">
+            <div class="cta-content bg-light">
                 <div class="container">
                     <div class="row bg-dark cta-bg p-5 rounded align-items-center">
                         <div class="col-lg-6">

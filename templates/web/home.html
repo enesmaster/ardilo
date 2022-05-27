@@ -3,7 +3,7 @@
 {% block content %}
 
 <!-- home-agency start -->
-<section class="hero-5" id="home">
+<section class="hero-5 bg-light" id="home">
     <div class="container">
         <div class="row align-items-center justify-content-center">
             <div class="col-lg-6">
@@ -22,7 +22,7 @@
 
                 <!-- REGISTER  -->
                     <i class='bx bx-check' style='color:#0ee824;transition:0.5s;font-size:1px;transform:rotate(-25deg);position:absolute;left:325px;'></i>
-                   <div class="card-body p-4">
+                   <div class="card-body p-4 bg-light">
                      <h5 class="border-bottom fs-22 pb-3 mb-3">Register For Free</h5>
                      {% csrf_token %}<i class='bx bx-check' style='color:transition:0.5s;#0ee824;font-size:1px;transform:rotate(-55deg);'></i>
                         <h1 id="reg_mes" align="center"></h1>
@@ -45,7 +45,7 @@
                 <!-- LOGIN  -->
                 <form method="POST" id="login_form">
                     <i class='bx bx-check' style='color:#0ee824;transition:0.5s;font-size:1px;transform:rotate(-25deg);position:absolute;left:325px;'></i>
-                   <div class="card-body p-4">
+                   <div class="card-body p-4 bg-light">
                      <h5 class="border-bottom fs-22 pb-3 mb-4">Login</h5>
                      {% csrf_token %}<i class='bx bx-check' style='color:transition:0.5s;#0ee824;font-size:1px;transform:rotate(-55deg);'></i>
                     {% for field in login_form %}
@@ -75,7 +75,7 @@
  <!-- home-agency end -->
 
         <!-- About start -->
-        <section class="section bg-light" id="about">
+        <section class="section bg-light2" id="about">
             <div class="container">
                 <div class="row justify-content-center mb-5">
                     <div class="col-md-8 col-lg-6 text-center">
@@ -121,7 +121,7 @@
         <!-- About end -->
 
         <!-- Projects start -->
-        <section class="section" id="projects">
+        <section class="section bg-light" id="projects">
             <div class="container">
                 <div class="row justify-content-center mb-5">
                     <div class="col-md-8 col-lg-6 text-center">
@@ -132,11 +132,11 @@
 
                 <div class="row">
                     <ul class="col busi-container-filter categories-filter text-center" id="filter">
-                        <li><a class="categories tab-active active" onclick="filterSelection('all')">All Items</a></li>
-                        <li><a class="categories tab-active" onclick="filterSelection('branding')">Design</a></li>
-                        <li><a class="categories tab-active" onclick="filterSelection('designing')">Creative</a></li>
-                        <li><a class="categories tab-active" onclick="filterSelection('photography')">Digital</a></li>
-                        <li><a class="categories tab-active" onclick="filterSelection('development')">Photography</a></li>
+                        <li><a class="categories tab-active active bg-light-2" onclick="filterSelection('all')">All Items</a></li>
+                        <li><a class="categories tab-active bg-light" onclick="filterSelection('branding')">Design</a></li>
+                        <li><a class="categories tab-active bg-light" onclick="filterSelection('designing')">Creative</a></li>
+                        <li><a class="categories tab-active bg-light" onclick="filterSelection('photography')">Digital</a></li>
+                        <li><a class="categories tab-active bg-light" onclick="filterSelection('development')">Photography</a></li>
                     </ul>
                 </div>
                 <!-- Gallary -->
@@ -148,7 +148,7 @@
                                 <img class="item-container img-fluid" src="images/agency/project-img/1.jpg" alt="1" />
                                 <div class="item-mask mfp-image" data-src="images/agency/project-img/1.jpg" data-gallery="myGal"></div>
                             </div>
-                            <div class="card-body">
+                            <div class="card-body bg-light">
                                 <h5 class="fs-18 mb-1">The Language of Designs</h5>
                                 <p class="text-muted mb-0">Design</p>
                             </div>
@@ -161,7 +161,7 @@
                                 <img class="item-container img-fluid rounded" src="images/agency/project-img/2.jpg" alt="2" />
                                 <div class="item-mask mfp-image" data-src="images/agency/project-img/2.jpg" data-gallery="myGal"></div>
                             </div>
-                            <div class="card-body">
+                            <div class="card-body bg-light">
                                 <h5 class="fs-18 mb-1">The Language of Designs</h5>
                                 <p class="text-muted mb-0">Design</p>
                             </div>
@@ -174,7 +174,7 @@
                                 <img class="item-container img-fluid rounded" src="images/agency/project-img/3.jpg" alt="3" />
                                 <div class="item-mask mfp-image" data-src="images/agency/project-img/3.jpg" data-gallery="myGal"></div>
                             </div>
-                            <div class="card-body">
+                            <div class="card-body bg-light">
                                 <h5 class="fs-18 mb-1">The Language of Designs</h5>
                                 <p class="text-muted mb-0">Design</p>
                             </div>
@@ -187,7 +187,7 @@
                                 <img class="item-container img-fluid rounded" src="images/agency/project-img/4.jpg" alt="4" />
                                 <div class="item-mask mfp-image" data-src="images/agency/project-img/4.jpg" data-gallery="myGal"></div>
                             </div>
-                            <div class="card-body">
+                            <div class="card-body bg-light">
                                 <h5 class="fs-18 mb-1">The Language of Designs</h5>
                                 <p class="text-muted mb-0">Design</p>
                             </div>
@@ -200,7 +200,7 @@
                                 <img class="item-container img-fluid rounded" src="images/agency/project-img/5.jpg" alt="5" />
                                 <div class="item-mask mfp-image" data-src="images/agency/project-img/5.jpg" data-gallery="myGal"></div>
                             </div>
-                            <div class="card-body">
+                            <div class="card-body bg-light">
                                 <h5 class="fs-18 mb-1">The Language of Designs</h5>
                                 <p class="text-muted mb-0">Design</p>
                             </div>
@@ -213,7 +213,7 @@
                                 <img class="item-container img-fluid rounded" src="images/agency/project-img/6.jpg" alt="6" />
                                 <div class="item-mask mfp-image" data-src="images/agency/project-img/6.jpg" data-gallery="myGal"></div>
                             </div>
-                            <div class="card-body">
+                            <div class="card-body bg-light">
                                 <h5 class="fs-18 mb-1">The Language of Designs</h5>
                                 <p class="text-muted mb-0">Design</p>
                             </div>
@@ -239,9 +239,9 @@
                     <div class="col-12">
                         <!-- Swiper -->
                         <div class="clients-slider">
-                            <div class="swiper-wrapper">
+                            <div class="swiper-wrapper ">
                                 <div class="swiper-slide">
-                                    <div class="card shadow-lg">
+                                    <div class="card shadow-lg bg-light">
                                         <div class="card-body p-4">
                                             <img src="images/users/user-1.jpg" alt="" class="rounded-circle shadow-lg" width="60" />
                                             <h5 class="my-4 pt-2 fs-18 lh-base">" Excellent support for a tricky issue related to our customization of the template."</h5>
@@ -255,7 +255,7 @@
                                     </div>
                                 </div>
                                 <div class="swiper-slide">
-                                    <div class="card shadow-lg">
+                                    <div class="card shadow-lg bg-light">
                                         <div class="card-body p-4">
                                             <img src="images/users/user-2.jpg" alt="" class="rounded-circle shadow-lg" width="60" />
                                             <h5 class="my-4 pt-2 fs-18 lh-base">" This kit provides many options which I can you use everyday. It's great work.”</h5>
@@ -269,7 +269,7 @@
                                     </div>
                                 </div>
                                 <div class="swiper-slide">
-                                    <div class="card shadow-lg">
+                                    <div class="card shadow-lg bg-light">
                                         <div class="card-body p-4">
                                             <img src="images/users/user-3.jpg" alt="" class="rounded-circle shadow-lg" width="60" />
                                             <h5 class="my-4 pt-2 fs-18 lh-base">" This is a very extensive web app kit that can serve all kinds of purposes."</h5>
@@ -334,7 +334,7 @@
         <!-- counter end -->
 
         <!-- team start -->
-        <section class="section" id="team">
+        <section class="section bg-light" id="team">
             <div class="container">
                 <div class="row justify-content-center mb-5">
                     <div class="col-md-8 col-lg-6 text-center">

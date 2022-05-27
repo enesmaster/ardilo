@@ -8,7 +8,10 @@
             <h4>{{request.user.username}} <span class="hor-line"></span> <span class="h42">Owner <i class='bx bxs-pencil  ' ></i></span></span>
             </h4>
             <div class="form-check form-switch justify-content-end dark-mode-switch">
-                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                <input class="form-check-input d-none" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+
+                <i class='bx bx-toggle-left dark-icon' style='{% if request.user.profile.dark_mode %} display:none; {% endif %}' id="dark-off"></i>
+                <i class='bx bxs-toggle-right dark-icon' style='{% if not request.user.profile.dark_mode %} display:none; {% endif %}' id="dark-on"></i>
                 <label class="form-check-label dark-mode-label dark-mode-text" for="flexSwitchCheckDefault"><b>Dark Mode</b></label>
             </div>
         </div>
@@ -50,13 +53,28 @@
             document.documentElement.style.setProperty('--layer', '#202020')
             document.documentElement.style.setProperty('--layer-back', '#0f0f0f')
             document.documentElement.style.setProperty('--text-color', '#ece6e6d9');
+            document.documentElement.style.setProperty('--testi-back', 'rgb(21, 13, 4)');
+
         } else {
             document.documentElement.style.setProperty('--layer', '#eaeaea')
             document.documentElement.style.setProperty('--layer-back', '#fff')
+            document.documentElement.style.setProperty('--testi-back', 'rgba(255, 194, 18, 0.25)');
             document.documentElement.style.setProperty('--text-color', '#0f0f0f');
+
         }
     })
-
+    $('.dark-icon').click(function() {
+        $('#flexSwitchCheckDefault').trigger('click')
+        if ($('#_dark_infocu').val() == 'True') {
+            $('#dark-on').hide();
+            $('#dark-off').show();
+            $('#_dark_infocu').val('False')
+        } else {
+            $('#dark-on').show();
+            $('#dark-off').hide();
+            $('#_dark_infocu').val('True')
+        }
+    })
     $('#flexSwitchCheckDefault').on('change', function() {
         $.ajax({
             type: "POST",
