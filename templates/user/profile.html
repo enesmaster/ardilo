@@ -75,7 +75,7 @@
             $('#_dark_infocu').val('True')
         }
     })
-    $('#flexSwitchCheckDefault').on('change', function() {
+    $('#flexSwitchCheckDefault').click(function() {
         $.ajax({
             type: "POST",
             url: "{% url 'profile' %}",
