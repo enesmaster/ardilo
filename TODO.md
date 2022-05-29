@@ -41,6 +41,7 @@
 - [x] After click to edit normal div displays none and editor div displays block
 
 - [ ] Add Dark Theme and remember the choice.
+window.matchMedia('(prefers-color-scheme: dark)').matches
 
 - [x] Add last_used field to workshop model so users can see at which time they used the workshop.
 
