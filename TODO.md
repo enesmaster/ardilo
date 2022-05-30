@@ -20,8 +20,6 @@
 
 - [ ] Use Async Django Views (To turn the value to the default after the duration that the user has declared)
  
-- [ ] (add a Chatbot IF you have done your work)
-
 - [ ] Daily views dashboard visit counter
 
 
@@ -65,5 +63,8 @@ window.matchMedia('(prefers-color-scheme: dark)').matches
 - [ ] Add push notifications
 
 - [ ] Report loggs to the admin via email
+
+- [ ] (add a Chatbot IF you have done your work)
+
 
 Note: Turn minus to plus if you done the mission
