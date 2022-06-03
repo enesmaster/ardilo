@@ -46,6 +46,7 @@ window.matchMedia('(prefers-color-scheme: dark)').matches
 - [ ] Add Modal alert for subscription.
 
  ## Sessions Tracking
+ 
 
 - [ ] Add user movement track to whole app by date, time, page name, click, duration of visit, type of browser
 
