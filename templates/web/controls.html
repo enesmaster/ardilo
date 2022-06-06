@@ -32,7 +32,7 @@
       .detail{
         position: absolute;
         width: 119px;
-        height: 83px;
+        height: 113px;
         background: white;
         box-shadow: 1px 1px 4px 2px #1c7d63;
         text-align: center;
@@ -131,8 +131,9 @@
                         <i class='bx bx-dots-horizontal-rounded dots' id="dots" data-dot="{{forloop.counter}}"></i>
                             <div class="detail" id="detail" data-card="{{forloop.counter}}">
                                 <a target="_blank" href="{{workshop.url}}">{% translate "Link"  %}</a>
+                                <a target="_blank" href="{{workshop.detail_url}}">{% translate "Detail"  %}</a>
                                 <a class="edit-workshop">{% translate "Edit" %}</a>
-                                <a class="delete-request">{% translate "Delete"  %}</a>
+                                <a class="delete-request">{% translate "Delete" %}</a>
                             </div>
                         <h5 id="wifi_h5" class="border-bottom text-center fs-22 pb-2 mb-4 noselect">{{workshop.actname}}</h5>
                         <input type="text" class="title_edit_input" id="edit_actname_input" value="" placeholder="{% translate 'name...' %}">

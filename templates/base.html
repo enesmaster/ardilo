@@ -60,7 +60,7 @@
             } else {
                 document.documentElement.style.setProperty('--layer', '#eaeaea')
                 document.documentElement.style.setProperty('--layer-back', '#fff')
-                document.documentElement.style.setProperty('--text-color', '#ece6e6d9');
+                document.documentElement.style.setProperty('--text-color', '#0f0f0f');
                 document.documentElement.style.setProperty('--testi-back', 'rgba(255, 194, 18, 0.25)');
                 
             }
@@ -87,7 +87,7 @@
                         </li>
                         {% if request.user.is_authenticated %}
                         <li class="nav-item">
-                            <a href="{% url 'config' %}" class="nav-link">Create Control</a>
+                            <a href="{% url 'config' %}" class="nav-link">Configrate</a>
                         </li>
                         <li class="nav-item">
                             <a href="{% url 'control_panel' %}" class="nav-link">Control Panel</a>

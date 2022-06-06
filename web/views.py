@@ -122,6 +122,7 @@ def configrations(request):
             return JsonResponse(ctx)
         secret_key = get_random_string(25, chars)
         url = "http://"+request.get_host()+"/workshop/"+secret_key
+        detail_url = "http://"+request.get_host()+"/workshop/detail/"+secret_key
         try:
             wifi = Wifie.objects.get(id=request.POST.get("wifi"))
         except:
@@ -137,7 +138,8 @@ def configrations(request):
             wifi=wifi,
             user=user,
             secret_key=secret_key,
-            url=url
+            url=url,
+            detail_url=detail_url
             )
         ctx = {
                 'created': True,
@@ -177,6 +179,11 @@ def workshop(request, secret_key):
         "response": workshop.current_resp,
     }
     return JsonResponse(json)
+
+@login_required
+def workshop_detail(request, secret_key):
+    workshop = Workshop.objects.get(secret_key=secret_key)
+    return render(request, "web/detail_workshop.html", {'workshop':workshop})
 
 @login_required
 def control_panel(request):

@@ -3,10 +3,20 @@ from django.conf import settings
 from django.contrib.auth.signals import user_logged_in,user_logged_out
 from django.dispatch import receiver
 from django.utils import timezone
-from . models import Profile, Workshop, Workshop_usage
+from . models import Profile, UserMovementTrack, Workshop, Workshop_usage
 import datetime
 import time
 User = settings.AUTH_USER_MODEL
+
+
+def get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
+
 
 @receiver(post_save, sender=User)
 def create_profile(sender, instance, created, **kwargs):
@@ -28,22 +38,45 @@ def user_logged(sender,request,user,**kwargs):
     user.profile.save()
 
     #||==> Tracker
-    user.tracker.os = request.user_agent.os
-    user.tracker.os_name = request.user_agent.os.family
-    user.tracker.os_version = request.user_agent.os.version
-    user.tracker.device = request.user_agent.device.family
-    user.tracker.action = "log_in"
-    user.tracker.browser = request.user_agent.browser.family
-    user.tracker.is_mobile = request.user_agent.is_mobile 
-    user.tracker.is_tablet = request.user_agent.is_tablet
-    user.tracker.is_pc = request.user_agent.is_pc
-    user.tracker.is_bot = request.user_agent.is_bot
-    user.tracker.save()
+    UserMovementTrack.objects.create(
+        user = user,
+        os = request.user_agent.os,
+        os_name = request.user_agent.os.family,
+        os_version = request.user_agent.os.version,
+        device = request.user_agent.device.family,
+        action = "log_in",
+        browser = request.user_agent.browser.family,
+        is_mobile = request.user_agent.is_mobile ,
+        is_tablet = request.user_agent.is_tablet,
+        is_pc = request.user_agent.is_pc,
+        is_bot = request.user_agent.is_bot,
+        language=request.LANGUAGE_CODE,
+        ip = get_client_ip(request),
+        url= "login/"
+    )
+
 
 @receiver(user_logged_out)
 def user_logged_out(sender,request,user,**kwargs):
     user.profile.is_online = False
     user.profile.save()
+        #||==> Tracker
+    UserMovementTrack.objects.create(
+        user = user,
+        os = request.user_agent.os,
+        os_name = request.user_agent.os.family,
+        os_version = request.user_agent.os.version,
+        device = request.user_agent.device.family,
+        action = "log_out",
+        browser = request.user_agent.browser.family,
+        is_mobile = request.user_agent.is_mobile ,
+        is_tablet = request.user_agent.is_tablet,
+        is_pc = request.user_agent.is_pc,
+        is_bot = request.user_agent.is_bot,
+        language=request.LANGUAGE_CODE,
+        ip = get_client_ip(request),
+        url= "logout/"
+    )
 
 @receiver(post_save, sender=Workshop)
 def record_action_time(sender, instance, **kwargs):

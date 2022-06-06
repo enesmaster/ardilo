@@ -13,6 +13,7 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(template_name='logout.html'), name='logout'),
     #WORKSHOPS
     path('workshop/<str:secret_key>', views.workshop, name='workshop'),
+    path('workshop/detail/<str:secret_key>', views.workshop_detail, name='workshop'),
     path('control/', views.control_panel, name='control_panel'),
     
 ]

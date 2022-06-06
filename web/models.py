@@ -2,6 +2,7 @@ import time
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
+from datetime import datetime
 
 class Wifie(models.Model):
     ssid = models.CharField(max_length=150)
@@ -51,6 +52,7 @@ class Workshop(models.Model):
     wifi = models.ForeignKey(Wifie, on_delete=models.CASCADE)
     secret_key = models.CharField(max_length=25)
     url = models.CharField(max_length=100)
+    detail_url = models.CharField(max_length=100)
     actname = models.CharField(max_length=150)
     def_resp = models.CharField(max_length=150)
     expected_resp = models.CharField(max_length=150)
@@ -113,11 +115,16 @@ class UserMovementTrack(models.Model):
     ip = models.GenericIPAddressField(null=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, related_name="tracker")
     user_agent = models.CharField(max_length=150, null=True, blank=True)
-    device_version = models.CharField(max_length=100)
-    device_model = models.CharField(max_length=100)
     language = models.CharField(max_length=100)
-    screen = models.CharField(max_length=100)
     time = models.CharField(max_length=250)
+
+    def save(self, *args, **kwargs):
+        self.time = datetime.now().strftime("%d/%m/%Y, %H:%M:%S")
+        super().save(*args, **kwargs)
+    
+    def __str__(self):
+        return self.user.username + " >---------> " + self.action
+
     
 
 

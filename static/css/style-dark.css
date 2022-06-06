@@ -1,8 +1,8 @@
 :root {
-    --layer: #202020;
-    --layer-back: #0f0f0f;
-    --testi-back: rgb(21, 13, 4);
-    --text-color: #ece6e6d9;
+    --layer: #eaeaea;
+    --layer-back: #fff;
+    --testi-back: rgba(255, 194, 18, 0.25);
+    --text-color: #0f0f0f;
 }
 
 
