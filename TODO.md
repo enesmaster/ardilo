@@ -2,6 +2,7 @@
 
 
 # Development To-Do List 
+
 - [ ] Add device type:  is_ios, is_android is_mac is_windows
 
 - [x] Add 404 page with this text We admire your passion for discovery. You searched for a page that does not exist anywhere.
@@ -20,10 +21,7 @@
 
 - [ ] Use Async Django Views (To turn the value to the default after the duration that the user has declared)
  
-- [ ] (add a Chatbot IF you have done your work)
-
 - [ ] Daily views dashboard visit counter
-
 
  ## UI
 - [x] !!Add "create workshop" title if user has no workshop
@@ -48,6 +46,7 @@ window.matchMedia('(prefers-color-scheme: dark)').matches
 - [ ] Add Modal alert for subscription.
 
  ## Sessions Tracking
+ 
 
 - [ ] Add user movement track to whole app by date, time, page name, click, duration of visit, type of browser
 
@@ -60,10 +59,18 @@ window.matchMedia('(prefers-color-scheme: dark)').matches
 
 - [ ] Detect IP address and show weather of the city
 
+- [ ] Send information mail after log in. You signed in to your accuont in 00:00 pm ip:1.0.4243
+
+- [ ] detect Special Days give alert
+
 - [ ] Add optimization for Seach Engine "There is no point in creating something which is not visible to anyone".
 
 - [ ] Add push notifications
 
 - [ ] Report loggs to the admin via email
 
+- [ ] (add a Chatbot IF you have done your work)
+
+
 Note: Turn minus to plus if you done the mission
+IMPORTANT: Deadline: 13.06.2022 (should be publish on git)
