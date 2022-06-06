@@ -21,9 +21,24 @@ def save_profile(sender, instance, **kwargs):
 
 @receiver(user_logged_in)
 def user_logged(sender,request,user,**kwargs):
+    
+    #||==> Profile
     user.profile.is_online = True
     user.profile.last_login = datetime.datetime.now()
     user.profile.save()
+
+    #||==> Tracker
+    user.tracker.os = request.user_agent.os
+    user.tracker.os_name = request.user_agent.os.family
+    user.tracker.os_version = request.user_agent.os.version
+    user.tracker.device = request.user_agent.device.family
+    user.tracker.action = "log_in"
+    user.tracker.browser = request.user_agent.browser.family
+    user.tracker.is_mobile = request.user_agent.is_mobile 
+    user.tracker.is_tablet = request.user_agent.is_tablet
+    user.tracker.is_pc = request.user_agent.is_pc
+    user.tracker.is_bot = request.user_agent.is_bot
+    user.tracker.save()
 
 @receiver(user_logged_out)
 def user_logged_out(sender,request,user,**kwargs):

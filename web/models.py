@@ -105,13 +105,19 @@ class UserMovementTrack(models.Model):
     browser =   models.CharField(max_length=100)
     os_name =     models.CharField(max_length=100)
     os_version =   models.CharField(max_length=100)
-    device_type =   models.CharField(max_length=100)
+    is_mobile =   models.CharField(max_length=100)
+    is_tablet =   models.CharField(max_length=100)
+    is_pc =   models.CharField(max_length=100)
+    is_bot =   models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
     ip = models.GenericIPAddressField(null=True, blank=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, related_name="tracker")
     user_agent = models.CharField(max_length=150, null=True, blank=True)
     device_version = models.CharField(max_length=100)
     device_model = models.CharField(max_length=100)
     language = models.CharField(max_length=100)
     screen = models.CharField(max_length=100)
     time = models.CharField(max_length=250)
+    
+
+
