@@ -74,3 +74,4 @@ window.matchMedia('(prefers-color-scheme: dark)').matches
 
 
 Note: Turn minus to plus if you done the mission
+IMPORTANT: Deadline: 13.06.2022 (should be publish on git)
