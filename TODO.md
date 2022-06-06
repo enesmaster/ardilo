@@ -3,7 +3,9 @@
 
 # Development To-Do List 
 
-- [ ] Add device type:  is_ios, is_android is_mac is_windows
+- [x] Add device type:  is_ios, is_android is_mac is_windows
+
+- [x] Add brwoser type
 
 - [x] Add 404 page with this text We admire your passion for discovery. You searched for a page that does not exist anywhere.
 
@@ -30,7 +32,7 @@
 
 - [x] Add a "go to control" button after the user created a workshop. 
 
-- [ ] Add code section of workshop when shown after saved visible in workshops page ( Credentials )
+- [x] Add code section of workshop when shown after saved visible in workshops page ( Credentials )
 
 - [ ] Add to profile page( chart js for worksohp usages )
 
@@ -38,7 +40,7 @@
 
 - [x] After click to edit normal div displays none and editor div displays block
 
-- [ ] Add Dark Theme and remember the choice.
+- [x] Add Dark Theme and remember the choice.
 window.matchMedia('(prefers-color-scheme: dark)').matches
 
 - [x] Add last_used field to workshop model so users can see at which time they used the workshop.
