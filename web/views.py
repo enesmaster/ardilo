@@ -217,7 +217,11 @@ def profile(request):
         #     return delete_account(request)
         if request.POST.get("operation") == "dark-mode":
             return dark_mode(request)
-    return render(request, 'user/profile.html', {'last_actions':Workshop_actions.objects.filter(user=request.user).order_by('-date_added')[:5]})
+    ctx = {
+        'last_actions':Workshop_actions.objects.filter(user=request.user).order_by('-date_added')[:5],
+        'most_used_workshops':Workshop.objects.filter(user=request.user).order_by('usage_count')[:5],
+    }
+    return render(request, 'user/profile.html', ctx)
 
 @login_required
 def open_the_door(request):

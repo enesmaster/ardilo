@@ -28,7 +28,7 @@
 
 .herom {
     padding-top: 70px;
-    padding-bottom: 170px;
+    padding-bottom: 400px;
 }
 
 .profile {
@@ -154,7 +154,9 @@
     height: 500px;
     padding-bottom: 10px;
     background: var(--layer);
-    margin-top: 10px;
+    margin-top: 20px;
+    position: absolute;
+    top: 450px;
 }
 
 @media screen and (max-width: 501px) {

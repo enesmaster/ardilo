@@ -23,7 +23,7 @@
     background: var(--layer-back);
     color: var(--text-color);
     padding-top: 70px;
-    padding-bottom: 170px;
+    padding-bottom: 400px;
 }
 
 .profile {
@@ -162,6 +162,8 @@
     padding-bottom: 10px;
     background: var(--layer-back);
     margin-top: 10px;
+    position: absolute;
+    top: 450px;
 }
 
 @media screen and (max-width: 501px) {

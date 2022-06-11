@@ -10,6 +10,8 @@
                 <h1 class="mb-4 display-5 fw-semibold">Easy way to control things on internet!</h1>
                 <p id="main_p" class="text-muted fs-17">{% if request.user.is_authenticated %}{% if request.user.workshop %}HurryUp documentations can save your time.{% else %}Create your worksop. But first take a look to the documentation.{% endif %}{% else %}  Register an account, define your url in your Arduino/NodeMCU IDE. That's it!{% endif %}</p>
                 <a href="{% url 'docs' %}" id="learn_btn" class="btn btn-lg btn-gradient-success mt-4 mb-4 mb-lg-0">Learn More <i class="mdi mdi-arrow-right fs-14 ms-1"></i></a>
+                <a href="{% url 'config' %}" id="learn_btn" class="btn btn-lg btn-gradient-danger mt-4 mb-4 mb-lg-0">Create<i class="mdi mdi-arrow-right fs-14 ms-1"></i></a>
+                <a href="{% url 'control_panel' %}" id="learn_btn" class="btn btn-lg btn-gradient-warning mt-4 mb-4 mb-lg-0">Manage<i class="mdi mdi-arrow-right fs-14 ms-1"></i></a>
             </div>
 
             {% if not request.user.is_authenticated %}
