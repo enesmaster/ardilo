@@ -1,6 +1,6 @@
                                                    </> - - -  R E M O D Y  - - -  </> 
 
-
+TODAY: Add README.md file
 # Development To-Do List 
 
 - [x] Add device type:  is_ios, is_android is_mac is_windows
@@ -24,6 +24,8 @@
 - [ ] Use Async Django Views (To turn the value to the default after the duration that the user has declared)
  
 - [ ] Daily views dashboard visit counter
+
+
 
  ## UI
 - [x] !!Add "create workshop" title if user has no workshop
