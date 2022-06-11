@@ -50,7 +50,6 @@ window.matchMedia('(prefers-color-scheme: dark)').matches
 - [ ] Add Modal alert for subscription.
 
  ## Sessions Tracking
- 
 
 - [ ] Add user movement track to whole app by date, time, page name, click, duration of visit, type of browser
 
@@ -65,11 +64,7 @@ window.matchMedia('(prefers-color-scheme: dark)').matches
 
 - [ ] Send information mail after log in. You signed in to your accuont in 00:00 pm ip:1.0.4243
 
-- [ ] detect Special Days give alert
-
 - [ ] Add optimization for Seach Engine "There is no point in creating something which is not visible to anyone".
-
-- [ ] Add push notifications
 
 - [ ] Report loggs to the admin via email
 
