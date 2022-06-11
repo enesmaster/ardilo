@@ -1,9 +1,9 @@
-from django.db.models.signals import post_save, pre_save
+from django.db.models.signals import post_save, pre_save,post_delete
 from django.conf import settings 
 from django.contrib.auth.signals import user_logged_in,user_logged_out
 from django.dispatch import receiver
 from django.utils import timezone
-from . models import Profile, UserMovementTrack, Workshop, Workshop_usage
+from . models import Profile, UserMovementTrack, Workshop, Workshop_actions
 import datetime
 import time
 User = settings.AUTH_USER_MODEL
@@ -79,8 +79,27 @@ def user_logged_out(sender,request,user,**kwargs):
     )
 
 @receiver(post_save, sender=Workshop)
-def record_action_time(sender, instance, **kwargs):
-    Workshop_usage.objects.create(workshop=instance,user=instance.user)
+def action_post(sender, instance, created, **kwargs):
+    if created:
+        Workshop_actions.objects.create(
+            workshop=instance.actname,
+            user=instance.user,
+            action=Workshop_actions.WORKSHOP_ACTIONS[0][0]
+            )
+    else:
+        Workshop_actions.objects.create(
+            workshop=instance.actname,
+            user=instance.user,
+            action=Workshop_actions.WORKSHOP_ACTIONS[1][0]
+            )
+
+@receiver(post_delete, sender=Workshop)
+def action_delete(sender, instance, **kwargs):
+    Workshop_actions.objects.create(
+        workshop=instance.actname,
+        user=instance.user,
+        action=Workshop_actions.WORKSHOP_ACTIONS[2][0]
+        )
 
 @receiver(post_save, sender=Workshop)
 def last_used_act(sender, instance, **kwargs):

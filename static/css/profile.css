@@ -56,6 +56,13 @@
     margin-top: 5px;
 }
 
+.act-name {
+    background: #c4b3b39e;
+    border-radius: 3px;
+    padding: 3px;
+    color: black;
+}
+
 .profile_sec1 .h42 {
     position: relative;
     margin-left: 55px;
@@ -64,7 +71,6 @@
 }
 
 .profile_sec2 {
-    height: 185px;
     background: var(--layer-back);
     margin-top: 10px;
 }

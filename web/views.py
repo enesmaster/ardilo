@@ -4,7 +4,7 @@ from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from .forms import RegisterForm, WifiForm,WorkshopCreateForm,CustomLoginForm
-from .models import UserMovementTrack, Wifie, Workshop
+from .models import UserMovementTrack, Wifie, Workshop, Workshop_actions
 from django.contrib.auth.views import LoginView
 from django.http import JsonResponse
 from django.utils.translation import gettext_lazy as _
@@ -217,7 +217,7 @@ def profile(request):
         #     return delete_account(request)
         if request.POST.get("operation") == "dark-mode":
             return dark_mode(request)
-    return render(request, 'user/profile.html')
+    return render(request, 'user/profile.html', {'last_actions':Workshop_actions.objects.filter(user=request.user).order_by('-date_added')[:5]})
 
 @login_required
 def open_the_door(request):

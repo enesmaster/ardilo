@@ -76,15 +76,23 @@ class Workshop(models.Model):
         for i in Workshop.BUTTON_COLOR_CHOICES:
             list.append(i[0])
         return list
-class Workshop_usage(models.Model):
-    workshop = models.ForeignKey(Workshop, on_delete=models.CASCADE)
+class Workshop_actions(models.Model):
+    WORKSHOP_ACTIONS = (
+        ('1', _('Added')),
+        ('2', _('Used')),
+        ('3', _('Removed')),
+    )
+    workshop = models.CharField(max_length=150)
+    action = models.CharField(choices=WORKSHOP_ACTIONS, max_length=30)
     date_added = models.DateTimeField(auto_now_add=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE,null=True,  related_name='workshop_actions')
     class Meta:
         verbose_name = _('Workshop usage')
         verbose_name_plural = _('Workshop usages')
+
     def __str__(self):
-        return self.user.username + " >---------> " + self.workshop.actname
+        return self.user.username + " >-----" + self.workshop +" ----> " + self.get_action_display()
+        
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
     wifi = models.ForeignKey(Wifie, on_delete=models.CASCADE, related_name="wifi_profile", blank=True, null=True)

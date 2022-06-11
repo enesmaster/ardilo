@@ -19,25 +19,37 @@
         <div class="secs profile_sec2">
             <h5 style="margin-left: 10px;">My Last Actions <i class='bx bx-chevron-down ico-size'></i><i class='bx bx-chevron-up ico-size'></i></h5>
             <ul class="actions">
+                {% for act in last_actions %}
+                {% if act.action == "1" %}
+                    <li>
+                        <p><span class="added-dot"></span> Added <span class="act-name">{{act.workshop}}</span></p>
+                    </li>
+                {% elif act.action == "2" %}
                 <li>
-                    <p><span class="added-dot"></span>Added 'workshop'
-                    </p>
+                    <p><span class="used-dot"></span> <span class="act-name">{{act.workshop}}</span> Used</p>
                 </li>
+                {% elif act.action == "3" %}
                 <li>
-                    <p><span class="removed-dot"></span>Removed 'wifi'
-                    </p>
+                    <p><span class="removed-dot"></span>Removed <span class="act-name">{{act.workshop}}</span></p>
                 </li>
+                {% else %}
                 <li>
-                    <p>
-                        <span class="used-dot"></span> 'action' Used </p>
+                    No Action
                 </li>
+                {% endif %}
+                
+                
+                {% endfor %}
+                
             </ul>
         </div>
         <br>
         <div class="secs profile_sec3">
             <h5 style="margin-left: 10px;">My Usage Analysis <i class='bx bx-bar-chart ico-size'></i></h5>
             <br>
-            <canvas id="myChart" width="500" height="500"></canvas>
+            <div class="chart-container" style="position: relative; height:40vh; width:80vw">
+            <canvas id="myChart"></canvas>
+        </div>
         </div><br><br><br><br>
     </div>
     </div>
@@ -48,6 +60,7 @@
 <input id="this_username" type="hidden" value=""></input>
 {% endblock content %} {% block script %}
 <script>
+
     $(document).ready(function() {
         if ($('#_dark_infocu').val() == 'True') {
             document.documentElement.style.setProperty('--layer', '#202020')
