@@ -36,7 +36,7 @@ TODAY: Add README.md file
 
 - [x] Add code section of workshop when shown after saved visible in workshops page ( Credentials )
 
-- [ ] Add to profile page( chart js for worksohp usages )
+- [x] Add to profile page( chart js for worksohp usages )
 
 - [x] Add shodow under detail modal for edit/delete in control page
 
@@ -55,7 +55,7 @@ window.matchMedia('(prefers-color-scheme: dark)').matches
 
 - [ ] Detect the best active users by clicks, visits and actions
 
-- [ ] Create a Dashboard on admin panel to see graphics of data for sessions, visits durations etc.
+- [x] Create a Dashboard on admin panel to see graphics of data for sessions, visits durations etc.
 
 ## Additional Features
 - [ ] Add a blog page to keep page live(Users already using this app for remote control switches so why not did them an author?)
