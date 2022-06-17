@@ -38,8 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'api',
-    'web',
+    'api.apps.ApiConfig',
+    'web.apps.WebConfig',
     'django_user_agents',
 
 ]
