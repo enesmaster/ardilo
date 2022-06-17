@@ -2,7 +2,6 @@
 {% load static %}
 {% load i18n %}
 {% block css %}
-
 <style>
     .noselect {
         -webkit-touch-callout: none; /* iOS Safari */
@@ -12,22 +11,21 @@
               -ms-user-select: none; /* Internet Explorer/Edge */
                   user-select: none; /* Non-prefixed version, currently
                                         supported by Chrome, Opera and Firefox */
-      }
-      .response {
+    }
+    .response {
         position: absolute;
         right: 60px;
         font-size: 22px;
         text-shadow: 0px 6px 6px #13ba99;
         font-weight: bold;
         font-family: 'Cerebri Sans', sans-serif;
-        
-      }
-      #dots {
+    }
+    #dots {
         font-size: 25px;
         position: absolute;
         right: 20px;
         top: 10px;
-      }
+    }
     .snippet{
         font-family:Consolas, monospace;
         width: 125%;
@@ -67,16 +65,16 @@
        height:1px;
    }
    .snippet  .code-file-title{
-    color: #ff7b72;
-    font-size: 19px;
-    padding-bottom: 1px;
+        color: #ff7b72;
+        font-size: 19px;
+        padding-bottom: 1px;
    }
    .snippet .line{
-    background:white;
-    position: absolute;
-    width: 85%;
-    height:1px;
-    padding-top:0px;
+        background:white;
+        position: absolute;
+        width: 85%;
+        height:1px;
+        padding-top:0px;
     }
     .clipboard{
         position: absolute;
@@ -107,11 +105,8 @@
                 <p id="main_p" class="text-muted fs-17 noselect">{% if request.user.is_authenticated %}{% if request.user.workshop %}{% translate "The inspiration is desire."%} {% else %}{% translate "Create your worksop. But first take a look to the documentation." %} {% endif %}{% else %}  {% translate "Register an account, define your url in your Arduino/NodeMCU IDE. That's it!" %}{% endif %}</p>
                 <a href="{% url 'control_panel' %}" id="learn_btn" class="btn btn-lg btn-gradient-success mt-4 mb-4 mb-lg-1">{% translate "Controls"  %}<i class="mdi mdi-arrow-right fs-14 ms-1"></i></a>
             </div>
-
             {% if request.user.is_authenticated %}
-
             <div class="col-md-8 col-lg-5 offset-lg-1">
-               
                 <div class="snippet p-4">
                     <i title="Copy" class='bx bx-copy-alt clipboard' id="clipboard"></i><i title="Save" id="download_wksp" class='bx bx-download download' ></i>
                     <i  class='clipboard' id="clipboard-copied"></i>
@@ -136,16 +131,12 @@
                  </div>
             {% else %}
             <a href="{% url 'signup' %}"  class="btn btn-lg btn-gradient-success mt-4 mb-4 mb-lg-0">{% translate "Sign-Up"  %}<i class="mdi mdi-arrow-right fs-14 ms-1"></i></a>
-            
-
             {% endif %}
         </div>
     </div>
  </section>
  <!-- home-agency end -->
 {% endblock content %}
-
-
 {% block script %}
 <script>
     $('#clipboard-copied').css('background','#333333');
@@ -209,8 +200,6 @@
                          console.log('error')
                         }
                   });
-        })
-                    
+                })        
     </script>
-    
 {% endblock script %}
