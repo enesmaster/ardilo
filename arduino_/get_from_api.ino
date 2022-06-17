@@ -3,8 +3,8 @@
 #include <ESP8266HTTPClient.h>
 
 //enesislam [https://github.com/enesislam/get_from_api.ino]
-const char* ssid     = "ENES";
-const char* password = "PASSWORD_ISN_T_DEFINED";
+const char* ssid     = "<SSID>";
+const char* password = "<PASSWORD>";
 const String url = "http://enesenes222.pythonanywhere.com/api/signal/";
 
 

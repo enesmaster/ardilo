@@ -102,11 +102,13 @@ class Profile(models.Model):
     
     def __str__(self):
         return self.user.username
+
     class Meta:
         verbose_name = _('Profile')
         verbose_name_plural = _('Profiles')
 
 #!NOTE This model is for detecting bad users and analyzing the usage of the website page by page
+
 class UserMovementTrack(models.Model):
     os = models.CharField(max_length=100)
     url =  models.CharField(max_length=100)
@@ -125,6 +127,10 @@ class UserMovementTrack(models.Model):
     user_agent = models.CharField(max_length=150, null=True, blank=True)
     language = models.CharField(max_length=100)
     time = models.CharField(max_length=250)
+
+    class Meta:
+        verbose_name = _("User Track")
+        verbose_name_plural = _("User Tracks")
 
     def save(self, *args, **kwargs):
         self.time = datetime.now().strftime("%d/%m/%Y, %H:%M:%S")
