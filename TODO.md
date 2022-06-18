@@ -1,6 +1,6 @@
                                                    </> - - -  R E M O D Y  - - -  </> 
 
-TODAY: Add README.md file
+Add README.md file
 # Development To-Do List 
 
 - [x] Add device type:  is_ios, is_android is_mac is_windows
@@ -23,7 +23,9 @@ TODAY: Add README.md file
 
 - [ ] Use Async Django Views (To turn the value to the default after the duration that the user has declared)
  
-- [ ] Daily views dashboard visit counter
+- [ ] Daily viewsprovider dashboard visit counter
+
+- [ ] Add to Home screen feature create a model called homescreen and give a context to home page for last 5 object
 
 
 
@@ -36,7 +38,7 @@ TODAY: Add README.md file
 
 - [x] Add code section of workshop when shown after saved visible in workshops page ( Credentials )
 
-- [ ] Add to profile page( chart js for worksohp usages )
+- [x] Add to profile page( chart js for worksohp usages )
 
 - [x] Add shodow under detail modal for edit/delete in control page
 
@@ -50,13 +52,12 @@ window.matchMedia('(prefers-color-scheme: dark)').matches
 - [ ] Add Modal alert for subscription.
 
  ## Sessions Tracking
- 
 
 - [ ] Add user movement track to whole app by date, time, page name, click, duration of visit, type of browser
 
 - [ ] Detect the best active users by clicks, visits and actions
 
-- [ ] Create a Dashboard on admin panel to see graphics of data for sessions, visits durations etc.
+- [x] Create a Dashboard on admin panel to see graphics of data for sessions, visits durations etc.
 
 ## Additional Features
 - [ ] Add a blog page to keep page live(Users already using this app for remote control switches so why not did them an author?)
@@ -65,11 +66,7 @@ window.matchMedia('(prefers-color-scheme: dark)').matches
 
 - [ ] Send information mail after log in. You signed in to your accuont in 00:00 pm ip:1.0.4243
 
-- [ ] detect Special Days give alert
-
 - [ ] Add optimization for Seach Engine "There is no point in creating something which is not visible to anyone".
-
-- [ ] Add push notifications
 
 - [ ] Report loggs to the admin via email
 

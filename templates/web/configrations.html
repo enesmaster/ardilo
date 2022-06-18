@@ -113,16 +113,16 @@
        height:1px;
    }
    .snippet  .code-file-title{
-    color: #ff7b72;
-    font-size: 19px;
-    padding-bottom: 1px;
+        color: #ff7b72;
+        font-size: 19px;
+        padding-bottom: 1px;
    }
    .snippet .line{
-    background:white;
-    position: absolute;
-    width: 85%;
-    height:1px;
-    padding-top:0px;
+        background:white;
+        position: absolute;
+        width: 85%;
+        height:1px;
+        padding-top:0px;
     }
     .clipboard{
         position: absolute;
@@ -153,9 +153,7 @@
                 <p id="main_p" class="text-muted fs-17 noselect">{% if request.user.is_authenticated %}{% if request.user.workshop %}{% translate "HurryUp documentations can save your time."%} {% else %}{% translate "Create your worksop. But first take a look to the documentation." %} {% endif %}{% else %}  {% translate "Register an account, define your url in your Arduino/NodeMCU IDE. That's it!" %}{% endif %}</p>
                 <a href="{% url 'docs' %}" id="learn_btn" class="btn btn-lg btn-gradient-success mt-4 mb-4 mb-lg-0">{% translate "Learn More"  %}<i class="mdi mdi-arrow-right fs-14 ms-1"></i></a>
             </div>
-
             {% if request.user.is_authenticated %}
-
             <div class="col-md-8 col-lg-5 offset-lg-1">
                 <div id="btns">
                     <ul>
@@ -190,7 +188,7 @@
                         <div class="mb-3" style="display:none;">
                             <label for="wifies">Selected WiFi</label>
                             <select name="wfies" id="sel_wifies">
-                              
+                                
                             </select> 
                         </div>
                             <div class="mb-3">
@@ -259,7 +257,6 @@
             {% else %}{% comment %} 
             <small data-is="222" id="is_unAuthed"></small>
             if ($('#is_unAuthed').attr('data-is') > 0) { {% endcomment %}
-
             {% endif %}
         </div>
     </div>
@@ -268,7 +265,6 @@
 
 <input id="this_username" type="hidden" value=""></input>
 {% endblock content %}
-
 {% block script %}
 <script>
     $('#clipboard-copied').css('background','#333333');
