@@ -1,7 +1,7 @@
 import time
 from django.http import JsonResponse
 from django.contrib.auth.models import User
-from web.models import Wifie, Workshop
+from web.models import Wifie, Workshop,HomeScreenWorkshop
 from django.utils.translation import gettext_lazy as _
 
 def update_workshop_title(request):
@@ -42,6 +42,22 @@ def change_button_color(request):
         'msg': _('Deleting...'),
         'workshop_id': request.POST.get("workshop_id"),
     }
+    return JsonResponse(ctx)
+
+
+def add_to_home_screen(request):
+    a = Workshop.objects.filter(id=request.POST.get("workshop_id")).first()
+    if a is not None:
+        hs,created = HomeScreenWorkshop.objects.get_or_create(workshop=a, user=request.user)
+        resp_btn = "Add to Home" if not created else "Remove from Home"
+        status = "added"  
+        hs.delete() if not created else None
+        ctx={
+            'success': True,
+            'status':status,
+            'resp_btn': resp_btn,
+        }
+    else:ctx={'success': False,}
     return JsonResponse(ctx)
 
 def wake(request):

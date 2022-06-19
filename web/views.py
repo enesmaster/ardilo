@@ -197,6 +197,8 @@ def control_panel(request):
             response = delete_workshop(request)
         if request.POST.get("operation") == "wake":
             response = wake(request)
+        if request.POST.get("operation") == "add-to-home-screen":
+            response = add_to_home_screen(request)
         if request.POST.get("operation") == "change-button-color":
             response = change_button_color(request)
         # if request.POST.get("operation") == "update-workshop-duration":

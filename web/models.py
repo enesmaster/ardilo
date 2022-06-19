@@ -92,7 +92,15 @@ class Workshop_actions(models.Model):
 
     def __str__(self):
         return self.user.username + " >-----" + self.workshop +" ----> " + self.get_action_display()
-        
+class HomeScreenWorkshop(models.Model):
+    workshop = models.ForeignKey(Workshop, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='homescreen_workshops')
+    class Meta:
+        verbose_name = _('HomeScreen Workshop')
+        verbose_name_plural = _('HomeScreen Workshops')
+
+    def __str__(self):
+        return self.user.username + " >-----" + self.workshop.actname
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
     wifi = models.ForeignKey(Wifie, on_delete=models.CASCADE, related_name="wifi_profile", blank=True, null=True)

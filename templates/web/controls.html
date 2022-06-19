@@ -32,7 +32,7 @@
       .detail{
         position: absolute;
         width: 119px;
-        height: 113px;
+        height: 150px;
         background: white;
         box-shadow: 1px 1px 4px 2px #1c7d63;
         text-align: center;
@@ -133,6 +133,7 @@
                                 <a target="_blank" href="{{workshop.url}}">{% translate "Link"  %}</a>
                                 <a target="_blank" href="{{workshop.detail_url}}">{% translate "Detail"  %}</a>
                                 <a class="edit-workshop">{% translate "Edit" %}</a>
+                                <a class="add-to-home">{% translate "Add to Home" %}</a>
                                 <a class="delete-request">{% translate "Delete" %}</a>
                             </div>
                         <h5 id="wifi_h5" class="border-bottom text-center fs-22 pb-2 mb-4 noselect">{{workshop.actname}}</h5>
@@ -328,7 +329,34 @@
                 }
             };
         });
-
+        $('.add-to-home').click(function(){
+            var _id = $(this).parent().parent().parent().attr('data-workshop-id-card'); 
+            console.log(_id)
+            $.ajax({
+                type: "POST",
+                url: "{% url 'control_panel' %}",
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                data: {
+                    'operation':'add-to-home-screen',
+                    'workshop_id': _id,
+                },
+                    dataType: "json",
+                    success: function(response) {
+                        if(response.success == true){
+                            console.log('done')
+                            console.log(response )
+                        }
+                        else if(response.status==false){
+                            console.log(response.status)
+                        }
+                    },
+                     error: function(response) {
+                      console.log('error')
+                    }
+        })
+        });
         $('.delete-giveup').click(function(){
             var _id = $(this).parent().parent().parent().attr('data-card')
             card = $('.card').filter('[data-card="'+_id+'"]');

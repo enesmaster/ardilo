@@ -5,10 +5,9 @@ class HitTracker:
 
     def __call__(self, request):
         from web.models import HitCount
-
-        HitCount.objects.create(
-            page = request.path,
-            user = request.user
-        )
-
+        if request.user.is_authenticated:  
+            HitCount.objects.create(
+                page = request.path,
+                user = request.user
+            )
         return self.get_response(request)
