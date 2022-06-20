@@ -64,6 +64,8 @@ window.matchMedia('(prefers-color-scheme: dark)').matches
 
 - [ ] Detect IP address and show weather of the city
 
+- [ ] Add "Share on Twitter" button.
+
 - [ ] Send information mail after log in. You signed in to your accuont in 00:00 pm ip:1.0.4243
 
 - [ ] Add optimization for Seach Engine "There is no point in creating something which is not visible to anyone".
