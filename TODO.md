@@ -23,7 +23,7 @@ Add README.md file
 
 - [ ] Use Async Django Views (To turn the value to the default after the duration that the user has declared)
  
-- [ ] Daily viewsprovider dashboard visit counter
+- [x] Daily viewsprovider dashboard visit counter (didn't test)
 
 - [ ] Add to Home screen feature create a model called homescreen and give a context to home page for last 5 object
 
