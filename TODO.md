@@ -4,7 +4,7 @@
 
 - [x] Add device type:  is_ios, is_android is_mac is_windows
 
-- [x] Add README.md file
+- [ ] Add README.md file
 
 - [x] Add brwoser type
 
