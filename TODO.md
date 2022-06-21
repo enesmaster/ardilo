@@ -1,9 +1,10 @@
                                                    </> - - -  R E M O D Y  - - -  </> 
 
-Add README.md file
 # Development To-Do List 
 
 - [x] Add device type:  is_ios, is_android is_mac is_windows
+
+- [x] Add README.md file
 
 - [x] Add brwoser type
 
