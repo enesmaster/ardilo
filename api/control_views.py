@@ -72,7 +72,6 @@ def wake(request):
     else:
         a.current_resp=request.POST.get("workshop_def")
         resp_btn = a.expected_resp
-
     a.usage_count += 1
     a.save()
     ctx={

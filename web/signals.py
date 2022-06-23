@@ -31,7 +31,6 @@ def save_profile(sender, instance, **kwargs):
 
 @receiver(user_logged_in)
 def user_logged(sender,request,user,**kwargs):
-    
     #||==> Profile
     user.profile.is_online = True
     user.profile.last_login = datetime.datetime.now()
