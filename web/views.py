@@ -239,7 +239,6 @@ def open_the_door(request):
         return JsonResponse({"is_open":a.is_open})
     return render(request, 'otd.html')
 
-
 class LoginView(LoginView):
     template_name = 'user/login.html'
     redirect_authenticated_user = True
