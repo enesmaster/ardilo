@@ -70,12 +70,12 @@ class Workshop(models.Model):
         return self.user.username + " >---------> " + self.actname
 
     # list keys of BUTTON_COLOR_CHOICES
-
     def btns():
         list = []
         for i in Workshop.BUTTON_COLOR_CHOICES:
             list.append(i[0])
         return list
+
 class Workshop_actions(models.Model):
     WORKSHOP_ACTIONS = (
         ('1', _('Added')),
@@ -92,6 +92,7 @@ class Workshop_actions(models.Model):
 
     def __str__(self):
         return self.user.username + " >-----" + self.workshop +" ----> " + self.get_action_display()
+
 class HomeScreenWorkshop(models.Model):
     workshop = models.ForeignKey(Workshop, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='homescreen_workshops')
@@ -101,6 +102,7 @@ class HomeScreenWorkshop(models.Model):
 
     def __str__(self):
         return self.user.username + " >-----" + self.workshop.actname
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
     wifi = models.ForeignKey(Wifie, on_delete=models.CASCADE, related_name="wifi_profile", blank=True, null=True)
@@ -116,7 +118,6 @@ class Profile(models.Model):
         verbose_name_plural = _('Profiles')
 
 #!NOTE This model is for detecting bad users and analyzing the usage of the website page by page
-
 class UserMovementTrack(models.Model):
     os = models.CharField(max_length=100)
     url =  models.CharField(max_length=100)
@@ -146,7 +147,6 @@ class UserMovementTrack(models.Model):
     
     def __str__(self):
         return self.user.username + " >---------> " + self.action
-
     
 
 class HitCount(models.Model):

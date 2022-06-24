@@ -52,6 +52,10 @@ window.matchMedia('(prefers-color-scheme: dark)').matches
 
 - [ ] Add Modal alert for subscription.
 
+- [ ] Add cache |  localStorage to keep the theme option so when the page render the theme conflction will over
+
+
+
  ## Sessions Tracking
 
 - [ ] Add user movement track to whole app by date, time, page name, click, duration of visit, type of browser
