@@ -170,35 +170,35 @@
         $('#clipboard').removeClass('bxs-copy');
         $('#clipboard').addClass('bx-copy-alt');
     });
-        // DOWNLOAD WORKSHOP INFO as JSON 
-        $('#download_wksp').click(function(){
-            $.ajax({
-                    type: "POST",
-                    url: "{% url 'config' %}",
-                    headers: {
-                        'X-CSRFToken': '{{ csrf_token }}'
-                    },
-                    data: {
-                        'operation':'workshop_json',
-                        'user':'{{ request.user.username }}',
-                    },
-                    dataType: "json",
-                    success: function(response) {
-                         if(response.success == true){
-                            let j = document.createElement("a")
-                            j.download = "workshop_cretidts_"+Date.now()+".json"
-                            j.href = URL.createObjectURL(new Blob([JSON.stringify(response.json, null, 2)]))
-                            j.click()
+    // DOWNLOAD WORKSHOP INFO as JSON 
+    $('#download_wksp').click(function(){
+        $.ajax({
+                type: "POST",
+                url: "{% url 'config' %}",
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                data: {
+                    'operation':'workshop_json',
+                    'user':'{{ request.user.username }}',
+                },
+                dataType: "json",
+                success: function(response) {
+                        if(response.success == true){
+                        let j = document.createElement("a")
+                        j.download = "workshop_cretidts_"+Date.now()+".json"
+                        j.href = URL.createObjectURL(new Blob([JSON.stringify(response.json, null, 2)]))
+                        j.click()
+                    }
+                        
+                        else if(response.status==false){
+                        console.log(response.status)
                         }
-                         
-                         else if(response.status==false){
-                            console.log(response.status)
-                            }
-                        },
-                        error: function(rs, e) {
-                         console.log('error')
-                        }
-                  });
-                })        
+                    },
+                    error: function(rs, e) {
+                        console.log('error')
+                    }
+                });
+            })
     </script>
 {% endblock script %}
