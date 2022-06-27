@@ -28,6 +28,9 @@
 
 - [x] Add to Home screen feature create a model called homescreen and give a context to home page for last 5 object
 
+- [ ] Remove from Home screen feature homescreen model
+
+
  ## UI
 - [x] !!Add "create workshop" title if user has no workshop
 
