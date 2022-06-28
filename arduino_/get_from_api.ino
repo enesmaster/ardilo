@@ -2,7 +2,7 @@
 #include <WiFiClient.h>
 #include <ESP8266HTTPClient.h>
 
-//enesislam [https://github.com/enesislam/ardilo/arduino_/get_from_api.ino]
+//enesislam [https://github.com/enesislam/ardilo/blob/main/arduino_/get_from_api.ino]
 const char* ssid     = "<SSID>";
 const char* password = "<PASSWORD>";
 const String url = "http://enesenes222.pythonanywhere.com/api/signal/";
