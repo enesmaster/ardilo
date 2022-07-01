@@ -109,14 +109,12 @@ class Profile(models.Model):
     workshop = models.ForeignKey(Workshop, on_delete=models.CASCADE, related_name="workshop_profile", blank=True, null=True)
     last_login = models.DateTimeField(auto_now_add=True)
     dark_mode = models.BooleanField(default=False)
-    
-    def __str__(self):
-        return self.user.username
 
     class Meta:
         verbose_name = _('Profile')
         verbose_name_plural = _('Profiles')
-
+    def __str__(self):
+	return self.user.username
 #!NOTE This model is for detecting bad users and analyzing the usage of the website page by page
 class UserMovementTrack(models.Model):
     os = models.CharField(max_length=100)
